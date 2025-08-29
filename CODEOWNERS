@@ -1,0 +1,7 @@
+﻿# 기본 코드 소유자 설정
+*       @github-jang4292
+
+# 특정 디렉토리별 소유자 설정
+/services/**     @your-org/server-team
+/packages/**     @your-org/platform-team
+/docs/**         @your-handle
