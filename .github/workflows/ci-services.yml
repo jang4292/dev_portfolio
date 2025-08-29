@@ -1,0 +1,17 @@
+# ci-services.yml
+name: CI for Services
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'services/**'
+  pull_request:
+    paths:
+      - 'services/**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build & Test
+        run: echo "Running build and tests for services..."
