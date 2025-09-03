@@ -1,8 +1,9 @@
-name: Deploy to docs/web-frontend-vite
+name: Build & Deploy - docs/web-frontend-vite (Vite React)
 
 on:
   push:
     branches: [ "main" ]
+    # 배포 커밋으로 인한 무한 루프 방지
     paths-ignore:
       - 'docs/**'
   workflow_dispatch:
@@ -13,6 +14,7 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -51,6 +53,8 @@ jobs:
       - name: Add .nojekyll
         run: touch docs/.nojekyll
 
+      # ===== (옵션) BrowserRouter 사용할 때만 활성화 =====
+      # - name: Add 404 redirect for SPA (optional)
       # BrowserRouter일 때만 사용 (HashRouter면 불필요)
       # - name: Add 404 redirect (optional)
       #   run: |
