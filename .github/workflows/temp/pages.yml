@@ -2,7 +2,7 @@
 name: Deploy Portfolio to Pages
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
     paths:
       - 'docs/portfolio/**'
   workflow_dispatch:
