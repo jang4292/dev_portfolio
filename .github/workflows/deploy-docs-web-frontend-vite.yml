@@ -2,7 +2,7 @@ name: Deploy to docs/web-frontend-vite
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
     paths-ignore:
       - 'docs/**'
   workflow_dispatch:
@@ -76,5 +76,5 @@ jobs:
       - name: Commit & Push (docs only)
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: deploy to docs/web-frontend-vite"
+          commit_message: 'chore: deploy to docs/web-frontend-vite'
           file_pattern: docs/**

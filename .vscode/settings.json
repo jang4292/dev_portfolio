@@ -1,0 +1,40 @@
+{
+  // ---------- 파일/라인엔딩 ----------
+  "files.eol": "\n", // LF 고정
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  // ---------- 포맷터 ----------
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.requireConfig": true, // .prettierrc 없으면 포맷 금지(규칙 강제)
+  // ---------- ESLint ----------
+  "eslint.validate": ["typescript"],
+  "eslint.useFlatConfig": true,
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit", // ESLint 자동 수정
+    "source.organizeImports": "explicit" // import 정리
+  },
+  // ---------- TypeScript ----------
+  "typescript.tsdk": "node_modules/typescript/lib", // 워크스페이스 TS 버전 사용
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.quoteStyle": "single",
+  // ---------- 편집기 기본 ----------
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  // ---------- 성능(불필요 스캔 제외) ----------
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/coverage": true
+  },
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/coverage/**": true
+  }
+}

@@ -2,7 +2,7 @@
 name: CI for Play, Labs, Experiments
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
     paths:
       - 'labs/**'
       - 'playground/**'
