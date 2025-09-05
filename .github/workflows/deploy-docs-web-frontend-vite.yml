@@ -3,6 +3,7 @@ name: Build and Deploy (Vite) into GitHub Pages docs subfolder (services/web-fro
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -10,49 +11,36 @@ permissions:
   id-token: write
 
 concurrency:
-  group: 'pages'
+  group: pages
   cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: services/web-frontend-vite # ★ 하위 프로젝트 루트
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js with cache (use built-in cache)
+      - name: Setup Node (cache by ROOT lock)
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
+          cache-dependency-path: package-lock.json # ★ 루트 잠금파일
 
-          # ★ lock 파일의 "정확한" 경로 (repo-root 기준 절대/상대 모두 가능)
-          cache-dependency-path: services/web-frontend-vite/package-lock.json
+      # (디버그) lock 존재 확인
+      - name: Debug lock path
+        run: ls -al package-lock.json
 
-      # 경로 확인(문제 시 로그로 즉시 파악)
-      - name: Debug paths
-        run: |
-          pwd
-          ls -al
-          ls -al ..
-          ls -al ../../
-          test -f package.json && echo "✅ package.json OK"
-          test -f package-lock.json && echo "✅ package-lock.json OK" || echo "❌ lock missing"
-
-      - name: Install deps (from lock)
+      - name: Install (root)
         run: npm ci
 
-      - name: Build
-        run: npm run build
-        env:
-          ROLLUP_SKIP_NODEJS_NATIVE: '1'
+      - name: Build workspace
+        run: npm run build -w ./services/web-frontend-vite
 
       - name: SPA fallback (optional)
-        run: cp dist/index.html dist/404.html || true
+        run: cp services/web-frontend-vite/dist/index.html services/web-frontend-vite/dist/404.html || true
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
