@@ -1,53 +1,52 @@
 // eslint.config.mjs (ESLint v9 Flat Config)
 // 모노레포(services/*) 전체에 적용. TS + import/order + Prettier 연동.
+// eslint.config.mjs — Monorepo Root (ESLint v9 Flat Config)
 
 // repo-root/eslint.config.mjs
+// Base
 import js from '@eslint/js';
+
+// TS
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
-import importPlugin from 'eslint-plugin-import';
 
-// 공통 옵션
+// Plugins
+import importPlugin from 'eslint-plugin-import';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+
+// Env globals
+import globals from 'globals';
+
+// Prettier compatibility (규칙 충돌 해제)
+import prettierConfig from 'eslint-config-prettier';
+
+// 공통 옵션 파일 패턴
 const TS_FILES = ['**/*.ts', '**/*.tsx'];
 const JS_FILES = ['**/*.js', '**/*.cjs', '**/*.mjs'];
+
+// 무시(산출물/문서/캐시 등)
 const IGNORE = [
   '**/node_modules/**',
   '**/dist/**',
-  '**/coverage/**',
+  '**/build/**',
+  '**/.next/**',
   '**/.turbo/**',
+  '**/.cache/**',
+  '**/coverage/**',
+  'docs/**',             // ← GitHub Pages 등 정적 산출물 무시
+  '**/*.min.js',
   '**/*.lock',
 ];
 
-/** Node 전역 (process 등) */
-const NODE_GLOBALS = {
-  process: 'readonly',
-  __dirname: 'readonly',
-  __filename: 'readonly',
-  require: 'readonly',
-  module: 'readonly',
-};
-
-/** Jest 전역 (테스트 파일용) */
-const JEST_GLOBALS = {
-  describe: 'readonly',
-  it: 'readonly',
-  test: 'readonly',
-  expect: 'readonly',
-  beforeAll: 'readonly',
-  beforeEach: 'readonly',
-  afterAll: 'readonly',
-  afterEach: 'readonly',
-  jest: 'readonly',
-};
-
 export default [
-  // 무시 패턴 (Flat Config에서는 .eslintignore 대신 여기에)
+  // 0) ignore (Flat Config는 .eslintignore 미사용)
   { ignores: IGNORE },
 
-  // 기본 JS 권장
+  // 1) JS 권장
   js.configs.recommended,
 
-  // TypeScript 소스
+  // 2) TS(범용; NestJS/Fastify 포함) — Node 전역 허용
   {
     files: TS_FILES,
     languageOptions: {
@@ -60,7 +59,10 @@ export default [
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
-      globals: { ...NODE_GLOBALS },
+      // 기본은 Node 전역(서버 사이드/빌드 스크립트 고려)
+      globals: {
+        ...globals.node,
+      },
     },
     plugins: {
       '@typescript-eslint': tsPlugin,
@@ -74,7 +76,7 @@ export default [
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
       ],
 
-      // 타입 전용 import 강제
+      // 타입 전용 import 일관화
       '@typescript-eslint/consistent-type-imports': 'error',
 
       // import 그룹/정렬/빈 줄
@@ -93,31 +95,94 @@ export default [
           ],
           'newlines-between': 'always',
           alphabetize: { order: 'asc', caseInsensitive: true },
+          // vite/플러그인 우선 배치 (vite.config.ts에서 편함)
+          pathGroups: [
+            { pattern: 'vite', group: 'external', position: 'before' },
+            { pattern: '@vitejs/**', group: 'external', position: 'before' },
+          ],
+          pathGroupsExcludedImportTypes: ['builtin'],
         },
       ],
 
-      // 모노레포/경로별칭 환경에서 해석 이슈 완화
+      // 경로 해석은 TS/빌드에 맡김
       'import/no-unresolved': 'off',
     },
   },
 
-  // JS(빌드 스크립트 등)
+  // 3) JS(빌드 스크립트 등) — Node 전역
   {
     files: JS_FILES,
     languageOptions: {
-      globals: { ...NODE_GLOBALS },
-    },
-    rules: {
-      // CJS require 허용 등 JS에서는 완화
-      '@typescript-eslint/no-var-requires': 'off',
+      globals: { ...globals.node },
+      ecmaVersion: 'latest',
+      sourceType: 'module',
     },
   },
 
-  // 테스트 파일(Jest 전역)
+  // 4) Vite + React 앱 소스 전용(브라우저 전역 + Hooks/Refresh)
+  //    예: services/web-frontend-vite/src/**/*
   {
-    files: ['**/*.spec.ts', '**/*.test.ts', 'test/**/*.ts', '**/*.e2e-spec.ts'],
+    files: [
+      'services/**/src/**/*.{ts,tsx,js,jsx}',
+      // 필요 시 앱 경로 추가
+    ],
     languageOptions: {
-      globals: { ...JEST_GLOBALS },
+      // 브라우저 전역(document, window, console 등) 허용
+      globals: {
+        ...globals.browser,
+      },
+    },
+    plugins: {
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+    },
+    rules: {
+      // React Hooks 권장
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+
+      // Vite React Fast Refresh 관련
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
   },
+
+  // 5) vite.config / vitest.config 등 Node 컨텍스트 파일
+  {
+    files: [
+      '**/vite.config.{ts,js,mjs,cjs}',
+      '**/vitest.config.{ts,js,mjs,cjs}',
+      '**/eslint.config.{ts,js,mjs,cjs}',
+      '**/postcss.config.{ts,js,mjs,cjs}',
+      '**/tailwind.config.{ts,js,mjs,cjs}',
+      '**/webpack.config.{ts,js,mjs,cjs}',
+      '**/rollup.config.{ts,js,mjs,cjs}',
+    ],
+    languageOptions: {
+      globals: { ...globals.node },
+    },
+    rules: {
+      // CJS require 허용 등 JS에서는 완화
+      // 여기선 Node 컨텍스트 가정. 필요 시 규칙 완화 추가 가능.
+    },
+  },
+
+  // 6) 테스트 파일 — Jest 또는 Vitest 전역 허용
+  {
+    files: [
+      '**/*.spec.{ts,tsx,js,jsx}',
+      '**/*.test.{ts,tsx,js,jsx}',
+      'test/**/*.{ts,tsx,js,jsx}',
+      '**/*.e2e-spec.{ts,tsx,js,jsx}',
+    ],
+    languageOptions: {
+      globals: {
+        // 둘 다 허용(프로젝트별로 하나만 써도 무방)
+        ...globals.jest,
+        ...globals.vitest,
+      },
+    },
+  },
+
+  // 7) Prettier 호환(규칙 충돌 제거)
+  prettierConfig,
 ];
