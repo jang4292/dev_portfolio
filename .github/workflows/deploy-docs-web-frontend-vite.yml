@@ -3,7 +3,6 @@ name: Build and Deploy (Vite) into GitHub Pages docs subfolder (services/web-fro
 on:
   push:
     branches: [main]
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -22,7 +21,7 @@ jobs:
         working-directory: services/web-frontend-vite # ★ 하위 프로젝트 루트
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js with cache (use built-in cache)
