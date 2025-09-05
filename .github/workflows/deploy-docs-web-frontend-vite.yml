@@ -5,14 +5,12 @@ on:
     branches: [main]
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
     defaults:
       run:
+
         working-directory: service/web-frontend-vite # ★ 하위 프로젝트 루트
 
     steps:
@@ -24,6 +22,7 @@ jobs:
         with:
           node-version: 20
           cache: npm
+
           # ★ lock 파일의 "정확한" 경로 (repo-root 기준 절대/상대 모두 가능)
           cache-dependency-path: service/web-frontend-vite/package-lock.json
 
@@ -47,9 +46,9 @@ jobs:
         run: |
           mkdir -p ../../docs/web-frontend-vite
           cp -r dist/* ../../docs/web-frontend-vite/
-          # SPA 라우팅(옵션: HashRouter 쓰면 불필요)
-          cp dist/index.html ../../docs/web-frontend-vite/404.html || true
-          # Jekyll 무시
+          # SPA 라우팅용
+          cp dist/index.html ../../docs/web-frontend-vite/404.html
+          # Jekyll 처리 비활성화 (언더스코어/폴더 무시 방지)
           touch ../../docs/.nojekyll
 
       - name: Commit docs
@@ -57,5 +56,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add ../../docs
-          git commit -m "deploy: web-frontend-vite into docs subfolder" || echo "no changes"
+          git commit -m "chore: deploy web-frontend-vite into docs subfolder" || echo "no changes"
           git push
