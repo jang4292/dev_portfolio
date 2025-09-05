@@ -1,4 +1,4 @@
-name: Build and Deploy (Vite) into GitHub Pages docs subfolder (services/web-frontend-vite)
+name: Build and propose (Vite) into GitHub Pages docs subfolder (services/web-frontend-vite)
 
 on:
   push:
@@ -6,12 +6,12 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write # docs 폴더에 커밋/푸시 필요
+  contents: write # PR 브랜치에 커밋 생성
+  pull-requests: write # PR 생성
 
 jobs:
-  build-and-publish:
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,22 +26,31 @@ jobs:
       - name: Install (root)
         run: npm ci
 
-      - name: Build workspace (services/web-frontend-vite)
+      - name: Build Vite (workspace)
         run: npm run build -w ./services/web-frontend-vite
 
-      - name: Prepare docs/web-frontend-vite
+      - name: Stage docs subtree
         run: |
           mkdir -p docs/web-frontend-vite
           # 기존 산출물만 정리 (다른 docs 콘텐츠는 건드리지 않음)
           rm -rf docs/web-frontend-vite/*
           cp -r services/web-frontend-vite/dist/* docs/web-frontend-vite/
-          # SPA 라우팅(fallback). HashRouter면 생략 가능
+          # SPA fallback (BrowserRouter일 때)
           cp docs/web-frontend-vite/index.html docs/web-frontend-vite/404.html || true
 
-      - name: Commit & push changes to docs/
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/web-frontend-vite
-          git diff --cached --quiet && echo "No changes to commit" || git commit -m "chore: publish Vite build to docs/web-frontend-vite"
-          git push
+      # docs 하위 변경만 포함하는 PR 자동 생성
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: 'chore: publish Vite build to docs/web-frontend-vite'
+          title: 'Publish Vite build to docs/web-frontend-vite'
+          body: '자동 생성된 배포 PR입니다. 머지하면 GitHub Pages가 업데이트됩니다.'
+          branch: ci/docs-web-frontend-vite
+          base: main
+          add-paths: |
+            docs/web-frontend-vite/**
+          author: 'github-actions[bot] <github-actions[bot]@users.noreply.github.com>'
+          signoff: false
+          labels: |
+            ci
+            pages
