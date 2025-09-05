@@ -23,7 +23,18 @@ jobs:
           cache: npm
 
           # ★ lock 파일의 "정확한" 경로 (repo-root 기준 절대/상대 모두 가능)
+
           cache-dependency-path: services/web-frontend-vite/package-lock.json
+
+      # (디버그) 경로/파일 확인 — 문제 생기면 펼쳐보세요
+      - name: Debug paths
+        run: |
+          pwd
+          ls -al
+          ls -al ..
+          ls -al ../../
+          test -f package.json && echo found package.json
+          test -f package-lock.json && echo found package-lock.json || true
 
       # (디버그) 경로/파일 확인 — 문제 생기면 펼쳐보세요
       - name: Debug paths
