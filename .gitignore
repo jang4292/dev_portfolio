@@ -137,3 +137,47 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Custom additions for dotnet-server
+## Build artifacts
+bin/
+obj/
+out/
+TestResults/
+
+## User-specific / OS
+*.user
+*.suo
+.DS_Store
+Thumbs.db
+
+## NuGet
+*.nupkg
+.nuget/
+packages/
+project.lock.json
+
+## Logs / temp
+*.log
+*.tmp
+
+## VS Code (원하면 예외 파일만 허용)
+.vscode/
+
+## Local-only (개인/머신 전용)
+.local/
+
+## DB
+*.db
+
+## EF Core 마이그레이션
+Migrations/
+
+## ASP.NET Core configuration files
+appsettings.json
+appsettings.*.json
+!appsettings.example.json
+
+## JetBrains Rider
+.idea/
+*.iml
