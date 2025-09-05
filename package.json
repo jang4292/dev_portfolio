@@ -2,7 +2,7 @@
   "name": "dev_portfolio",
   "private": true,
   "workspaces": [
-    "services/*"
+	  "services/*"
   ],
   "scripts": {
     "lint": "eslint . --ext .ts,.tsx,.js,.cjs,.mjs --quiet",
