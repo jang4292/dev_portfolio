@@ -10,8 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-
-        working-directory: service/web-frontend-vite # ★ 하위 프로젝트 루트
+        working-directory: services/web-frontend-vite # ★ 하위 프로젝트 루트
 
     steps:
       - name: Checkout
@@ -24,7 +23,7 @@ jobs:
           cache: npm
 
           # ★ lock 파일의 "정확한" 경로 (repo-root 기준 절대/상대 모두 가능)
-          cache-dependency-path: service/web-frontend-vite/package-lock.json
+          cache-dependency-path: services/web-frontend-vite/package-lock.json
 
       # (디버그) 경로/파일 확인 — 문제 생기면 펼쳐보세요
       - name: Debug paths
