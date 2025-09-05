@@ -4,6 +4,15 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,30 +33,37 @@ jobs:
           # ★ lock 파일의 "정확한" 경로 (repo-root 기준 절대/상대 모두 가능)
           cache-dependency-path: services/web-frontend-vite/package-lock.json
 
-      # (디버그) 경로/파일 확인 — 문제 생기면 펼쳐보세요
-      # 디버깅용 (락파일 확인)
+      # 경로 확인(문제 시 로그로 즉시 파악)
       - name: Debug paths
         run: |
           pwd
           ls -al
           ls -al ..
           ls -al ../../
-          test -f package.json && echo "✅ found package.json"
-          test -f package-lock.json && echo "✅ found package-lock.json" || echo "❌ lock missing"
+          test -f package.json && echo "✅ package.json OK"
+          test -f package-lock.json && echo "✅ package-lock.json OK" || echo "❌ lock missing"
 
-      # 핵심: 락파일 삭제 후 Linux 기준으로 재생성
+      # 핵심: Linux에서 락 재생성 + 깨끗한 설치 준비
       - name: Recreate lockfile for Linux
         run: |
           rm -f package-lock.json
+          rm -rf node_modules
           npm i --package-lock-only
 
-      - name: Install dependencies
-        run: npm ci
+      # optional deps 강제 포함하여 설치
+      - name: Install deps (include optional)
+        run: npm ci --include=optional
 
-      - name: Build Vite project
+      # (즉시 통과 보장용) rollup 네이티브 우회 — 원인 해결 후 제거 가능
+      - name: Build
         run: npm run build
+        env:
+          ROLLUP_SKIP_NODEJS_NATIVE: '1'
 
-      # GitHub Pages 배포용 아티팩트 업로드 (선택)
+      # SPA 라우팅(필요 시)
+      - name: Add 404.html (SPA fallback)
+        run: cp dist/index.html dist/404.html || true
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -56,9 +72,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    permissions:
-      pages: write
-      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
