@@ -37,6 +37,11 @@ const IGNORE = [
   'docs/**',             // ← GitHub Pages 등 정적 산출물 무시
   '**/*.min.js',
   '**/*.lock',
+  // Expo / RN 산출물/캐시 보강
+  '**/.expo/**',
+  '**/.expo-shared/**',
+  '**/android/**',
+  '**/ios/**',
 ];
 
 export default [
@@ -67,6 +72,16 @@ export default [
     plugins: {
       '@typescript-eslint': tsPlugin,
       import: importPlugin,
+    },
+    settings: {
+      // 경로별칭/TS 해석 안정화 (선택) → resolver 설치 필요
+      'import/resolver': {
+        typescript: {
+          alwaysTryTypes: true,
+          project: ['services/*/tsconfig.json'],
+        },
+        node: { extensions: ['.js', '.ts', '.tsx'] },
+      },
     },
     rules: {
       // JS 기본 no-unused-vars 끄고 TS 전용만 사용(오검출 방지)
@@ -146,6 +161,26 @@ export default [
     },
   },
 
+  // 4-1) RN(Expo) 소스 전용 — App.tsx 포함 범위 추가
+  {
+    files: [
+      'services/**/App.{ts,tsx,js,jsx}',
+      'services/**/app/**/*.{ts,tsx,js,jsx}',
+    ],
+    languageOptions: {
+      // RN은 browser 전역이 1:1 매칭은 아니지만 window/document 사용 안 함이 일반적
+      // 별도 globals 생략(기본값) 또는 필요 시 최소만 추가
+    },
+    plugins: {
+      'react-hooks': reactHooks,
+    },
+    rules: {
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+      // RN에는 react-refresh 규칙 미적용 (웹 전용이므로 과잉 방지)
+    },
+  },
+
   // 5) vite.config / vitest.config 등 Node 컨텍스트 파일
   {
     files: [
@@ -156,6 +191,8 @@ export default [
       '**/tailwind.config.{ts,js,mjs,cjs}',
       '**/webpack.config.{ts,js,mjs,cjs}',
       '**/rollup.config.{ts,js,mjs,cjs}',
+      '**/metro.config.{ts,js,mjs,cjs}',
+      '**/babel.config.{ts,js,mjs,cjs}',
     ],
     languageOptions: {
       globals: { ...globals.node },
