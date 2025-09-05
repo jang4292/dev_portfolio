@@ -1,9 +1,8 @@
-name: Build Vite into docs subfolder
+name: Build and Deploy (Vite) into GitHub Pages docs subfolder (services/web-frontend-vite)
 
 on:
   push:
     branches: [main]
-  workflow_dispatch:
 
 jobs:
   build:
@@ -13,58 +12,57 @@ jobs:
         working-directory: services/web-frontend-vite # ★ 하위 프로젝트 루트
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node (use built-in cache)
+      - name: Setup Node.js with cache (use built-in cache)
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
 
           # ★ lock 파일의 "정확한" 경로 (repo-root 기준 절대/상대 모두 가능)
-
           cache-dependency-path: services/web-frontend-vite/package-lock.json
 
       # (디버그) 경로/파일 확인 — 문제 생기면 펼쳐보세요
+      # 디버깅용 (락파일 확인)
       - name: Debug paths
         run: |
           pwd
           ls -al
           ls -al ..
           ls -al ../../
-          test -f package.json && echo found package.json
-          test -f package-lock.json && echo found package-lock.json || true
+          test -f package.json && echo "✅ found package.json"
+          test -f package-lock.json && echo "✅ found package-lock.json" || echo "❌ lock missing"
 
-      # (디버그) 경로/파일 확인 — 문제 생기면 펼쳐보세요
-      - name: Debug paths
+      # 핵심: 락파일 삭제 후 Linux 기준으로 재생성
+      - name: Recreate lockfile for Linux
         run: |
-          pwd
-          ls -al
-          ls -al ..
-          ls -al ../../
-          test -f package.json && echo found package.json
-          test -f package-lock.json && echo found package-lock.json || true
+          rm -f package-lock.json
+          npm i --package-lock-only
 
-      - name: Install
+      - name: Install dependencies
         run: npm ci
 
-      - name: Build
+      - name: Build Vite project
         run: npm run build
 
-      - name: Publish into docs/web-frontend-vite
-        run: |
-          mkdir -p ../../docs/web-frontend-vite
-          cp -r dist/* ../../docs/web-frontend-vite/
-          # SPA 라우팅용
-          cp dist/index.html ../../docs/web-frontend-vite/404.html
-          # Jekyll 처리 비활성화 (언더스코어/폴더 무시 방지)
-          touch ../../docs/.nojekyll
+      # GitHub Pages 배포용 아티팩트 업로드 (선택)
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: services/web-frontend-vite/dist
 
-      - name: Commit docs
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add ../../docs
-          git commit -m "chore: deploy web-frontend-vite into docs subfolder" || echo "no changes"
-          git push
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
