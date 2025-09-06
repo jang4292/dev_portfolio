@@ -181,11 +181,9 @@ appsettings.*.json
 ## JetBrains Rider
 .idea/
 *.iml
-
 node_modules
 dist
 build
 .expo
 .expo-shared
 .DS_Store
-
