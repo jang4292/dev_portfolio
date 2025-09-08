@@ -14,5 +14,4 @@ app.use(express.json());
 app.use('/api', routes);
 app.use('/tracks', tracksRouter);
 
-
 export default app;
