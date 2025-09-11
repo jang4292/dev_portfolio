@@ -1,17 +1,41 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import Button from './components/Button';
+import Button, { ButtonTypes } from './components/Button';
 
 export default function App() {
   console.log("expo React Native")
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Text stype={styles.text}>Calc App</Text>
+      <Text style={styles.text}>Calc App</Text>
+
       <Button
-        title="Test"
-        onPress={() => console.log('click!')}
-        color="purple" />
+        title="1"
+        onPress={() => console.log(1)}
+        buttonStyle={{ width: 100, height: 100 }}
+        buttonTypes={ButtonTypes.NUMBER}
+      />
+
+      <Button
+        title="0"
+        onPress={() => console.log(0)}
+        buttonStyle={{ width: 200, height: 100 }}
+        buttonTypes={ButtonTypes.NUMBER}
+      />
+
+      <Button
+        title="+"
+        onPress={() => console.log('+')}
+        buttonStyle={{ width: 100, height: 200 }}
+        buttonTypes={ButtonTypes.OPERATOR}
+      />
+
+      <Button
+        title="-"
+        onPress={() => console.log('-')}
+        buttonStyle={{ width: 100, height: 200 }}
+        buttonTypes={ButtonTypes.OPERATOR}
+      />
     </View>
   );
 }
