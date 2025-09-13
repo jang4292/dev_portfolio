@@ -2,7 +2,7 @@
   "name": "dev_portfolio",
   "private": true,
   "workspaces": [
-	  "services/*"
+    "services/*"
   ],
   "scripts": {
     "lint": "eslint . --ext .ts,.tsx,.js,.cjs,.mjs --quiet",
@@ -12,19 +12,28 @@
     "start": "nest start",
     "start:dev": "nest start --watch",
     "build": "nest build",
-    "test": "jest --passWithNoTests"
+    "test": "jest --passWithNoTests",
+    "ws:start:rn-expo-webview": "npm run -w services/rn-expo-webview start",
+    "ws:lint:rn-expo-webview": "npm run -w services/rn-expo-webview lint",
+    "ws:fix:rn-expo-webview": "npm run -w services/rn-expo-webview lint -- --fix",
+    "ws:dev:rnwebview": "npm run -w services/rn-expo-webview dev"
   },
   "devDependencies": {
-    "@eslint/js": "^9.34.0",
+    "@eslint/js": "^9.35.0",
     "@typescript-eslint/eslint-plugin": "^8.42.0",
     "@typescript-eslint/parser": "^8.42.0",
-    "eslint": "^9.34.0",
+    "eslint": "^9.35.0",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
     "prettier": "^3.6.2",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.42.0"
+  },
+  "dependencies": {
+    "pnpm": "^10.15.1"
   }
 }
