@@ -34,8 +34,9 @@ class MainActivity : AppCompatActivity() {
   private val APPLY_SAFE_PADDING = true      // true면 시스템 인셋만큼 padding 적용(겹침 방지)
 
   //  private val START_URL = "https://example.com" // ← 표시할 URL
-  private val START_URL = "http://192.168.0.8:7456/web-mobile/web-mobile/index.html"
-//    "https://blackjack-web-mobile.s3.ap-northeast-2.amazonaws.com/index.html" // ← 표시할 URL
+  private val START_URL =
+//    "http://192.168.0.8:7456/web-mobile/web-mobile/index.html"
+    "https://blackjack-web-mobile.s3.ap-northeast-2.amazonaws.com/index.html" // ← 표시할 URL
 
   @SuppressLint("SetJavaScriptEnabled")
   override fun onCreate(savedInstanceState: Bundle?) {
