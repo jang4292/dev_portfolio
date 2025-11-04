@@ -29,10 +29,6 @@ class MainActivity : AppCompatActivity() {
 
   private lateinit var binding: ActivityMainBinding
 
-  // === 모드 스위치 ===
-  private val USE_IMMERSIVE = true          // true면 진짜 몰입형(시스템 바 숨김)
-  private val APPLY_SAFE_PADDING = true      // true면 시스템 인셋만큼 padding 적용(겹침 방지)
-
   //  private val START_URL = "https://example.com" // ← 표시할 URL
   private val START_URL =
 //    "http://192.168.0.8:7456/web-mobile/web-mobile/index.html"
@@ -48,28 +44,13 @@ class MainActivity : AppCompatActivity() {
     // 1) Edge-to-Edge: 시스템 바 영역까지 컨텐트 확장
     WindowCompat.setDecorFitsSystemWindows(window, false)
 
-    // (API 28+) 노치 영역도 사용
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-      window.attributes.layoutInDisplayCutoutMode =
-        WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
-    }
-
     // 2) 상태바/내비바 아이콘 밝기(배경색에 맞춰 조정: true=검은 아이콘, false=흰 아이콘)
     val controller = WindowInsetsControllerCompat(window, window.decorView)
     controller.isAppearanceLightStatusBars = true   // 밝은 배경이면 true
     controller.isAppearanceLightNavigationBars = true
 
-    // 3) (선택) 시스템 인셋만큼 루트에 패딩 적용 → 컨텐츠가 가려지지 않게
-    if (APPLY_SAFE_PADDING && !USE_IMMERSIVE) {
-      ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-        val sb = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-        v.setPadding(sb.left, sb.top, sb.right, sb.bottom)
-        WindowInsetsCompat.CONSUMED
-      }
-    }
-
     // 4) 진짜 몰입형 모드(시스템 바 숨김) 옵션
-    if (USE_IMMERSIVE) enableImmersive(controller)
+    enableImmersive(controller)
 
     // 디버그에서만 웹뷰 디버깅 허용 (chrome://inspect)
     WebView.setWebContentsDebuggingEnabled(true)
