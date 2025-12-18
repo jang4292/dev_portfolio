@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+    <!-- 시스템 스플래시는 배경이 단색 조건: 그라데이션 금지 -->
+    <item name="android:windowSplashScreenBackground">#1C7126</item>
+
+    <!-- 중앙 아이콘(또는 로고 벡터) -->
+    <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_splash_transparent</item>
+    <item name="android:windowSplashScreenIconBackgroundColor">@android:color/transparent</item>
+
+    <!-- 스플래시 이후 적용될 실제 앱 테마 -->
+    <item name="postSplashScreenTheme">@style/Theme.WebViewFull</item>
+  </style>
+</resources>

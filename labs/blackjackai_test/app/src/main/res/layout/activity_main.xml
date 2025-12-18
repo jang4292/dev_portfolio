@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/root"
 
   android:layout_width="match_parent"
@@ -8,4 +9,35 @@
     android:id="@+id/webView"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
+
+  <!-- Launch Overlay: 그라데이션 + 중앙 Row -->
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/launchOverlay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_splash_radial"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+      android:id="@+id/brandRow"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:gravity="center"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent">
+
+      <ImageView
+        android:id="@+id/companyIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/white_logo_4tune3"
+        android:contentDescription="@string/company_name"/>
+
+    </LinearLayout>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
