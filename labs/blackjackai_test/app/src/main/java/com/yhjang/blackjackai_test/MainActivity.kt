@@ -1,13 +1,11 @@
 package com.yhjang.blackjackai_test
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
@@ -16,11 +14,10 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-//import com.example.webviewfull.databinding.ActivityMainBinding
 import com.yhjang.blackjackai_test.databinding.ActivityMainBinding
 import org.json.JSONObject
 
@@ -29,17 +26,19 @@ class MainActivity : AppCompatActivity() {
 
   private lateinit var binding: ActivityMainBinding
 
-  //  private val START_URL = "https://example.com" // ← 표시할 URL
-  private val START_URL =
-//    "http://192.168.0.8:7456/web-mobile/web-mobile/index.html"
-    "https://blackjack-web-mobile.s3.ap-northeast-2.amazonaws.com/index.html" // ← 표시할 URL
+  private val START_URL = BuildConfig.BASE_URL;
 
   @SuppressLint("SetJavaScriptEnabled")
   override fun onCreate(savedInstanceState: Bundle?) {
+    installSplashScreen()
+
     super.onCreate(savedInstanceState)
 
     binding = ActivityMainBinding.inflate(layoutInflater)
     setContentView(binding.root)
+
+    val overlay = findViewById<View>(R.id.launchOverlay)
+
 
     // 1) Edge-to-Edge: 시스템 바 영역까지 컨텐트 확장
     WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -55,11 +54,20 @@ class MainActivity : AppCompatActivity() {
     // 디버그에서만 웹뷰 디버깅 허용 (chrome://inspect)
     WebView.setWebContentsDebuggingEnabled(true)
 
-    binding.webView.addJavascriptInterface(
-      LegacyJsInterface(binding.webView, this),
-      "AndroidBridge"
-    )
 
+    binding.webView.addJavascriptInterface(Bridge {
+      Log.d("Test", "addJavascriptInterface / Bridge ")
+      overlay.animate().alpha(0f).setDuration(180).withEndAction {
+//        Log.d("Test" , "overlay : $overlay")
+        runOnUiThread {
+          overlay.visibility = View.GONE
+        }
+
+//        overlay.visibility = View.GONE
+
+        Log.d("Test" , "Animation done / visibility GONE")
+      }.start()
+    }, "Native")
     with(binding.webView) {
       settings.javaScriptEnabled = true
       settings.domStorageEnabled = true
@@ -77,6 +85,12 @@ class MainActivity : AppCompatActivity() {
         }
       }
       webChromeClient = WebChromeClient()
+
+
+      addJavascriptInterface(
+        LegacyJsInterface(this, this.context),
+        "AndroidBridge"
+      )
 
 
       // 시작 URL 로드
@@ -150,5 +164,10 @@ class LegacyJsInterface(private val webView: WebView, private val context: Conte
     } catch (_: Exception) { /* no-op */
     }
   }
+}
+
+class Bridge(private val onWebBootstrapped: () -> Unit) {
+  @android.webkit.JavascriptInterface
+  fun webBootstrapped() = onWebBootstrapped()
 }
 

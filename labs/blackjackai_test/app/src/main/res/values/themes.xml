@@ -15,4 +15,16 @@
     <!--    <item name="android:navigationBarDividerColor">@android:color/transparent</item>-->
   </style>
 
+  <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+<!--    &lt;!&ndash; 시스템 스플래시는 배경이 단색 조건: 그라데이션 금지 &ndash;&gt;-->
+<!--    <item name="android:windowSplashScreenBackground">#1C7126</item>-->
+
+<!--    &lt;!&ndash; 중앙 아이콘(또는 로고 벡터) &ndash;&gt;-->
+<!--    <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_splash_logo</item>-->
+
+<!--    &lt;!&ndash; 스플래시 이후 적용될 실제 앱 테마 &ndash;&gt;-->
+<!--    <item name="postSplashScreenTheme">@style/Theme.App</item>-->
+  </style>
+
+
 </resources>
