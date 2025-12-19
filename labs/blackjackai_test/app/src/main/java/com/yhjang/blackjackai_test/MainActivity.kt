@@ -1,5 +1,6 @@
 package com.yhjang.blackjackai_test
 
+import SocialLinkBridge
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
@@ -31,15 +32,12 @@ class MainActivity : AppCompatActivity() {
   @SuppressLint("SetJavaScriptEnabled")
   override fun onCreate(savedInstanceState: Bundle?) {
     installSplashScreen()
-
     super.onCreate(savedInstanceState)
 
     binding = ActivityMainBinding.inflate(layoutInflater)
     setContentView(binding.root)
 
     val overlay = findViewById<View>(R.id.launchOverlay)
-
-
     // 1) Edge-to-Edge: 시스템 바 영역까지 컨텐트 확장
     WindowCompat.setDecorFitsSystemWindows(window, false)
 
@@ -54,20 +52,23 @@ class MainActivity : AppCompatActivity() {
     // 디버그에서만 웹뷰 디버깅 허용 (chrome://inspect)
     WebView.setWebContentsDebuggingEnabled(true)
 
+//    binding.webView.addJavascriptInterface(
+//      LegacyJsInterface(binding.webView, this),
+//      "AndroidBridge"
+//    )
+
+    binding.webView.addJavascriptInterface(SocialLinkBridge(this), "socialLinkBridge")
 
     binding.webView.addJavascriptInterface(Bridge {
       Log.d("Test", "addJavascriptInterface / Bridge ")
       overlay.animate().alpha(0f).setDuration(180).withEndAction {
-//        Log.d("Test" , "overlay : $overlay")
         runOnUiThread {
           overlay.visibility = View.GONE
         }
-
-//        overlay.visibility = View.GONE
-
-        Log.d("Test" , "Animation done / visibility GONE")
+        Log.d("Test", "Animation done / visibility GONE")
       }.start()
     }, "Native")
+
     with(binding.webView) {
       settings.javaScriptEnabled = true
       settings.domStorageEnabled = true
@@ -78,6 +79,7 @@ class MainActivity : AppCompatActivity() {
       // (필요 시) HTTP/HTTPS 혼합 컨텐츠 허용:
       // settings.mixedContentMode = WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE
 
+
       webViewClient = object : WebViewClient() {
         // 기본 동작: 모든 링크를 WebView 내부에서 열기
         override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
@@ -86,19 +88,10 @@ class MainActivity : AppCompatActivity() {
       }
       webChromeClient = WebChromeClient()
 
-
-      addJavascriptInterface(
-        LegacyJsInterface(this, this.context),
-        "AndroidBridge"
-      )
-
-
       // 시작 URL 로드
       val urlFromIntent = intent?.data?.toString()
       loadUrl(urlFromIntent ?: START_URL)
-
     }
-
 
     // 하드웨어 뒤로가기: WebView 히스토리가 있으면 goBack()
     // 뒤로가기: WebView 히스토리가 있으면 goBack()
@@ -109,6 +102,22 @@ class MainActivity : AppCompatActivity() {
       }
     })
   }
+
+//  private fun openFanPageUrl(urlString: String) {
+//    val uri = Uri.parse(urlString)
+//
+//    // ACTION_VIEW 인텐트 생성
+//    val intent = Intent(Intent.ACTION_VIEW, uri)
+//
+//    // 처리 가능한 앱 있는지 체크 (브라우저)
+//    val packageManager = this.packageManager
+//    if (intent.resolveActivity(packageManager) != null) {
+//      startActivity(intent)
+//    } else {
+//      // 브라우저 없음 등 에러 처리
+//      Log.e("GameWebViewActivity", "No activity to handle VIEW intent: $urlString")
+//    }
+//  }
 
   private fun enableImmersive(controller: WindowInsetsControllerCompat) {
     controller.systemBarsBehavior =
@@ -170,4 +179,3 @@ class Bridge(private val onWebBootstrapped: () -> Unit) {
   @android.webkit.JavascriptInterface
   fun webBootstrapped() = onWebBootstrapped()
 }
-
