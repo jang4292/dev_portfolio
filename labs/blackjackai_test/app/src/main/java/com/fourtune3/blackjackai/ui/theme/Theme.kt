@@ -1,4 +1,4 @@
-package com.yhjang.blackjackai_test.ui.theme
+package com.fourtune3.blackjackai.ui.theme
 
 import android.app.Activity
 import android.os.Build

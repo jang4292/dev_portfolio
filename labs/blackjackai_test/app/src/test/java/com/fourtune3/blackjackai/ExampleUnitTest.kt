@@ -1,4 +1,4 @@
-package com.yhjang.blackjackai_test
+package com.fourtune3.blackjackai
 
 import org.junit.Test
 

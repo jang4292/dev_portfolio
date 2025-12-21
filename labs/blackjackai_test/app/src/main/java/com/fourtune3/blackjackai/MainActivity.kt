@@ -1,4 +1,4 @@
-package com.yhjang.blackjackai_test
+package com.fourtune3.blackjackai
 
 import SocialLinkBridge
 import android.annotation.SuppressLint
@@ -19,7 +19,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.yhjang.blackjackai_test.databinding.ActivityMainBinding
+import com.fourtune3.blackjackai.databinding.ActivityMainBinding
 import org.json.JSONObject
 
 
