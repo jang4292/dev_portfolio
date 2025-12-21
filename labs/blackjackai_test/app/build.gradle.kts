@@ -17,7 +17,8 @@ android {
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-    buildConfigField("String", "BASE_URL", "\"http://172.30.1.38:7456/web-mobile/web-mobile/index.html\"") // 기본 URL
+//    buildConfigField("String", "BASE_URL", "\"http://172.30.1.38:7456/web-mobile/web-mobile/index.html\"") // 기본 URL
+    buildConfigField("String", "BASE_URL", "\"http://172.30.1.38:7456\"") // 기본 URL
   }
 
   buildTypes {
@@ -59,6 +60,11 @@ dependencies {
 
   implementation("androidx.core:core-splashscreen:1.2.0")
 
+  implementation("androidx.credentials:credentials:1.3.0")
+  implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+  implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+
+//  implementation(libs.kotlin.libs.kotlinx.coroutines.android)
 
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.runtime.ktx)

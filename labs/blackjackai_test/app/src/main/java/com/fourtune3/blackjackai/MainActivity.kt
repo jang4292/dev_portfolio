@@ -1,5 +1,6 @@
 package com.fourtune3.blackjackai
 
+import NativeBridge
 import SocialLinkBridge
 import android.annotation.SuppressLint
 import android.content.Context
@@ -15,6 +16,7 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -58,6 +60,9 @@ class MainActivity : AppCompatActivity() {
 //    )
 
     binding.webView.addJavascriptInterface(SocialLinkBridge(this), "socialLinkBridge")
+    binding.webView.addJavascriptInterface(NativeBridge(this,
+//      rememberCoroutineScope()
+    ), "NativeBridge")
 
     binding.webView.addJavascriptInterface(Bridge {
       Log.d("Test", "addJavascriptInterface / Bridge ")
