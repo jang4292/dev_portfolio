@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
 
   private val START_URL = BuildConfig.BASE_URL;
 
-  //  @Composable
   @SuppressLint("SetJavaScriptEnabled")
   override fun onCreate(savedInstanceState: Bundle?) {
     installSplashScreen()
