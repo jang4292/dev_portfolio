@@ -39,8 +39,8 @@ class GoogleSignInUseCase(
       .setServerClientId(webClientId)
       .setFilterByAuthorizedAccounts(filterAuthorizedOnly)
       // 자동 선택(조건 충족 시 자동 로그인)
-//      .setAutoSelectEnabled(true)
-      .setAutoSelectEnabled(false)
+      .setAutoSelectEnabled(true)
+//      .setAutoSelectEnabled(false)
       .build()
 
     val request = GetCredentialRequest.Builder()

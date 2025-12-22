@@ -18,7 +18,8 @@ android {
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
 //    buildConfigField("String", "BASE_URL", "\"http://172.30.1.38:7456/web-mobile/web-mobile/index.html\"") // 기본 URL
-    buildConfigField("String", "BASE_URL", "\"http://172.30.1.38:7456\"") // 기본 URL
+//    buildConfigField("String", "BASE_URL", "\"http://172.30.1.38:7456\"") // 기본 URL
+    buildConfigField("String", "BASE_URL", "\"http://192.168.0.11:7456\"") // 기본 URL
   }
 
   buildTypes {
