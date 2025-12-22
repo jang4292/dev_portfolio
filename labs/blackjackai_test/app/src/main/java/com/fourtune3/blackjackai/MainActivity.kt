@@ -13,9 +13,13 @@ import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
@@ -31,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
   private val START_URL = BuildConfig.BASE_URL;
 
+  //  @Composable
   @SuppressLint("SetJavaScriptEnabled")
   override fun onCreate(savedInstanceState: Bundle?) {
     installSplashScreen()
@@ -54,15 +59,8 @@ class MainActivity : AppCompatActivity() {
     // 디버그에서만 웹뷰 디버깅 허용 (chrome://inspect)
     WebView.setWebContentsDebuggingEnabled(true)
 
-//    binding.webView.addJavascriptInterface(
-//      LegacyJsInterface(binding.webView, this),
-//      "AndroidBridge"
-//    )
-
     binding.webView.addJavascriptInterface(SocialLinkBridge(this), "socialLinkBridge")
-    binding.webView.addJavascriptInterface(NativeBridge(this,
-//      rememberCoroutineScope()
-    ), "NativeBridge")
+    binding.webView.addJavascriptInterface(NativeBridge(this), "NativeBridge")
 
     binding.webView.addJavascriptInterface(Bridge {
       Log.d("Test", "addJavascriptInterface / Bridge ")
@@ -108,21 +106,6 @@ class MainActivity : AppCompatActivity() {
     })
   }
 
-//  private fun openFanPageUrl(urlString: String) {
-//    val uri = Uri.parse(urlString)
-//
-//    // ACTION_VIEW 인텐트 생성
-//    val intent = Intent(Intent.ACTION_VIEW, uri)
-//
-//    // 처리 가능한 앱 있는지 체크 (브라우저)
-//    val packageManager = this.packageManager
-//    if (intent.resolveActivity(packageManager) != null) {
-//      startActivity(intent)
-//    } else {
-//      // 브라우저 없음 등 에러 처리
-//      Log.e("GameWebViewActivity", "No activity to handle VIEW intent: $urlString")
-//    }
-//  }
 
   private fun enableImmersive(controller: WindowInsetsControllerCompat) {
     controller.systemBarsBehavior =
