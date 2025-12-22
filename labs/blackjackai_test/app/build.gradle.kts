@@ -12,14 +12,15 @@ android {
     applicationId = "com.fourtune3.blackjackai"
     minSdk = 24
     targetSdk = 36
-    versionCode = 1
+    versionCode = 3
     versionName = "1.0"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
 //    buildConfigField("String", "BASE_URL", "\"http://172.30.1.38:7456/web-mobile/web-mobile/index.html\"") // 기본 URL
 //    buildConfigField("String", "BASE_URL", "\"http://172.30.1.38:7456\"") // 기본 URL
-    buildConfigField("String", "BASE_URL", "\"http://192.168.0.11:7456\"") // 기본 URL
+//    buildConfigField("String", "BASE_URL", "\"http://192.168.0.11:7456\"") // 기본 URL
+    buildConfigField("String", "BASE_URL", "\"https://d38bheecn5172a.cloudfront.net/index.html\"") // 기본 URL
   }
 
   buildTypes {
@@ -54,6 +55,10 @@ dependencies {
 //  implementation("androidx.webkit:webkit:<latest>") // WebMessageListener, document-start
 //  implementation("com.google.android.gms:play-services-auth:<latest>") // Google Login
 //  implementation("com.android.billingclient:billing-ktx:<latest>") // IAP
+
+//  val billing_version = "8.2.1"
+//  implementation("com.android.billingclient:billing-ktx:$billing_version")
+  implementation("com.android.billingclient:billing:8.2.1")
 
   implementation("androidx.core:core-ktx:1.13.1")
   implementation("androidx.appcompat:appcompat:1.7.1")
