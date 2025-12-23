@@ -1,7 +1,19 @@
 plugins {
+//  alias(libs.plugins.android.application)
+//  alias(libs.plugins.kotlin.android)
+//  alias(libs.plugins.kotlin.compose)
+//  id("com.android.application")
+//  kotlin("android")
+//  kotlin("plugin.serialization") // ✅ 이게 핵심
+
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.compose)
+  alias(libs.plugins.kotlin.serialization) // ✅ 추가
+
+//  alias(libs.plugins.kotlin.serialization) // ✅ 추가 (version catalog에 정의 필요)
+//  id("org.jetbrains.kotlin.plugin.serialization") // ✅ Kotlin 2.x에서 보편적
+
 }
 
 android {
@@ -70,6 +82,12 @@ dependencies {
   implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
   implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
 
+  implementation("com.squareup.okhttp3:okhttp:4.12.0")
+  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+
+  implementation("androidx.datastore:datastore-preferences:1.1.1")
+
+  implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
 //  implementation(libs.kotlin.libs.kotlinx.coroutines.android)
 
   implementation(libs.androidx.core.ktx)
@@ -80,6 +98,7 @@ dependencies {
   implementation(libs.androidx.compose.ui.graphics)
   implementation(libs.androidx.compose.ui.tooling.preview)
   implementation(libs.androidx.compose.material3)
+  implementation(libs.androidx.lifecycle.process)
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)
@@ -87,4 +106,7 @@ dependencies {
   androidTestImplementation(libs.androidx.compose.ui.test.junit4)
   debugImplementation(libs.androidx.compose.ui.tooling)
   debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+
+
 }
