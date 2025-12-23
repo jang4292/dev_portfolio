@@ -1,6 +1,8 @@
 package com.fourtune3.blackjackai
 
+import AuthApi
 import NativeBridge
+import OkHttpAuthApi
 import SocialLinkBridge
 import android.annotation.SuppressLint
 import android.content.Context
@@ -27,6 +29,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.fourtune3.blackjackai.databinding.ActivityMainBinding
 import org.json.JSONObject
+import kotlin.String
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,6 +43,11 @@ class MainActivity : AppCompatActivity() {
     installSplashScreen()
     super.onCreate(savedInstanceState)
 
+
+    val auth = OkHttpAuthApi(
+//      private val baseUrl: String,
+      "https://dev.4tune3.com:41618"
+    )
     binding = ActivityMainBinding.inflate(layoutInflater)
     setContentView(binding.root)
 
@@ -59,7 +67,14 @@ class MainActivity : AppCompatActivity() {
     WebView.setWebContentsDebuggingEnabled(true)
 
     binding.webView.addJavascriptInterface(SocialLinkBridge(this), "socialLinkBridge")
-    binding.webView.addJavascriptInterface(NativeBridge(this), "NativeBridge")
+    binding.webView.addJavascriptInterface(
+      NativeBridge(
+        this,
+        auth,
+        binding.webView
+      ),
+      "NativeBridge"
+    )
 
     binding.webView.addJavascriptInterface(Bridge {
       Log.d("Test", "addJavascriptInterface / Bridge ")

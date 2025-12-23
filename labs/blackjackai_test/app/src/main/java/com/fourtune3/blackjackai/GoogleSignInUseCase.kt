@@ -1,5 +1,6 @@
 import android.app.Activity
 import android.util.Log
+import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
@@ -31,7 +32,21 @@ class GoogleSignInUseCase(
       .getOrThrow()
 
     error("unreachable")
+//    val token = this.getGoogleToken()
+
+
   }
+
+//  suspend fun getGoogleToken(): String {
+//    runCatching { return requestIdToken(filterAuthorizedOnly = true) }
+//      .onFailure { Log.w("Auth", "authorizedOnly=true failed", it) }
+//
+//    runCatching { return requestIdToken(filterAuthorizedOnly = false) }
+//      .onFailure { Log.w("Auth", "authorizedOnly=false failed", it) }
+//      .getOrThrow()
+//
+//    error("unreachable")
+//  }
 
   private suspend fun requestIdToken(filterAuthorizedOnly: Boolean): String {
     val googleIdOption = GetGoogleIdOption.Builder()
