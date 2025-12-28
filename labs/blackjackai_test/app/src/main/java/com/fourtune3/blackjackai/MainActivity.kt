@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     val auth = OkHttpAuthApi(
 //      private val baseUrl: String,
       "https://dev.4tune3.com:41618"
+//      "http://172.30.1.38:7456"
     )
     binding = ActivityMainBinding.inflate(layoutInflater)
     setContentView(binding.root)
@@ -107,7 +108,8 @@ class MainActivity : AppCompatActivity() {
 
       // 시작 URL 로드
       val urlFromIntent = intent?.data?.toString()
-      loadUrl(urlFromIntent ?: START_URL)
+//      loadUrl(urlFromIntent ?: START_URL)
+      loadUrl(urlFromIntent ?: "http://172.30.1.38:7456")
     }
 
     // 하드웨어 뒤로가기: WebView 히스토리가 있으면 goBack()
