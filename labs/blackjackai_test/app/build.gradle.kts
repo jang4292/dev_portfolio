@@ -1,3 +1,17 @@
+import java.util.Properties
+import java.io.FileInputStream
+
+val keystorePropsFile = rootProject.file("keystore.properties")
+val keystoreProps = Properties().apply {
+  if (keystorePropsFile.exists()) {
+    FileInputStream(keystorePropsFile).use { load(it) }
+  }
+}
+
+fun prop(name: String): String =
+  keystoreProps.getProperty(name) ?: error("Missing $name in keystore.properties")
+
+
 plugins {
 //  alias(libs.plugins.android.application)
 //  alias(libs.plugins.kotlin.android)
@@ -35,8 +49,20 @@ android {
     buildConfigField("String", "BASE_URL", "\"https://d38bheecn5172a.cloudfront.net/index.html\"") // 기본 URL
   }
 
+  signingConfigs {
+    create("debugCustom") {
+      // store 경로는 root 기준으로 잡는게 안전합니다.
+      storeFile = rootProject.file(prop("DEBUG_STORE_FILE"))
+      storePassword = prop("DEBUG_STORE_PASSWORD")
+      keyAlias = prop("DEBUG_KEY_ALIAS")
+      keyPassword = prop("DEBUG_KEY_PASSWORD")
+    }
+  }
+
   buildTypes {
     debug {
+      // ✅ 핵심: debug를 원하는 키로 서명 고정
+      signingConfig = signingConfigs.getByName("debugCustom")
       buildConfigField("boolean", "WEBVIEW_DEBUGGABLE", "true")
     }
     release {
@@ -99,6 +125,7 @@ dependencies {
   implementation(libs.androidx.compose.ui.tooling.preview)
   implementation(libs.androidx.compose.material3)
   implementation(libs.androidx.lifecycle.process)
+  implementation(libs.androidx.media3.common.ktx)
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)
