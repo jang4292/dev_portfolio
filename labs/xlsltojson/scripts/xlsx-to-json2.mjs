@@ -5,7 +5,7 @@ import xlsx from "xlsx";
 /**
  * 실행:
  * node scripts/xlsx-to-json2.mjs ./input.xlsx --sheet=strategy_reason --rulesetId=BJ_6D_S17_DAS_LS --out=./out.json
- * node scripts/xlsx-to-json2.mjs ./input/data.xlsx --sheet=Q&A --rulesetId=BJ_6D_S17_DAS_NS --out=./out.json
+ * node scripts/xlsx-to-json2.mjs ./input/data.xlsx --sheet=Q&A --rulesetId=BJ_6D_S17_DAS_NS --out=./out1.json
  */
 
 function parseArgs(argv) {
@@ -55,7 +55,8 @@ function normalizeDealerUpcard(v) {
 function normalizePairRank(v) {
     const raw = String(v ?? "").trim().toUpperCase();
     if (raw === "A") return "A";
-    if (["10", "J", "Q", "K", "T"].includes(raw)) return "T";
+    // if (["10", "J", "Q", "K", "T"].includes(raw)) return "T";
+    if (["10", "J", "Q", "K", "T"].includes(raw)) return "10";
     req(/^[2-9]$/.test(raw), `pair rank invalid: ${v}`);
     return raw;
 }
