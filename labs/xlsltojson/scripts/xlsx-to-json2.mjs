@@ -9,236 +9,254 @@ import xlsx from "xlsx";
  */
 
 function parseArgs(argv) {
-    const args = { _: [] };
-    for (const a of argv.slice(2)) {
-        if (!a.startsWith("--")) args._.push(a);
-        else {
-            const [k, v = "true"] = a.slice(2).split("=");
-            args[k] = v;
-        }
+  const args = { _: [] };
+  for (const a of argv.slice(2)) {
+    if (!a.startsWith("--")) args._.push(a);
+    else {
+      const [k, v = "true"] = a.slice(2).split("=");
+      args[k] = v;
     }
-    return args;
+  }
+  return args;
 }
 
 function req(cond, msg) {
-    if (!cond) throw new Error(msg);
+  if (!cond) throw new Error(msg);
 }
 
 function normKeyName(s) {
-    return String(s ?? "")
-        .trim()
-        .toLowerCase()
-        .replace(/\s+/g, "")
-        .replace(/_/g, "");
+  return String(s ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "")
+    .replace(/_/g, "");
 }
 
 function detectColumns(rowObj) {
-    const col = {};
-    for (const [k, v] of Object.entries(rowObj)) col[normKeyName(k)] = v;
-    return col;
+  const col = {};
+  for (const [k, v] of Object.entries(rowObj)) col[normKeyName(k)] = v;
+  return col;
 }
 
 function normalizeHandType(v) {
-    const s = String(v ?? "").trim().toUpperCase();
-    req(["HARD", "SOFT", "PAIR"].includes(s), `playerHandType invalid: ${v}`);
-    return s;
+  const s = String(v ?? "").trim().toUpperCase();
+  req(["HARD", "SOFT", "PAIR"].includes(s), `playerHandType invalid: ${v}`);
+  return s;
 }
 
 function normalizeDealerUpcard(v) {
-    const raw = String(v ?? "").trim().toUpperCase();
-    if (raw === "A") return "A";
-    if (["J", "Q", "K", "10"].includes(raw)) return "10";
-    req(/^[2-9]$/.test(raw), `dealerUpcard invalid: ${v}`);
-    return raw;
+  const raw = String(v ?? "").trim().toUpperCase();
+  if (raw === "A") return "A";
+  if (["J", "Q", "K", "10"].includes(raw)) return "10";
+  req(/^[2-9]$/.test(raw), `dealerUpcard invalid: ${v}`);
+  return raw;
 }
 
 function normalizePairRank(v) {
-    const raw = String(v ?? "").trim().toUpperCase();
-    if (raw === "A") return "A";
-    // if (["10", "J", "Q", "K", "T"].includes(raw)) return "T";
-    if (["10", "J", "Q", "K", "T"].includes(raw)) return "10";
-    req(/^[2-9]$/.test(raw), `pair rank invalid: ${v}`);
-    return raw;
+  const raw = String(v ?? "").trim().toUpperCase();
+  if (raw === "A") return "A";
+  if (["10", "J", "Q", "K", "T"].includes(raw)) return "10"; // 프로젝트 정책: 10 묶기
+  req(/^[2-9]$/.test(raw), `pair rank invalid: ${v}`);
+  return raw;
 }
 
+function normalizeSoftTotal(v, rowNo) {
+  const n = Number(v);
+  req(Number.isFinite(n) && Number.isInteger(n), `row ${rowNo}: playerHand(soft) invalid: ${v}`);
+
+  // 이미 13~21로 들어오면 그대로 사용
+  if (n >= 13 && n <= 21) return n;
+
+  // A를 1로 합산한 값(3~11)이라면 +10 보정
+  if (n >= 3 && n <= 11) return n + 10;
+
+  throw new Error(`row ${rowNo}: playerHand(soft) out of range(3~11 or 13~21): ${v}`);
+}
+
+function normalizeHardTotal(v, rowNo) {
+  const n = Number(v);
+  req(Number.isFinite(n) && Number.isInteger(n), `row ${rowNo}: playerHand(hard) invalid: ${v}`);
+  // req(n >= 4 && n <= 21, `row ${rowNo}: playerHand(hard) out of range(4~21): ${v}`);
+  req(n >= 2 && n <= 21, `row ${rowNo}: playerHand(hard) out of range(2~21): ${v}`);
+  return n;
+}
+
+
 function normalizeTotal(v) {
-    const n = Number(v);
-    req(Number.isFinite(n) && Number.isInteger(n), `playerHand(total) invalid: ${v}`);
-    req(n >= 4 && n <= 21, `playerHand(total) out of range(4~21): ${v}`);
-    return n;
+  const n = Number(v);
+  req(Number.isFinite(n) && Number.isInteger(n), `playerHand(total) invalid: ${v}`);
+  req(n >= 4 && n <= 21, `playerHand(total) out of range(4~21): ${v}`);
+  return n;
 }
 
 function normalizeActionCode(action, actionCode) {
-    const ac = String(actionCode ?? "").trim().toUpperCase();
-    if (ac) {
-        req(["H", "S", "D", "P", "R"].includes(ac), `actionCode invalid: ${actionCode}`);
-        return ac;
-    }
-    const a = String(action ?? "").trim().toLowerCase().replace(/\s+/g, "");
-    const map = { hit: "H", stand: "S", doubledown: "D", double: "D", split: "P", surrender: "R" };
-    req(map[a], `action invalid: ${action}`);
-    return map[a];
-}
-
-function actionLabelFromCode(code) {
-    return ({ H: "Hit", S: "Stand", D: "DoubleDown", P: "Split", R: "Surrender" })[code];
-}
-
-function parseTags(v) {
-    const s = String(v ?? "").trim();
-    if (!s) return [];
-    return s.split(",").map(t => t.trim()).filter(Boolean);
+  const ac = String(actionCode ?? "").trim().toUpperCase();
+  if (ac) {
+    req(["H", "S", "D", "P", "R"].includes(ac), `actionCode invalid: ${actionCode}`);
+    return ac;
+  }
+  const a = String(action ?? "").trim().toLowerCase().replace(/\s+/g, "");
+  const map = { hit: "H", stand: "S", doubledown: "D", double: "D", split: "P", surrender: "R" };
+  req(map[a], `action invalid: ${action}`);
+  return map[a];
 }
 
 function extractReasonParts(reasonRaw) {
-    const reason = String(reasonRaw ?? "").replace(/\r\n/g, "\n").trim();
-    const lines = reason ? reason.split("\n") : [];
-
-    const learnMoreBullets = lines
-        .map(l => l.trim())
-        .filter(l => /^[-•]\s+/.test(l))
-        .map(l => l.replace(/^[-•]\s+/, "").trim())
-        .filter(Boolean);
-
-    let ruleOfThumb = "";
-    const ruleIdx = lines.findIndex(l => /simple\s*rule|rule of thumb|meowbot/i.test(l));
-    if (ruleIdx >= 0) {
-        const after = lines.slice(ruleIdx + 1).map(l => l.trim()).filter(Boolean);
-        if (after.length) ruleOfThumb = after[0].replace(/^["“”']+/, "").replace(/["“”']+$/, "").trim();
-    }
-
-    return { reason, learnMoreBullets, ruleOfThumb };
+  const reason = String(reasonRaw ?? "").replace(/\r\n/g, "\n").trim();
+  return { reason };
 }
 
 function buildKey(rulesetId, handType, handValue, dealerUpcard) {
-    return `${rulesetId}::${handType}:${handValue}::D:${dealerUpcard}`;
+  return `${rulesetId}::${handType}:${handValue}::D:${dealerUpcard}`;
 }
 
 function toInt(v, fallback = 0) {
-    if (v == null || v === "") return fallback;
-    const n = Number(v);
-    return Number.isFinite(n) ? Math.trunc(n) : fallback;
+  if (v == null || v === "") return fallback;
+  const n = Number(v);
+  return Number.isFinite(n) ? Math.trunc(n) : fallback;
+}
+
+function normalizeDecisionWindow(v) {
+  const s = String(v ?? "").trim().toLowerCase();
+  if (!s) return ""; // 조건 없음
+  req(["initial", "not_initial"].includes(s), `decisionWindow invalid: ${v} (use initial|not_initial)`);
+  return s;
+}
+
+function whenSig(when) {
+  const keys = Object.keys(when).sort();
+  return keys.map(k => `${k}=${when[k]}`).join("&");
+}
+
+/**
+ * baseKey 단위로 variants 그룹핑
+ * - 같은 when이면 중복(우선순위로 교체 가능)
+ * - when이 다르면 variants에 추가
+ */
+function upsertVariant(items, baseKey, variant) {
+  const existing = items[baseKey];
+
+  // 단일 entry로 들어와 있으면 variants로 승격
+  if (existing && !existing.variants) {
+    items[baseKey] = { variants: [{ when: {}, priority: 0, ...existing }] };
+  }
+  if (!items[baseKey]) items[baseKey] = { variants: [] };
+
+  const list = items[baseKey].variants;
+  const sig = whenSig(variant.when ?? {});
+
+  const dup = list.find(v => whenSig(v.when ?? {}) === sig);
+  if (dup) {
+    // priority가 높으면 교체
+    if ((variant.priority ?? 0) > (dup.priority ?? 0)) {
+      Object.assign(dup, variant);
+    } else {
+      throw new Error(`duplicate variant: ${baseKey} when=${sig}`);
+    }
+  } else {
+    list.push(variant);
+  }
 }
 
 function main() {
-    // (A) 인자 파싱
-    const args = parseArgs(process.argv);
-    const input = args._[0];
-    req(input, "input xlsx path required");
+  const args = parseArgs(process.argv);
+  const input = args._[0];
+  req(input, "input xlsx path required");
 
-    const sheetName = args.sheet;
-    // const outPath = args.out || "./strategy.json";
-    const outPath = `.\\out\\out.json`;
-    const defaultRulesetId = String(args.rulesetId || "").trim();
-    const version = args.version || new Date().toISOString().slice(0, 10);
-    const allowDuplicate = args["allow-duplicate"] || "false"; // false | priority
+  const sheetName = args.sheet;
+  const outPath = args.out || "./strategy.json";
+  // const outPath = `.\\out\\out.json`;
+  const defaultRulesetId = String(args.rulesetId || "").trim();
+  const version = args.version || new Date().toISOString().slice(0, 10);
 
-    console.log(`Input: ${input}`);
-    console.log(`Sheet: ${sheetName || "(default 2nd sheet)"}`);
-    console.log(`Output: ${outPath}`);
-    console.log(`Default RulesetId: ${defaultRulesetId || "(must be provided in rows)"}`);
-    console.log(`Version: ${version}`);
-    console.log(`Allow Duplicate: ${allowDuplicate}`);
+  console.log(`Input: ${input}`);
+  console.log(`Sheet: ${sheetName || "(default 2nd sheet)"}`);
+  console.log(`Output: ${outPath}`);
+  console.log(`Default RulesetId: ${defaultRulesetId || "(must be provided in rows)"}`);
+  console.log(`Version: ${version}`);
 
-    // (B) 엑셀 로드
-    const wb = xlsx.readFile(input);
-    //   const targetSheet = sheetName || wb.SheetNames[1];
-    const targetSheet = wb.SheetNames[1];
-    req(wb.Sheets[targetSheet], `sheet not found: ${targetSheet}`);
+  const wb = xlsx.readFile(input);
+  // const targetSheet = sheetName || wb.SheetNames[1];
+  const targetSheet = wb.SheetNames[1];
+  req(wb.Sheets[targetSheet], `sheet not found: ${targetSheet}`);
 
-    // (C) 시트 -> rows
-    const rows = xlsx.utils.sheet_to_json(wb.Sheets[targetSheet], { defval: "", raw: false });
-    req(rows.length > 0, "no rows found in sheet");
+  const rows = xlsx.utils.sheet_to_json(wb.Sheets[targetSheet], { defval: "", raw: false });
+  req(rows.length > 0, "no rows found in sheet");
 
-    // (D) rows -> items(Map)
-    const items = {};
-    let rulesetIdUsed = "";
+  const items = {};
+  let rulesetIdUsed = "";
 
-    rows.forEach((row, idx) => {
-        const rowNo = idx + 2; // header 1행 가정
-        console.log(row);
-        const c = detectColumns(row);
+  rows.forEach((row, idx) => {
+    const rowNo = idx + 2;
+    const c = detectColumns(row);
 
-        console.log("Processing row:", rowNo);
-        console.log("Processing c:", c);
+    const rulesetId = String(c.rulesetid || defaultRulesetId).trim();
+    req(rulesetId, `rulesetId missing (row ${rowNo}). Provide column rulesetId or CLI --rulesetId`);
+    if (!rulesetIdUsed) rulesetIdUsed = rulesetId;
 
-        // const rulesetId = String(c.rulesetid || defaultRulesetId).trim();
-        const rulesetId = String("BJ_6D_S17_DAS_LS").trim();
-        console.log("rulesetId:", rulesetId);
+    const playerHandType = normalizeHandType(c.playerhandtype);
 
-        req(rulesetId, `rulesetId missing (row ${rowNo}). Provide column rulesetId or CLI --rulesetId`);
-        if (!rulesetIdUsed) rulesetIdUsed = rulesetId;
+    let playerHand;
+    if (playerHandType === "PAIR") {
+      playerHand = normalizePairRank(c.playerhand);
+    } else if (playerHandType === "SOFT") {
+      playerHand = normalizeSoftTotal(c.playerhand, rowNo);
+    } else {
+      playerHand = normalizeHardTotal(c.playerhand, rowNo);
+    }
 
-        const playerHandType = normalizeHandType(c.playerhandtype);
+    console.log(`row ${rowNo}`, c.playerhandtype, c.playerhand, c.dealerupcard);
 
 
-        console.log("playerHandType:", playerHandType, " c.playerhand:", c.playerhand);
-        const playerHand =
-            playerHandType === "PAIR" ? normalizePairRank(c.playerhand) : normalizeTotal(c.playerhand);
+    const dealerUpcard = normalizeDealerUpcard(c.dealerupcard);
 
-        console.log("playerHandType:", playerHandType, " playerHand:", playerHand);
-        console.log("dealerUpcard:", c.dealerupcard);
-        const dealerUpcard = normalizeDealerUpcard(c.dealerupcard);
-        console.log("dealerUpcard normalized:", dealerUpcard);
-        // console.log("   actionCode    :", c.action, c.actioncode);
-        console.log("   actionCode    :", c.action);
-        // const actionCode = normalizeActionCode(c.action, c.actioncode);
-        // const action = actionLabelFromCode(actionCode);
+    const actionCode = normalizeActionCode(c.action, c.actioncode);
 
-        const action = c.action;
+    const answer = String(c.answer ?? "").trim();
+    req(answer, `answer missing (row ${rowNo})`);
 
-        console.log("   action       :", action);
-        const answer = String(c.answer ?? "").trim();
-        req(answer, `answer missing (row ${rowNo})`);
+    const reasonRaw = String(c.reason ?? "").trim();
+    req(reasonRaw, `reason missing (row ${rowNo})`);
+    const { reason } = extractReasonParts(reasonRaw);
 
-        const reasonRaw = String(c.reason ?? "").trim();
-        req(reasonRaw, `reason missing (row ${rowNo})`);
+    const decisionWindow = normalizeDecisionWindow(c.decisionwindow);
+    const priority = toInt(c.priority, 0);
 
-        const { reason, learnMoreBullets, ruleOfThumb } = extractReasonParts(reasonRaw);
-        const tags = parseTags(c.tags);
-        const priority = toInt(c.priority, 0);
+    const key = buildKey(rulesetId, playerHandType, playerHand, dealerUpcard);
 
-        const key = buildKey(rulesetId, playerHandType, playerHand, dealerUpcard);
+    // when 조건: 비어있으면 {} (기본값)
+    const when = {};
+    if (decisionWindow) when.decisionWindow = decisionWindow;
 
-        const entry = {
-            playerHandType,
-            playerHand,
-            dealerUpcard,
-            // actionCode,
-            action,
-            answer,
-            reason,
-            // learnMoreBullets,
-            // ruleOfThumb,
-            // tags,
-            // meta: { sheet: targetSheet, row: rowNo, priority }
-        };
-
-        // (E) 중복 키 처리
-        if (items[key]) {
-            if (allowDuplicate === "priority") {
-                if (priority > (items[key].meta?.priority ?? 0)) items[key] = entry;
-            } else {
-                throw new Error(`duplicate key: ${key} (row ${rowNo})`);
-            }
-        } else {
-            items[key] = entry;
-        }
-    });
-
-    // (F) JSON 출력
-    const output = {
-        version,
-        rulesetId: rulesetIdUsed || defaultRulesetId,
-        sheet: targetSheet,
-        count: Object.keys(items).length,
-        items
+    // variants에 넣을 payload
+    const variant = {
+      when,
+      priority,
+      playerHandType,
+      playerHand,
+      dealerUpcard,
+      actionCode,
+      answer,
+      reason,
+      meta: { sheet: targetSheet, row: rowNo }
     };
 
-    console.log("Writing output to:", outPath);
+    upsertVariant(items, key, variant);
+  });
 
-    fs.writeFileSync(outPath, JSON.stringify(output, null, 2), "utf-8");
-    console.log(`OK: ${output.count} items -> ${path.resolve(outPath)}`);
+  // variants가 1개뿐인 항목은 단일로 평탄화하고 싶으면 여기서 처리 가능(선택)
+  // 지금은 일관성을 위해 variants 형태를 유지하는 편을 추천합니다.
+
+  const output = {
+    version,
+    rulesetId: rulesetIdUsed || defaultRulesetId,
+    sheet: targetSheet,
+    count: Object.keys(items).length,
+    items
+  };
+
+  fs.writeFileSync(outPath, JSON.stringify(output, null, 2), "utf-8");
+  console.log(`OK: ${output.count} keys -> ${path.resolve(outPath)}`);
 }
 
 main();
