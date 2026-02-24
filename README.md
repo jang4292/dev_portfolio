@@ -24,11 +24,10 @@
 | `main` | 기본 통합 브랜치 (protected) |
 | `develop` | 개발 통합 브랜치 |
 | `feature/android_kotlin` | Android Kotlin 기능 개발 |
-| `android_kotlin_fourtune3` | Android Kotlin Fortune 앱 v3 |
 | `feature/rn_handsbook` | React Native 핸즈북 실습 |
 | `ci/docs-web-frontend-vite` | Vite 프론트엔드 빌드 → docs 배포 CI |
 | `github-pages` | GitHub Pages 정적 배포 브랜치 |
-| `copilot/analyze-branches-and-logic` | 브랜치·로직 분석 보고 (현재 브랜치) |
+| `copilot/update-readme-and-report` | README 업데이트 및 보고서 작성 (현재 브랜치) |
 | `copilot/review-webview-bug-fixes` | WebView 버그 수정 리뷰 |
 
 ---
