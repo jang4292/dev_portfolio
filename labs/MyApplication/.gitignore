@@ -19,6 +19,20 @@ local.properties
 **/build/
 !gradle/wrapper/gradle-wrapper.jar
 local.properties
+**/local.properties
+
+### Signing keys / secrets ###
+keystore.properties
+**/keystore.properties
+*.jks
+*.keystore
+*.p12
+*.pem
+*.der
+
+### Env files ###
+.env
+.env.*
 
 ### Android Studio / IntelliJ IDEA ###
 .idea/
