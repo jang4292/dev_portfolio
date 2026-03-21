@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>헤더 고정 + 2단 레이아웃</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <!-- 고정 헤더(Sticky) -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top">Layout</a>
+
+      <nav class="nav" aria-label="주요 메뉴">
+        <a class="nav__link" href="#content">본문</a>
+        <a class="nav__link" href="#table">테이블</a>
+        <a class="nav__link" href="#footer">푸터</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn--ghost" href="#content">바로가기</a>
+        <a class="btn btn--primary" href="#content">시작</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="container layout">
+      <!-- 좌측 사이드바(Sticky) -->
+      <aside class="sidebar card" aria-label="사이드 메뉴">
+        <h2 class="h3">사이드 메뉴</h2>
+        <ul class="menu">
+          <li><a class="link" href="#content">본문 섹션</a></li>
+          <li><a class="link" href="#cards">카드 리스트</a></li>
+          <li><a class="link" href="#table">데이터 테이블</a></li>
+        </ul>
+
+        <section class="note-card" aria-label="실무 체크">
+          <p class="text-sm text-muted">
+            깨짐 점검 우선순위: 고정폭(px) 남발 → 이미지 크기 → 긴 텍스트 overflow →
+            flex/grid 내부 <strong>min-width:0</strong> → overflow 설정.
+          </p>
+        </section>
+      </aside>
+
+      <!-- 우측 본문 -->
+      <div class="main stack" id="content">
+        <section class="card stack" aria-labelledby="title">
+          <header class="section-header">
+            <h1 class="h2" id="title">헤더 고정 + 2단 레이아웃</h1>
+            <p class="text-sm text-muted">
+              상단 헤더는 sticky, 레이아웃은 grid(좌 260px + 우 가변)로 구성합니다.
+            </p>
+          </header>
+
+          <p class="text">
+            이 템플릿의 목적은 “관리자 화면/대시보드/문서 페이지”에서 가장 흔한 구조를 안정적으로 만드는 것입니다.
+            핵심은 <strong>grid 기반 2단</strong> + <strong>sticky 헤더/사이드</strong> +
+            <strong>min-width:0</strong>로 텍스트 깨짐을 방어하는 것입니다.
+          </p>
+        </section>
+
+        <section class="card stack" id="cards" aria-labelledby="cards-title">
+          <h2 class="h3" id="cards-title">카드 리스트(본문 예시)</h2>
+
+          <div class="list">
+            <article class="item">
+              <h3 class="h4">Item 1</h3>
+              <p class="text-sm text-muted">
+                긴 텍스트/URL이 들어오면 레이아웃을 밀 수 있습니다. overflow-wrap과 min-width:0로 방어합니다.
+              </p>
+            </article>
+
+            <article class="item">
+              <h3 class="h4">Item 2</h3>
+              <p class="text-sm text-muted">
+                sticky 요소는 부모에 overflow가 걸려 있으면 정상 동작이 깨질 수 있습니다.
+              </p>
+            </article>
+
+            <article class="item">
+              <h3 class="h4">Item 3</h3>
+              <p class="text-sm text-muted">
+                2단 레이아웃은 flex로도 가능하지만, “고정 + 가변”은 grid가 가장 단순합니다.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="card stack" id="table" aria-labelledby="table-title">
+          <h2 class="h3" id="table-title">데이터 테이블(가로 스크롤)</h2>
+
+          <div class="table-wrap" role="region" aria-label="샘플 테이블(가로 스크롤 가능)">
+            <table class="data-table">
+              <caption>샘플 데이터</caption>
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">이름</th>
+                  <th scope="col">상태</th>
+                  <th scope="col">메모(긴 텍스트)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1001</th>
+                  <td>Alpha</td>
+                  <td>OK</td>
+                  <td class="truncate">https://example.com/some/really/long/path/that/can/break/layout</td>
+                </tr>
+                <tr>
+                  <th scope="row">1002</th>
+                  <td>Beta</td>
+                  <td>WARN</td>
+                  <td class="truncate">긴 메모가 들어오는 경우 ellipsis로 처리합니다.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card stack" aria-labelledby="tips-title">
+          <h2 class="h3" id="tips-title">실무 팁</h2>
+          <ul class="bullets">
+            <li>헤더 sticky는 <code>top:0</code> + <code>z-index</code>가 세트입니다.</li>
+            <li>사이드 sticky는 헤더 높이를 고려해 <code>top: calc(...)</code>로 맞춥니다.</li>
+            <li>2단 grid에서 본문 컨테이너에 <code>min-width:0</code>를 꼭 둡니다.</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="footer">
+    <div class="container footer-inner">
+      <p class="text-sm text-muted">© Layout Template</p>
+    </div>
+  </footer>
+</body>
+</html>

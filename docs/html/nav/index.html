@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>A11y Nav + Skip Link + Active</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <!-- Skip Link: Tab 첫 번째로 잡히게 -->
+  <a class="skip-link" href="#main">본문으로 바로가기</a>
+
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="홈">A11y</a>
+
+      <!-- aria-current="page" / "true" 는 SPA/라우팅에서 주로 사용.
+           페이지 내부 섹션 내비는 aria-current="location" 사용이 유용 -->
+      <nav class="nav" aria-label="주요 내비게이션">
+        <a class="nav__link is-active" href="#intro" data-nav aria-current="location">소개</a>
+        <a class="nav__link" href="#features" data-nav>기능</a>
+        <a class="nav__link" href="#pricing" data-nav>가격</a>
+        <a class="nav__link" href="#faq" data-nav>FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="main" tabindex="-1">
+    <div id="top"></div>
+
+    <header class="page-head">
+      <h1 class="page-title">접근성 내비게이션 + Skip Link + 현재 위치 표시</h1>
+      <p class="page-desc">
+        Tab → Skip Link 노출 → Enter로 main 포커스 이동. 스크롤/클릭 시 현재 섹션 표시.
+      </p>
+    </header>
+
+    <!-- 섹션들은 "랜드마크/제목"가 명확해야 함 -->
+    <section class="card section" id="intro" data-section aria-labelledby="intro-title">
+      <h2 class="h2" id="intro-title">소개</h2>
+      <p class="text-muted">
+        Skip Link는 키보드/스크린리더 사용자의 “바로가기”입니다. 헤더가 sticky일수록 중요합니다.
+      </p>
+      <p>
+        이 섹션들은 데모용 콘텐츠입니다. 스크롤을 내려 nav의 active 상태를 확인하세요.
+      </p>
+    </section>
+
+    <section class="card section" id="features" data-section aria-labelledby="features-title">
+      <h2 class="h2" id="features-title">기능</h2>
+      <ul class="bullets">
+        <li>Skip Link (focus 시 표시)</li>
+        <li>키보드 포커스( :focus-visible )</li>
+        <li>현재 위치 표시(IntersectionObserver)</li>
+        <li>헤더 sticky 고려(스크롤 보정)</li>
+      </ul>
+      <p class="text-muted">
+        실무에서는 “페이지 내 이동”과 “라우팅(페이지 이동)”을 구분해서 aria-current 값을 설계합니다.
+      </p>
+    </section>
+
+    <section class="card section" id="pricing" data-section aria-labelledby="pricing-title">
+      <h2 class="h2" id="pricing-title">가격</h2>
+      <p>
+        내비 링크 클릭 시 기본 앵커 스크롤 대신 smooth scroll로 이동하며,
+        sticky header 높이만큼 오프셋을 보정합니다.
+      </p>
+      <div class="grid-3">
+        <article class="mini-card">
+          <h3 class="h3">Starter</h3>
+          <p class="text-muted">개인용</p>
+        </article>
+        <article class="mini-card">
+          <h3 class="h3">Pro</h3>
+          <p class="text-muted">실사용</p>
+        </article>
+        <article class="mini-card">
+          <h3 class="h3">Team</h3>
+          <p class="text-muted">조직용</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="card section" id="faq" data-section aria-labelledby="faq-title">
+      <h2 class="h2" id="faq-title">FAQ</h2>
+      <p class="text-muted">
+        FAQ는 아코디언/토글 UI와 연결하면 접근성 이슈가 자주 생깁니다(버튼/aria-expanded/aria-controls).
+      </p>
+
+      <details class="details">
+        <summary>Skip Link는 꼭 필요한가요?</summary>
+        <p>헤더/내비가 길면 스크린리더/키보드 사용자에게 필수에 가깝습니다.</p>
+      </details>
+
+      <details class="details">
+        <summary>현재 위치 표시는 어떻게 구현하나요?</summary>
+        <p>IntersectionObserver로 섹션이 뷰포트에 들어오면 nav를 업데이트합니다.</p>
+      </details>
+    </section>
+
+    <section class="card notes" aria-label="검증 체크">
+      <h2 class="h3">검증 체크(필수)</h2>
+      <ul class="bullets">
+        <li>Tab 첫 입력에서 Skip Link가 보이는지</li>
+        <li>Skip Link Enter 시 main으로 포커스가 이동하는지(tabindex=-1)</li>
+        <li>섹션 이동 시 nav active 및 aria-current가 변경되는지</li>
+        <li>모바일(320)에서 nav 줄바꿈/깨짐 없는지</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <p class="footer-text">© A11y UI</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const header = document.querySelector('.site-header');
+      const navLinks = Array.from(document.querySelectorAll('[data-nav]'));
+      const sections = Array.from(document.querySelectorAll('[data-section]'));
+      const main = document.getElementById('main');
+
+      const headerH = () => Math.ceil(header.getBoundingClientRect().height);
+
+      // 1) 앵커 클릭 시: sticky header 오프셋 보정 + smooth scroll
+      const scrollToId = (id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+
+        const top = window.scrollY + el.getBoundingClientRect().top - headerH() - 12;
+        window.scrollTo({ top, behavior: 'smooth' });
+      };
+
+      navLinks.forEach(a => {
+        a.addEventListener('click', (e) => {
+          const href = a.getAttribute('href') || '';
+          if (!href.startsWith('#')) return;
+          const id = href.slice(1);
+          if (!id) return;
+
+          e.preventDefault();
+          scrollToId(id);
+
+          // 클릭 후 포커스는 링크에 그대로 둠(키보드 사용자 흐름 안정)
+          // 필요 시 section에 focus 이동하는 정책도 가능하지만, 과하게 하면 오히려 혼란
+        });
+      });
+
+      // 2) Skip link: main에 tabindex=-1 주고 focus 가능하게
+      // 브라우저가 기본적으로 #main으로 이동하지만, 포커스가 안 가는 케이스가 있어 보강
+      const skip = document.querySelector('.skip-link');
+      skip.addEventListener('click', () => {
+        // 약간의 지연 후 포커스 이동
+        setTimeout(() => main.focus(), 0);
+      });
+
+      // 3) 현재 위치 표시: IntersectionObserver
+      const setActive = (id) => {
+        navLinks.forEach(a => {
+          const href = a.getAttribute('href') || '';
+          const active = href === '#' + id;
+          a.classList.toggle('is-active', active);
+          if (active) a.setAttribute('aria-current', 'location');
+          else a.removeAttribute('aria-current');
+        });
+      };
+
+      // 관찰 기준: 헤더 높이를 고려해서 상단에서 섹션이 "걸리면" active
+      const io = new IntersectionObserver((entries) => {
+        // 가장 많이 보이는 섹션을 active로 선택
+        const visible = entries
+          .filter(e => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visible && visible.target && visible.target.id) {
+          setActive(visible.target.id);
+        }
+      }, {
+        root: null,
+        threshold: [0.25, 0.4, 0.6],
+        rootMargin: `-${headerH()}px 0px -55% 0px`
+      });
+
+      sections.forEach(sec => io.observe(sec));
+
+      // 초기 active 동기화
+      setActive(sections[0]?.id || 'intro');
+
+      // 헤더 높이 변경(리사이즈) 시 rootMargin 갱신 필요 → 간단히 재생성
+      let resizeTimer = null;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          io.disconnect();
+          const io2 = new IntersectionObserver((entries) => {
+            const visible = entries
+              .filter(e => e.isIntersecting)
+              .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+            if (visible && visible.target && visible.target.id) setActive(visible.target.id);
+          }, {
+            threshold: [0.25, 0.4, 0.6],
+            rootMargin: `-${headerH()}px 0px -55% 0px`
+          });
+          sections.forEach(sec => io2.observe(sec));
+        }, 150);
+      });
+    })();
+  </script>
+</body>
+</html>

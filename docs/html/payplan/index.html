@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>가격 플랜 + 결제 옵션</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top">Pricing</a>
+
+      <nav class="nav" aria-label="페이지 내 이동">
+        <a class="nav__link" href="#plans">플랜</a>
+        <a class="nav__link" href="#checkout">결제</a>
+        <a class="nav__link" href="#notes">체크</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="top">
+    <header class="page-head">
+      <h1 class="page-title">가격 플랜 비교 + 결제 옵션 선택</h1>
+      <p class="page-desc">
+        모바일 1열 → 태블릿 2열 → 데스크탑 3열. 플랜 선택과 결제수단 선택을 한 화면에서 처리합니다.
+      </p>
+    </header>
+
+    <!-- ============ Plans ============ -->
+    <section class="card" id="plans" aria-labelledby="plans-title">
+      <div class="section-head">
+        <div>
+          <h2 class="h2" id="plans-title">플랜 선택</h2>
+          <p class="text-sm text-muted">과금 주기(월/연) 토글 + 플랜 라디오 선택.</p>
+        </div>
+
+        <!-- Billing Toggle -->
+        <div class="billing" role="group" aria-label="과금 주기 선택">
+          <span class="billing__label text-sm">월간</span>
+
+          <label class="switch">
+            <input id="billingToggle" type="checkbox" aria-label="연간 결제로 전환" />
+            <span class="switch__track" aria-hidden="true"></span>
+            <span class="switch__thumb" aria-hidden="true"></span>
+          </label>
+
+          <span class="billing__label text-sm">연간 <span class="badge">-20%</span></span>
+        </div>
+      </div>
+
+      <fieldset class="fieldset">
+        <legend class="legend">플랜</legend>
+
+        <div class="plans">
+          <!-- Plan: Starter -->
+          <label class="plan" data-plan-card for="plan-starter">
+            <input class="plan__radio" type="radio" id="plan-starter" name="plan" value="starter" checked />
+            <div class="plan__body">
+              <div class="plan__top">
+                <div>
+                  <h3 class="plan__name">Starter</h3>
+                  <p class="plan__desc text-sm text-muted">개인/토이 프로젝트</p>
+                </div>
+                <div class="price" aria-label="가격">
+                  <span class="price__num" data-price="starter">9,900</span>
+                  <span class="price__unit">원 / <span data-period-label>월</span></span>
+                </div>
+              </div>
+
+              <ul class="features">
+                <li>프로젝트 1개</li>
+                <li>기본 템플릿</li>
+                <li>이메일 지원</li>
+              </ul>
+
+              <div class="plan__hint text-sm text-muted">
+                최소 기능. “지금 당장 쓰는” 구간.
+              </div>
+            </div>
+          </label>
+
+          <!-- Plan: Pro -->
+          <label class="plan plan--highlight" data-plan-card for="plan-pro">
+            <input class="plan__radio" type="radio" id="plan-pro" name="plan" value="pro" />
+            <div class="plan__body">
+              <div class="plan__top">
+                <div>
+                  <h3 class="plan__name">Pro <span class="pill">추천</span></h3>
+                  <p class="plan__desc text-sm text-muted">프리랜서/사이드 프로젝트</p>
+                </div>
+                <div class="price" aria-label="가격">
+                  <span class="price__num" data-price="pro">19,900</span>
+                  <span class="price__unit">원 / <span data-period-label>월</span></span>
+                </div>
+              </div>
+
+              <ul class="features">
+                <li>프로젝트 10개</li>
+                <li>고급 템플릿</li>
+                <li>우선 지원</li>
+              </ul>
+
+              <div class="plan__hint text-sm text-muted">
+                실사용 균형점. 대부분 여기가 정답.
+              </div>
+            </div>
+          </label>
+
+          <!-- Plan: Team -->
+          <label class="plan" data-plan-card for="plan-team">
+            <input class="plan__radio" type="radio" id="plan-team" name="plan" value="team" />
+            <div class="plan__body">
+              <div class="plan__top">
+                <div>
+                  <h3 class="plan__name">Team</h3>
+                  <p class="plan__desc text-sm text-muted">팀/조직 단위</p>
+                </div>
+                <div class="price" aria-label="가격">
+                  <span class="price__num" data-price="team">49,900</span>
+                  <span class="price__unit">원 / <span data-period-label>월</span></span>
+                </div>
+              </div>
+
+              <ul class="features">
+                <li>프로젝트 무제한</li>
+                <li>팀 권한/감사 로그</li>
+                <li>SLA 옵션</li>
+              </ul>
+
+              <div class="plan__hint text-sm text-muted">
+                운영 관점 기능 포함.
+              </div>
+            </div>
+          </label>
+        </div>
+      </fieldset>
+    </section>
+
+    <!-- ============ Checkout ============ -->
+    <section class="checkout" id="checkout" aria-label="결제 옵션 선택">
+      <section class="card checkout__left" aria-labelledby="checkout-title">
+        <h2 class="h2" id="checkout-title">결제 정보</h2>
+        <p class="text-sm text-muted">결제수단 선택 → 필요한 입력만 노출.</p>
+
+        <form class="form" action="#" method="post" novalidate data-checkout-form>
+          <fieldset class="fieldset">
+            <legend class="legend">구매자 정보</legend>
+
+            <div class="field">
+              <label class="label" for="buyerName">이름</label>
+              <input class="control" id="buyerName" name="buyerName" type="text" required minlength="2" maxlength="20" autocomplete="name" placeholder="홍길동" />
+              <p class="hint">영수증/정산 기준 정보.</p>
+              <p class="error" aria-live="polite"></p>
+            </div>
+
+            <div class="field">
+              <label class="label" for="buyerEmail">이메일</label>
+              <input class="control" id="buyerEmail" name="buyerEmail" type="email" required autocomplete="email" placeholder="name@example.com" />
+              <p class="hint">결제 결과/청구서 발송.</p>
+              <p class="error" aria-live="polite"></p>
+            </div>
+          </fieldset>
+
+          <fieldset class="fieldset">
+            <legend class="legend">결제수단</legend>
+
+            <div class="pay-methods" role="radiogroup" aria-label="결제수단 선택">
+              <label class="pay">
+                <input type="radio" name="payMethod" value="card" checked />
+                <span>카드</span>
+              </label>
+
+              <label class="pay">
+                <input type="radio" name="payMethod" value="bank" />
+                <span>무통장/계좌이체</span>
+              </label>
+
+              <label class="pay">
+                <input type="radio" name="payMethod" value="simple" />
+                <span>간편결제</span>
+              </label>
+            </div>
+
+            <p class="hint">실무에서는 PG 위젯으로 카드 입력을 직접 받지 않습니다.</p>
+            <p class="error" aria-live="polite"></p>
+
+            <!-- Card Fields (샘플) -->
+            <div class="pay-panel" data-pay-panel="card">
+              <div class="field">
+                <label class="label" for="cardHolder">카드 소유자명</label>
+                <input class="control" id="cardHolder" name="cardHolder" type="text" placeholder="홍길동" />
+                <p class="error" aria-live="polite"></p>
+              </div>
+
+              <div class="grid-2">
+                <div class="field">
+                  <label class="label" for="cardExp">만료(YY/MM)</label>
+                  <input class="control" id="cardExp" name="cardExp" type="text" inputmode="numeric" placeholder="27/09" pattern="^\\d{2}\\/\\d{2}$" />
+                  <p class="error" aria-live="polite"></p>
+                </div>
+
+                <div class="field">
+                  <label class="label" for="cardCvc">CVC</label>
+                  <input class="control" id="cardCvc" name="cardCvc" type="password" inputmode="numeric" placeholder="***" minlength="3" maxlength="4" />
+                  <p class="error" aria-live="polite"></p>
+                </div>
+              </div>
+
+              <p class="hint">
+                이 입력 폼은 학습용입니다. 운영에서는 PCI 이슈 때문에 PG 위젯 사용이 기본입니다.
+              </p>
+            </div>
+
+            <!-- Bank Fields -->
+            <div class="pay-panel" data-pay-panel="bank" hidden>
+              <div class="field">
+                <label class="label" for="depositor">입금자명</label>
+                <input class="control" id="depositor" name="depositor" type="text" placeholder="홍길동" />
+                <p class="hint">실무: 입금 기한/자동 매칭 정책이 핵심.</p>
+                <p class="error" aria-live="polite"></p>
+              </div>
+
+              <div class="field">
+                <label class="label" for="cashReceipt">현금영수증(선택)</label>
+                <select class="control" id="cashReceipt" name="cashReceipt">
+                  <option value="">발급 안 함</option>
+                  <option value="personal">개인(휴대폰)</option>
+                  <option value="business">사업자번호</option>
+                </select>
+                <p class="error" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <!-- Simple Pay -->
+            <div class="pay-panel" data-pay-panel="simple" hidden>
+              <div class="field">
+                <label class="label" for="simpleVendor">간편결제 선택</label>
+                <select class="control" id="simpleVendor" name="simpleVendor">
+                  <option value="toss">Toss</option>
+                  <option value="kakao">KakaoPay</option>
+                  <option value="naver">NaverPay</option>
+                </select>
+                <p class="hint">실무: PG가 제공하는 버튼/위젯을 그대로 쓰는 경우가 많음.</p>
+                <p class="error" aria-live="polite"></p>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="fieldset">
+            <legend class="legend">약관</legend>
+
+            <label class="check">
+              <input type="checkbox" name="terms" required />
+              <span>이용약관/결제 동의(필수)</span>
+            </label>
+            <p class="error" aria-live="polite"></p>
+
+            <label class="check">
+              <input type="checkbox" name="marketing" />
+              <span>마케팅 수신 동의(선택)</span>
+            </label>
+          </fieldset>
+
+          <button class="btn btn--primary btn--block" type="submit">결제 진행(샘플)</button>
+        </form>
+      </section>
+
+      <!-- Summary -->
+      <aside class="card checkout__right" aria-label="결제 요약">
+        <h2 class="h3">주문 요약</h2>
+
+        <dl class="summary">
+          <div class="summary__row">
+            <dt>플랜</dt>
+            <dd><strong data-summary-plan>Starter</strong></dd>
+          </div>
+
+          <div class="summary__row">
+            <dt>과금 주기</dt>
+            <dd data-summary-period>월간</dd>
+          </div>
+
+          <div class="summary__row">
+            <dt>금액</dt>
+            <dd><strong><span data-summary-price>9,900</span>원</strong></dd>
+          </div>
+
+          <div class="summary__row">
+            <dt>할인</dt>
+            <dd data-summary-discount>0원</dd>
+          </div>
+
+          <div class="summary__row summary__row--total">
+            <dt>결제 예정</dt>
+            <dd><strong><span data-summary-total>9,900</span>원</strong></dd>
+          </div>
+        </dl>
+
+        <p class="text-sm text-muted">
+          실무: 쿠폰/프로모션/부가세/환불정책/청구서 발행 로직이 여기로 붙습니다.
+        </p>
+      </aside>
+    </section>
+
+    <section class="card" id="notes" aria-label="검증 체크">
+      <h2 class="h3">검증 체크(필수)</h2>
+      <ul class="bullets">
+        <li>320/375/768/1024에서 플랜 카드가 1/2/3열로 바뀌는지 확인</li>
+        <li>Tab 이동 시 :focus-visible이 보이는지 확인</li>
+        <li>플랜/과금 주기 변경 시 요약 금액이 즉시 갱신되는지 확인</li>
+        <li>결제수단 변경 시 해당 입력만 노출되는지 확인</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-text">© Pricing UI</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const billingToggle = document.getElementById('billingToggle');
+
+      const planRadios = Array.from(document.querySelectorAll('input[name="plan"]'));
+      const planCards = Array.from(document.querySelectorAll('[data-plan-card]'));
+
+      const payRadios = Array.from(document.querySelectorAll('input[name="payMethod"]'));
+      const payPanels = Array.from(document.querySelectorAll('[data-pay-panel]'));
+
+      const els = {
+        plan: document.querySelector('[data-summary-plan]'),
+        period: document.querySelector('[data-summary-period]'),
+        price: document.querySelector('[data-summary-price]'),
+        discount: document.querySelector('[data-summary-discount]'),
+        total: document.querySelector('[data-summary-total]'),
+        periodLabels: Array.from(document.querySelectorAll('[data-period-label]')),
+      };
+
+      const PRICES = {
+        monthly: { starter: 9900, pro: 19900, team: 49900 },
+        yearly:  { starter: 9900 * 12, pro: 19900 * 12, team: 49900 * 12 },
+      };
+
+      // 연간은 -20% 예시(표시/요약만)
+      const YEAR_DISCOUNT_RATE = 0.20;
+
+      const fmt = (n) => n.toLocaleString('ko-KR');
+
+      const getState = () => {
+        const plan = (planRadios.find(r => r.checked) || planRadios[0]).value;
+        const yearly = !!billingToggle.checked;
+        return { plan, yearly };
+      };
+
+      const setActiveCard = () => {
+        planCards.forEach(card => card.classList.remove('is-active'));
+        const checked = planRadios.find(r => r.checked);
+        if (!checked) return;
+        const label = document.querySelector('label[for="' + checked.id + '"]');
+        if (label) label.classList.add('is-active');
+      };
+
+      const updatePricesInCards = () => {
+        const { yearly } = getState();
+        els.periodLabels.forEach(el => el.textContent = yearly ? '년' : '월');
+
+        const priceEls = document.querySelectorAll('[data-price]');
+        priceEls.forEach(el => {
+          const key = el.getAttribute('data-price');
+          const base = yearly ? PRICES.yearly[key] : PRICES.monthly[key];
+          const display = yearly ? Math.round(base * (1 - YEAR_DISCOUNT_RATE)) : base;
+          el.textContent = fmt(display);
+        });
+      };
+
+      const updateSummary = () => {
+        const { plan, yearly } = getState();
+
+        const planName = plan === 'starter' ? 'Starter' : plan === 'pro' ? 'Pro' : 'Team';
+        const base = yearly ? PRICES.yearly[plan] : PRICES.monthly[plan];
+        const discount = yearly ? Math.round(base * YEAR_DISCOUNT_RATE) : 0;
+        const total = base - discount;
+
+        els.plan.textContent = planName;
+        els.period.textContent = yearly ? '연간' : '월간';
+        els.price.textContent = fmt(yearly ? base : base); // base 표시
+        els.discount.textContent = fmt(discount) + '원';
+        els.total.textContent = fmt(total);
+      };
+
+      const updatePayPanels = () => {
+        const method = (payRadios.find(r => r.checked) || payRadios[0]).value;
+        payPanels.forEach(p => {
+          const show = p.getAttribute('data-pay-panel') === method;
+          p.hidden = !show;
+        });
+      };
+
+      // Events
+      planRadios.forEach(r => r.addEventListener('change', () => {
+        setActiveCard();
+        updateSummary();
+        document.getElementById('checkout').scrollIntoView({ behavior: 'smooth' });
+      }));
+
+      billingToggle.addEventListener('change', () => {
+        updatePricesInCards();
+        updateSummary();
+      });
+
+      payRadios.forEach(r => r.addEventListener('change', updatePayPanels));
+
+      // Submit (샘플)
+      const form = document.querySelector('[data-checkout-form]');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // 최소 검증(샘플): required만 브라우저 기본 검증 사용
+        const ok = form.checkValidity();
+        if (!ok) {
+          form.reportValidity();
+          return;
+        }
+        alert('결제 진행(샘플). 실서비스는 PG 연동으로 처리하세요.');
+      });
+
+      // Init
+      setActiveCard();
+      updatePricesInCards();
+      updateSummary();
+      updatePayPanels();
+    })();
+  </script>
+</body>
+</html>

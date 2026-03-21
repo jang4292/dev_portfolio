@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Monthly Calendar Grid</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top">Calendar</a>
+
+      <nav class="nav" aria-label="캘린더 컨트롤">
+        <button class="btn btn--ghost" type="button" data-prev aria-label="이전 달">←</button>
+        <button class="btn btn--ghost" type="button" data-today>오늘</button>
+        <button class="btn btn--ghost" type="button" data-next aria-label="다음 달">→</button>
+        <button class="btn btn--primary" type="button" data-add>일정 추가(샘플)</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="top">
+    <header class="page-head">
+      <h1 class="page-title">캘린더/스케줄 월간 그리드 레이아웃</h1>
+      <p class="page-desc">
+        7열×6주 고정 그리드 + 이벤트 칩 + 선택 날짜 패널. 실무 기본 뼈대입니다.
+      </p>
+    </header>
+
+    <div class="layout">
+      <!-- Calendar -->
+      <section class="card" aria-label="월간 캘린더">
+        <div class="cal-head">
+          <div>
+            <h2 class="cal-title" data-title>YYYY.MM</h2>
+            <p class="text-sm text-muted">날짜를 선택하면 우측에 일정이 표시됩니다.</p>
+          </div>
+
+          <div class="cal-legend" aria-label="범례">
+            <span class="legend legend--info">정보</span>
+            <span class="legend legend--success">확정</span>
+            <span class="legend legend--warning">주의</span>
+            <span class="legend legend--danger">중요</span>
+          </div>
+        </div>
+
+        <!-- Weekday header -->
+        <div class="weekday" role="row" aria-label="요일">
+          <div class="weekday__cell is-sun" role="columnheader">일</div>
+          <div class="weekday__cell" role="columnheader">월</div>
+          <div class="weekday__cell" role="columnheader">화</div>
+          <div class="weekday__cell" role="columnheader">수</div>
+          <div class="weekday__cell" role="columnheader">목</div>
+          <div class="weekday__cell" role="columnheader">금</div>
+          <div class="weekday__cell is-sat" role="columnheader">토</div>
+        </div>
+
+        <!-- Grid -->
+        <div class="month" role="grid" aria-label="월간 그리드" data-grid>
+          <!-- JS render -->
+        </div>
+      </section>
+
+      <!-- Side panel -->
+      <aside class="card panel" aria-label="선택 날짜 일정">
+        <div class="panel-head">
+          <div>
+            <h2 class="h3">선택 날짜</h2>
+            <p class="text-sm text-muted" data-selected-label>YYYY-MM-DD</p>
+          </div>
+          <button class="btn btn--ghost" type="button" data-clear-selection>선택 해제</button>
+        </div>
+
+        <div class="panel-body">
+          <div class="empty text-muted" data-empty>
+            날짜를 선택하세요.
+          </div>
+
+          <ul class="list" data-list></ul>
+        </div>
+      </aside>
+    </div>
+
+    <section class="card notes" aria-label="검증 체크">
+      <h2 class="h3">검증 체크(필수)</h2>
+      <ul class="bullets">
+        <li>320/375에서 1열(캘린더→패널)로 잘 내려가는지</li>
+        <li>그리드가 6주 고정으로 높이가 안정적인지</li>
+        <li>이벤트 칩이 셀 밖으로 튀지 않는지(overflow)</li>
+        <li>오늘/선택/다른 달 날짜 스타일이 명확한지</li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      // ---- Elements ----
+      const titleEl = document.querySelector('[data-title]');
+      const gridEl = document.querySelector('[data-grid]');
+
+      const listEl = document.querySelector('[data-list]');
+      const emptyEl = document.querySelector('[data-empty]');
+      const selectedLabelEl = document.querySelector('[data-selected-label]');
+
+      const btnPrev = document.querySelector('[data-prev]');
+      const btnNext = document.querySelector('[data-next]');
+      const btnToday = document.querySelector('[data-today]');
+      const btnAdd = document.querySelector('[data-add]');
+      const btnClearSel = document.querySelector('[data-clear-selection]');
+
+      // ---- State ----
+      const today = new Date();
+      let cursor = new Date(today.getFullYear(), today.getMonth(), 1);
+      let selectedKey = null; // 'YYYY-MM-DD'
+
+      // 샘플 이벤트: dateKey => [{id,type,title,time}]
+      let events = {
+        // 예: 2026-01-10
+      };
+
+      const pad = (n) => String(n).padStart(2, '0');
+      const keyOf = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+
+      const fmtTitle = (d) => `${d.getFullYear()}.${pad(d.getMonth() + 1)}`;
+      const sameDay = (a, b) =>
+        a.getFullYear() === b.getFullYear() &&
+        a.getMonth() === b.getMonth() &&
+        a.getDate() === b.getDate();
+
+      const addSampleSeed = () => {
+        // 현재 월에 샘플 이벤트를 몇 개 생성
+        const y = cursor.getFullYear();
+        const m = cursor.getMonth() + 1;
+
+        const seed = [
+          { day: 3,  type: 'info',    time: '10:00', title: 'Kickoff 미팅' },
+          { day: 3,  type: 'success', time: '14:30', title: '디자인 확정' },
+          { day: 8,  type: 'warning', time: '16:00', title: '리스크 점검' },
+          { day: 12, type: 'danger',  time: '11:00', title: '배포(중요)' },
+          { day: 12, type: 'info',    time: '13:00', title: '회고' },
+          { day: 12, type: 'success', time: '18:00', title: '저녁 약속' },
+          { day: 12, type: 'warning', time: '20:00', title: '추가 일정' },
+          { day: 21, type: 'success', time: '09:30', title: '정기 스탠드업' },
+        ];
+
+        seed.forEach(s => {
+          const k = `${y}-${pad(m)}-${pad(s.day)}`;
+          events[k] = events[k] || [];
+          // 중복 방지(샘플)
+          if (!events[k].some(x => x.title === s.title && x.time === s.time)) {
+            events[k].push({ id: Math.random().toString(16).slice(2), ...s });
+          }
+        });
+      };
+
+      const buildMonthCells = () => {
+        // 월 1일이 포함된 주의 일요일부터 시작, 6주(42칸) 생성
+        const first = new Date(cursor.getFullYear(), cursor.getMonth(), 1);
+        const start = new Date(first);
+        start.setDate(first.getDate() - first.getDay()); // 일요일 기준
+
+        const cells = [];
+        for (let i = 0; i < 42; i++) {
+          const d = new Date(start);
+          d.setDate(start.getDate() + i);
+          cells.push(d);
+        }
+        return cells;
+      };
+
+      const render = () => {
+        titleEl.textContent = fmtTitle(cursor);
+
+        addSampleSeed();
+
+        const cells = buildMonthCells();
+        const monthIndex = cursor.getMonth();
+
+        gridEl.innerHTML = cells.map(d => {
+          const inMonth = d.getMonth() === monthIndex;
+          const k = keyOf(d);
+          const isToday = sameDay(d, today);
+          const isSelected = selectedKey === k;
+
+          const day = d.getDate();
+          const dayClass =
+            (d.getDay() === 0 ? 'is-sun' : '') + ' ' +
+            (d.getDay() === 6 ? 'is-sat' : '');
+
+          const items = (events[k] || []).slice().sort((a,b) => (a.time||'').localeCompare(b.time||''));
+          const maxShow = 3;
+          const shown = items.slice(0, maxShow);
+          const more = items.length - shown.length;
+
+          const chips = shown.map(e => `
+            <span class="chip chip--${e.type}" title="${e.time ? e.time + ' ' : ''}${escapeHtml(e.title)}">
+              ${e.time ? `<span class="chip__time">${escapeHtml(e.time)}</span>` : ``}
+              <span class="chip__title">${escapeHtml(e.title)}</span>
+            </span>
+          `).join('');
+
+          const moreBtn = more > 0
+            ? `<button class="more" type="button" data-more="${k}">+${more}</button>`
+            : ``;
+
+          return `
+            <button
+              type="button"
+              class="cell ${inMonth ? '' : 'is-out'} ${isToday ? 'is-today' : ''} ${isSelected ? 'is-selected' : ''}"
+              data-date="${k}"
+              role="gridcell"
+              aria-label="${k}"
+            >
+              <div class="cell__top">
+                <span class="num ${dayClass}">${day}</span>
+              </div>
+
+              <div class="cell__events" aria-label="이벤트">
+                ${chips}
+                ${moreBtn}
+              </div>
+            </button>
+          `;
+        }).join('');
+
+        renderSide();
+      };
+
+      const renderSide = () => {
+        selectedLabelEl.textContent = selectedKey || '—';
+        const items = selectedKey ? (events[selectedKey] || []) : [];
+        const sorted = items.slice().sort((a,b) => (a.time||'').localeCompare(b.time||''));
+
+        emptyEl.hidden = !!selectedKey;
+        listEl.innerHTML = '';
+
+        if (!selectedKey) return;
+
+        if (sorted.length === 0) {
+          listEl.innerHTML = `<li class="row row--empty text-muted">선택 날짜에 일정이 없습니다.</li>`;
+          return;
+        }
+
+        listEl.innerHTML = sorted.map(e => `
+          <li class="row">
+            <span class="dot dot--${e.type}" aria-hidden="true"></span>
+            <div class="row__body">
+              <p class="row__title">${escapeHtml(e.title)}</p>
+              <p class="row__meta text-muted">${escapeHtml(e.time || '시간 미정')}</p>
+            </div>
+            <button class="link-btn" type="button" data-remove="${selectedKey}" data-id="${e.id}">삭제</button>
+          </li>
+        `).join('');
+      };
+
+      const escapeHtml = (s) =>
+        String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+
+      // ---- Events ----
+      gridEl.addEventListener('click', (e) => {
+        const moreBtn = e.target.closest('[data-more]');
+        if (moreBtn) {
+          const k = moreBtn.getAttribute('data-more');
+          selectedKey = k;
+          render();
+          return;
+        }
+
+        const cell = e.target.closest('[data-date]');
+        if (!cell) return;
+        const k = cell.getAttribute('data-date');
+        selectedKey = (selectedKey === k) ? null : k;
+        render();
+      });
+
+      listEl.addEventListener('click', (e) => {
+        const rm = e.target.closest('[data-remove]');
+        if (!rm) return;
+
+        const k = rm.getAttribute('data-remove');
+        const id = rm.getAttribute('data-id');
+        if (!k || !id) return;
+
+        events[k] = (events[k] || []).filter(x => x.id !== id);
+        renderSide();
+        // 셀 이벤트 수 업데이트 필요 → 전체 렌더
+        render();
+      });
+
+      btnPrev.addEventListener('click', () => {
+        cursor = new Date(cursor.getFullYear(), cursor.getMonth() - 1, 1);
+        selectedKey = null;
+        render();
+      });
+
+      btnNext.addEventListener('click', () => {
+        cursor = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 1);
+        selectedKey = null;
+        render();
+      });
+
+      btnToday.addEventListener('click', () => {
+        cursor = new Date(today.getFullYear(), today.getMonth(), 1);
+        selectedKey = keyOf(today);
+        render();
+      });
+
+      btnAdd.addEventListener('click', () => {
+        // 샘플: 선택 날짜가 없으면 오늘에 추가
+        const k = selectedKey || keyOf(today);
+        const id = Math.random().toString(16).slice(2);
+        events[k] = events[k] || [];
+        events[k].push({
+          id,
+          type: 'info',
+          time: '15:00',
+          title: '새 일정(샘플)'
+        });
+        selectedKey = k;
+        render();
+      });
+
+      btnClearSel.addEventListener('click', () => {
+        selectedKey = null;
+        render();
+      });
+
+      // Init
+      selectedKey = keyOf(today);
+      render();
+    })();
+  </script>
+</body>
+</html>
