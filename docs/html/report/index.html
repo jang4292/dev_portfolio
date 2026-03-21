@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTML/CSS Playground — 작업 내역 보고서</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <!-- 접근성: Skip Link -->
+  <a class="skip-link" href="#main">본문으로 바로가기</a>
+
+  <!-- 상단 고정 헤더 -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a class="brand" href="#top">/html-css-playground/</a>
+
+      <!-- 상단 탭(뷰 전환) -->
+      <nav class="tabs" aria-label="문서 보기 전환">
+        <button class="tab is-active" type="button" data-view-btn="report" aria-current="page">보고서</button>
+        <button class="tab" type="button" data-view-btn="templates">템플릿 인덱스</button>
+        <button class="tab" type="button" data-view-btn="checklist">검증 체크리스트</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="main" tabindex="-1">
+    <div id="top"></div>
+
+    <!-- =========================
+         VIEW 1) REPORT
+    ========================== -->
+    <section class="view" data-view="report">
+      <header class="page-head">
+        <h1 class="page-title">작업 내역 보고서 (누적형)</h1>
+        <p class="page-desc">
+          단일 프로젝트(/html-css-playground/)에 누적한 학습/실무 UI 템플릿 작업 내역을 “나중에 한 번에” 확인할 수 있도록 정리한 문서입니다.
+        </p>
+      </header>
+
+      <div class="doc-layout">
+        <!-- 좌측 목차 -->
+        <aside class="card toc" aria-label="목차">
+          <h2 class="h3">목차</h2>
+          <nav class="toc-nav" aria-label="보고서 목차">
+            <a class="toc-link" href="#r-1">1) 운영 규칙 및 품질 기준</a>
+            <a class="toc-link" href="#r-2">2) 누적 산출물 범위(학습 단계)</a>
+            <a class="toc-link" href="#r-3">3) UI 템플릿/화면 모듈</a>
+            <a class="toc-link" href="#r-4">4) 공통 설계 원칙</a>
+            <a class="toc-link" href="#r-5">5) 통합 운영 방식</a>
+            <a class="toc-link" href="#r-6">6) 현재 상태 요약</a>
+            <a class="toc-link" href="#r-7">7) 다음 작업 권장</a>
+          </nav>
+
+          <hr class="hr" />
+
+          <div class="meta">
+            <p class="meta__row"><span class="meta__k">문서 버전</span><span class="meta__v">v1.0</span></p>
+            <p class="meta__row"><span class="meta__k">파일 규칙</span><span class="meta__v">index.html / styles.css / assets/</span></p>
+            <p class="meta__row"><span class="meta__k">목표</span><span class="meta__v">누적 실습 + 재사용 가능한 UI 템플릿</span></p>
+          </div>
+        </aside>
+
+        <!-- 본문 -->
+        <article class="card doc">
+          <!-- 1) 운영 규칙 -->
+          <section class="doc-sec" id="r-1" aria-labelledby="r-1-title">
+            <h2 class="h2" id="r-1-title">1) 운영 규칙 및 품질 기준</h2>
+
+            <h3 class="h3">1.1 프로젝트 운영 규칙</h3>
+            <ul class="bullets">
+              <li>모든 실습/템플릿은 단일 프로젝트 <strong>/html-css-playground/</strong>에 누적</li>
+              <li>파일 구조 고정: <code>index.html</code> + <code>styles.css</code> + <code>assets/</code></li>
+            </ul>
+
+            <h3 class="h3">1.2 검증 루틴(매번 수행)</h3>
+            <ol class="steps">
+              <li>Chrome DevTools로 박스모델/레이아웃 확인</li>
+              <li>모바일 뷰포트(320/375/768/1024) 깨짐 체크</li>
+              <li>폼 탭 이동(접근성) 확인</li>
+            </ol>
+          </section>
+
+          <hr class="hr" />
+
+          <!-- 2) 학습 단계 -->
+          <section class="doc-sec" id="r-2" aria-labelledby="r-2-title">
+            <h2 class="h2" id="r-2-title">2) 누적 산출물 범위(학습 단계 기반)</h2>
+
+            <details class="details" open>
+              <summary class="details__sum">Ch.01~03 — HTML 기초(블로그 글 템플릿 기반)</summary>
+              <ul class="bullets">
+                <li>문서 구조(doctype/head/meta viewport/title)</li>
+                <li>텍스트/목록/정의목록(dl/dt/dd), 링크/이미지(img alt), 표(table thead/tbody th caption)</li>
+                <li>실무 포인트: 정렬/줄바꿈은 CSS로, 표는 데이터용(레이아웃용 금지)</li>
+              </ul>
+            </details>
+
+            <details class="details">
+              <summary class="details__sum">Ch.04 — 폼(로그인/회원가입)</summary>
+              <ul class="bullets">
+                <li>form/label(for)/input(email/password/tel/date)/textarea/select</li>
+                <li>required/minlength/maxlength/pattern/placeholder</li>
+                <li>fieldset/legend 그룹핑 + 에러 영역 확보</li>
+                <li>실무 포인트: label 없는 input 금지, 기본 HTML 검증 + 추후 JS 강화</li>
+              </ul>
+            </details>
+
+            <details class="details">
+              <summary class="details__sum">Ch.05~07 — CSS 기초(토큰/특이성/공통 스타일)</summary>
+              <ul class="bullets">
+                <li>공통 스타일 기반(타이포/링크/버튼)</li>
+                <li><code>:root</code> CSS 변수(토큰) 습관 확립</li>
+                <li>선택자/특이성 관리, <code>!important</code> 최소화</li>
+              </ul>
+            </details>
+
+            <details class="details">
+              <summary class="details__sum">Ch.08~09 — 박스 모델 + 레이아웃</summary>
+              <ul class="bullets">
+                <li><code>box-sizing: border-box</code> 전면 적용</li>
+                <li>margin/padding 설계 원칙(임의 증가 금지)</li>
+                <li>position(relative/absolute/fixed/sticky)</li>
+                <li>깨짐 점검: width/overflow/이미지 고정폭/<code>min-width:0</code></li>
+              </ul>
+            </details>
+
+            <details class="details">
+              <summary class="details__sum">Ch.10~11 — 시맨틱 + 멀티미디어</summary>
+              <ul class="bullets">
+                <li>header/nav/main/section/article/aside/footer 구조 리팩토링</li>
+                <li>video/audio 적용(autoplay 정책 주의)</li>
+                <li>시맨틱 선택 혼동 케이스 정리(목차 단위 vs 카드 단위 기준 등)</li>
+              </ul>
+            </details>
+
+            <details class="details">
+              <summary class="details__sum">Ch.12~13 — 선택자 심화 + 애니메이션</summary>
+              <ul class="bullets">
+                <li>상태 스타일: hover/focus-visible/active/disabled</li>
+                <li>가상요소(::before/::after)로 UI 디테일</li>
+                <li>transition 1종 + keyframes 1종</li>
+                <li>prefers-reduced-motion 고려</li>
+              </ul>
+            </details>
+
+            <details class="details">
+              <summary class="details__sum">Ch.14~16 — 반응형 + 미디어쿼리 + Flex</summary>
+              <ul class="bullets">
+                <li>1열 → 2열 → 3열 반응형 구성</li>
+                <li>%/max-width/height:auto, 미디어쿼리 2~3 구간</li>
+                <li>Flex 핵심 + <code>min-width:0</code>(텍스트 깨짐 방지)</li>
+              </ul>
+            </details>
+          </section>
+
+          <hr class="hr" />
+
+          <!-- 3) UI 템플릿 -->
+          <section class="doc-sec" id="r-3" aria-labelledby="r-3-title">
+            <h2 class="h2" id="r-3-title">3) UI 템플릿/화면 모듈(실무형 누적 목록)</h2>
+
+            <h3 class="h3">3.1 기본 섹션 템플릿(초기 5종)</h3>
+            <ol class="list">
+              <li>블로그 글 템플릿</li>
+              <li>회원가입/로그인 폼</li>
+              <li>마케팅 섹션(그라데이션/CTA)</li>
+              <li>헤더 고정 + 2단 레이아웃</li>
+              <li>반응형 카드 그리드(Flex)</li>
+            </ol>
+
+            <h3 class="h3">3.2 확장 화면 모듈</h3>
+            <ol class="list">
+              <li>설문/온보딩 위저드(단일 페이지, 기존과 분리)</li>
+              <li>가격 플랜 비교 + 결제 옵션 선택</li>
+              <li>관리자 목록(테이블) + 필터 패널</li>
+              <li>파일 업로드(드래그&드롭) + 미리보기</li>
+              <li>FAQ/도움말 센터 + 아코디언</li>
+              <li>접근성 내비게이션(Skip Link + 현재 위치)</li>
+            </ol>
+
+            <h3 class="h3">3.3 공통 UI 인프라 컴포넌트</h3>
+            <ol class="list">
+              <li>모달/다이얼로그(<code>&lt;dialog&gt;</code> 기반)</li>
+              <li>토스트/알림 센터 + 상태별 스타일 시스템</li>
+              <li>캘린더/스케줄 월간 그리드</li>
+              <li>프로필/설정 페이지(읽기 전용 + 폼 혼합)</li>
+            </ol>
+          </section>
+
+          <hr class="hr" />
+
+          <!-- 4) 설계 원칙 -->
+          <section class="doc-sec" id="r-4" aria-labelledby="r-4-title">
+            <h2 class="h2" id="r-4-title">4) 공통 설계 원칙(전 화면 적용)</h2>
+            <ul class="bullets">
+              <li><strong>토큰화</strong>: spacing/radius/color/shadow/container를 <code>:root</code> 변수로 관리</li>
+              <li><strong>클래스 설계</strong>: 태그 선택자 남용 금지, 블록/요소 패턴 유지</li>
+              <li><strong>안 깨지게</strong>: min-width:0, overflow-wrap, 이미지 유동 대응</li>
+              <li><strong>접근성</strong>: label-for, focus-visible, aria-live, skip-link, 현재 위치 표시</li>
+            </ul>
+          </section>
+
+          <hr class="hr" />
+
+          <!-- 5) 통합 운영 -->
+          <section class="doc-sec" id="r-5" aria-labelledby="r-5-title">
+            <h2 class="h2" id="r-5-title">5) 통합 운영 방식(“한 번에 보기”)</h2>
+            <ul class="bullets">
+              <li>index.html 하나에 모든 템플릿을 누적</li>
+              <li>상단 탭/내비로 “뷰 전환(보고서/템플릿/체크리스트)”</li>
+              <li>템플릿 페이지는 섹션 단위로 독립 관리(중복 CSS 최소화)</li>
+            </ul>
+          </section>
+
+          <hr class="hr" />
+
+          <!-- 6) 상태 -->
+          <section class="doc-sec" id="r-6" aria-labelledby="r-6-title">
+            <h2 class="h2" id="r-6-title">6) 현재 상태 요약</h2>
+            <ul class="bullets">
+              <li>HTML/CSS 학습 단계 산출물 → 실무형 UI 모듈로 확장</li>
+              <li>모달/토스트/캘린더/설정까지 “앱 화면 뼈대” 확보</li>
+              <li>다음 핵심은 “통합 스위치 + styles.css 공통화(중복 제거)”</li>
+            </ul>
+          </section>
+
+          <hr class="hr" />
+
+          <!-- 7) Next -->
+          <section class="doc-sec" id="r-7" aria-labelledby="r-7-title">
+            <h2 class="h2" id="r-7-title">7) 다음 작업 권장(우선순위)</h2>
+            <ol class="steps">
+              <li>index.html 스위치/라우팅 체계 확정(현재 문서는 그 골격 포함)</li>
+              <li>styles.css 공통 컴포넌트 표준화(버튼/필드/카드/유틸)</li>
+              <li>접근성 회귀 테스트 체크리스트 고정(탭 이동/aria-live/모달 포커스)</li>
+            </ol>
+          </section>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========================
+         VIEW 2) TEMPLATES INDEX
+    ========================== -->
+    <section class="view" data-view="templates" hidden>
+      <header class="page-head">
+        <h1 class="page-title">템플릿 인덱스</h1>
+        <p class="page-desc">
+          누적된 화면/컴포넌트를 “목록 → 설명 → 바로 이동” 형태로 관리합니다. (실제 마크업은 각 섹션에 붙여 넣는 방식)
+        </p>
+      </header>
+
+      <div class="tpl-layout">
+        <aside class="card tpl-nav" aria-label="템플릿 목록">
+          <h2 class="h3">목록</h2>
+          <nav class="tpl-links" aria-label="템플릿 바로가기">
+            <button class="tpl-link is-active" type="button" data-tpl="tpl-blog">블로그 글 템플릿</button>
+            <button class="tpl-link" type="button" data-tpl="tpl-auth">회원가입/로그인 폼</button>
+            <button class="tpl-link" type="button" data-tpl="tpl-marketing">마케팅 섹션(CTA)</button>
+            <button class="tpl-link" type="button" data-tpl="tpl-layout2">헤더 고정 + 2단 레이아웃</button>
+            <button class="tpl-link" type="button" data-tpl="tpl-cards">반응형 카드 그리드(Flex)</button>
+            <hr class="hr" />
+            <button class="tpl-link" type="button" data-tpl="tpl-modal">모달/다이얼로그</button>
+            <button class="tpl-link" type="button" data-tpl="tpl-toast">토스트/알림 센터</button>
+            <button class="tpl-link" type="button" data-tpl="tpl-calendar">월간 캘린더 그리드</button>
+            <button class="tpl-link" type="button" data-tpl="tpl-settings">프로필/설정 페이지</button>
+          </nav>
+
+          <p class="text-sm text-muted">
+            각 템플릿은 “섹션 단위”로 붙이고, 공통 CSS는 styles.css로 승격합니다.
+          </p>
+        </aside>
+
+        <article class="card tpl-panel" aria-label="템플릿 상세">
+          <!-- BLOG -->
+          <section class="tpl" id="tpl-blog" data-tpl-panel>
+            <header class="tpl-head">
+              <h2 class="h2">블로그 글 템플릿</h2>
+              <span class="badge">Ch.01~03</span>
+            </header>
+            <p class="text-muted">목적: 텍스트/목록/표/이미지/링크를 포함하는 정적 문서 화면 기본형.</p>
+            <div class="paste">
+              <p class="paste__title">붙여넣기 영역</p>
+              <p class="text-sm text-muted">여기에 블로그 템플릿 HTML을 넣고, 필요한 클래스는 styles.css에 추가/정리합니다.</p>
+              <pre class="code"><code>&lt;!-- BLOG TEMPLATE HTML HERE --&gt;</code></pre>
+            </div>
+          </section>
+
+          <!-- AUTH -->
+          <section class="tpl" id="tpl-auth" data-tpl-panel hidden>
+            <header class="tpl-head">
+              <h2 class="h2">회원가입/로그인 폼</h2>
+              <span class="badge">Ch.04</span>
+            </header>
+            <p class="text-muted">목적: label/fieldset/기본 검증/에러 영역 포함한 폼 표준.</p>
+            <div class="paste">
+              <p class="paste__title">붙여넣기 영역</p>
+              <pre class="code"><code>&lt;!-- AUTH FORM HTML HERE --&gt;</code></pre>
+            </div>
+          </section>
+
+          <!-- MARKETING -->
+          <section class="tpl" id="tpl-marketing" data-tpl-panel hidden>
+            <header class="tpl-head">
+              <h2 class="h2">마케팅 섹션(CTA)</h2>
+              <span class="badge">Ch.07</span>
+            </header>
+            <p class="text-muted">목적: 배경/그라데이션/CTA 버튼/카피 구성 패턴.</p>
+            <div class="paste">
+              <p class="paste__title">붙여넣기 영역</p>
+              <pre class="code"><code>&lt;!-- MARKETING SECTION HTML HERE --&gt;</code></pre>
+            </div>
+          </section>
+
+          <!-- LAYOUT 2 -->
+          <section class="tpl" id="tpl-layout2" data-tpl-panel hidden>
+            <header class="tpl-head">
+              <h2 class="h2">헤더 고정 + 2단 레이아웃</h2>
+              <span class="badge">Ch.08~09</span>
+            </header>
+            <p class="text-muted">목적: sticky header + sidebar/main 구조(운영 화면 표준).</p>
+            <div class="paste">
+              <p class="paste__title">붙여넣기 영역</p>
+              <pre class="code"><code>&lt;!-- TWO-COLUMN LAYOUT HTML HERE --&gt;</code></pre>
+            </div>
+          </section>
+
+          <!-- CARDS -->
+          <section class="tpl" id="tpl-cards" data-tpl-panel hidden>
+            <header class="tpl-head">
+              <h2 class="h2">반응형 카드 그리드(Flex)</h2>
+              <span class="badge">Ch.14~16</span>
+            </header>
+            <p class="text-muted">목적: 1열→2열→3열 카드 레이아웃, min-width:0 방어 포함.</p>
+            <div class="paste">
+              <p class="paste__title">붙여넣기 영역</p>
+              <pre class="code"><code>&lt;!-- CARD GRID HTML HERE --&gt;</code></pre>
+            </div>
+          </section>
+
+          <!-- MODAL -->
+          <section class="tpl" id="tpl-modal" data-tpl-panel hidden>
+            <header class="tpl-head">
+              <h2 class="h2">모달/다이얼로그</h2>
+              <span class="badge">Infra</span>
+            </header>
+            <p class="text-muted">목적: &lt;dialog&gt; 기반 표준 모달 + backdrop + 닫기 경로.</p>
+            <div class="paste">
+              <p class="paste__title">붙여넣기 영역</p>
+              <pre class="code"><code>&lt;!-- DIALOG HTML HERE --&gt;</code></pre>
+            </div>
+          </section>
+
+          <!-- TOAST -->
+          <section class="tpl" id="tpl-toast" data-tpl-panel hidden>
+            <header class="tpl-head">
+              <h2 class="h2">토스트/알림 센터</h2>
+              <span class="badge">Infra</span>
+            </header>
+            <p class="text-muted">목적: 즉시 피드백(Toast) + 기록(Notification Center) + 상태 토큰 시스템.</p>
+            <div class="paste">
+              <p class="paste__title">붙여넣기 영역</p>
+              <pre class="code"><code>&lt;!-- TOAST + CENTER HTML HERE --&gt;</code></pre>
+            </div>
+          </section>
+
+          <!-- CALENDAR -->
+          <section class="tpl" id="tpl-calendar" data-tpl-panel hidden>
+            <header class="tpl-head">
+              <h2 class="h2">월간 캘린더 그리드</h2>
+              <span class="badge">Infra</span>
+            </header>
+            <p class="text-muted">목적: 7열×6주 고정 그리드 + 이벤트 칩 + 선택 패널.</p>
+            <div class="paste">
+              <p class="paste__title">붙여넣기 영역</p>
+              <pre class="code"><code>&lt;!-- MONTHLY CALENDAR HTML HERE --&gt;</code></pre>
+            </div>
+          </section>
+
+          <!-- SETTINGS -->
+          <section class="tpl" id="tpl-settings" data-tpl-panel hidden>
+            <header class="tpl-head">
+              <h2 class="h2">프로필/설정 페이지</h2>
+              <span class="badge">Infra</span>
+            </header>
+            <p class="text-muted">목적: 읽기 전용 블록 + 폼 섹션 혼합, 섹션 단위 저장.</p>
+            <div class="paste">
+              <p class="paste__title">붙여넣기 영역</p>
+              <pre class="code"><code>&lt;!-- SETTINGS PAGE HTML HERE --&gt;</code></pre>
+            </div>
+          </section>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========================
+         VIEW 3) CHECKLIST
+    ========================== -->
+    <section class="view" data-view="checklist" hidden>
+      <header class="page-head">
+        <h1 class="page-title">검증 체크리스트</h1>
+        <p class="page-desc">
+          “매번” 수행하는 품질 루틴을 체크박스로 고정합니다. (개발 중 회귀 방지용)
+        </p>
+      </header>
+
+      <section class="card">
+        <h2 class="h3">기본 검증(필수)</h2>
+        <ul class="checks">
+          <li><label class="check"><input type="checkbox" /> DevTools에서 박스모델/레이아웃 확인(부모/자식/overflow)</label></li>
+          <li><label class="check"><input type="checkbox" /> 뷰포트 320 / 375 / 768 / 1024 깨짐 확인</label></li>
+          <li><label class="check"><input type="checkbox" /> 이미지/긴 텍스트로 overflow 발생 여부 확인</label></li>
+          <li><label class="check"><input type="checkbox" /> Flex 내부 텍스트 깨짐 방지(min-width:0) 적용 여부 확인</label></li>
+          <li><label class="check"><input type="checkbox" /> 폼 탭 이동/포커스 표시(:focus-visible) 확인</label></li>
+          <li><label class="check"><input type="checkbox" /> label-for 연결/aria-live 등 접근성 필수 포인트 확인</label></li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2 class="h3">컴포넌트별 추가 검증</h2>
+        <ul class="checks">
+          <li><label class="check"><input type="checkbox" /> 모달: ESC/닫기 버튼/backdrop 클릭 정책 일관성</label></li>
+          <li><label class="check"><input type="checkbox" /> 토스트: aria-live, 자동닫힘 정책(danger는 OFF 고려)</label></li>
+          <li><label class="check"><input type="checkbox" /> 캘린더: 6주 고정(42칸), 이벤트 칩 overflow 방지</label></li>
+          <li><label class="check"><input type="checkbox" /> 설정: 섹션 단위 저장, readonly 값 분리, Danger zone 분리</label></li>
+        </ul>
+
+        <div class="row-actions">
+          <button class="btn btn--ghost" type="button" data-check-all>전체 체크</button>
+          <button class="btn btn--ghost" type="button" data-uncheck-all>전체 해제</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <p class="footer-text">© html-css-playground — report index</p>
+    </div>
+  </footer>
+
+  <!-- 최소 스크립트: 뷰 전환 + 템플릿 패널 전환 + 체크리스트 버튼 -->
+  <script>
+    (function () {
+      const viewBtns = Array.from(document.querySelectorAll('[data-view-btn]'));
+      const views = Array.from(document.querySelectorAll('[data-view]'));
+
+      const tplBtns = Array.from(document.querySelectorAll('[data-tpl]'));
+      const tplPanels = Array.from(document.querySelectorAll('[data-tpl-panel]'));
+
+      const checkAllBtn = document.querySelector('[data-check-all]');
+      const uncheckAllBtn = document.querySelector('[data-uncheck-all]');
+
+      const setView = (name) => {
+        views.forEach(v => v.hidden = v.getAttribute('data-view') !== name);
+        viewBtns.forEach(b => {
+          const active = b.getAttribute('data-view-btn') === name;
+          b.classList.toggle('is-active', active);
+          if (active) b.setAttribute('aria-current', 'page');
+          else b.removeAttribute('aria-current');
+        });
+        // 스크롤 상단(탭 전환 시 문서 헤더로)
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        try { localStorage.setItem('docView', name); } catch (_) {}
+      };
+
+      const setTpl = (id) => {
+        tplPanels.forEach(p => p.hidden = p.id !== id);
+        tplBtns.forEach(b => b.classList.toggle('is-active', b.getAttribute('data-tpl') === id));
+      };
+
+      // View buttons
+      viewBtns.forEach(btn => {
+        btn.addEventListener('click', () => setView(btn.getAttribute('data-view-btn')));
+      });
+
+      // Template nav buttons
+      tplBtns.forEach(btn => {
+        btn.addEventListener('click', () => setTpl(btn.getAttribute('data-tpl')));
+      });
+
+      // Checklist actions
+      const setAllChecks = (checked) => {
+        const boxes = Array.from(document.querySelectorAll('.checks input[type="checkbox"]'));
+        boxes.forEach(x => x.checked = checked);
+      };
+      if (checkAllBtn) checkAllBtn.addEventListener('click', () => setAllChecks(true));
+      if (uncheckAllBtn) uncheckAllBtn.addEventListener('click', () => setAllChecks(false));
+
+      // Restore last view
+      let initial = 'report';
+      try {
+        const saved = localStorage.getItem('docView');
+        if (saved && ['report','templates','checklist'].includes(saved)) initial = saved;
+      } catch (_) {}
+      setView(initial);
+
+      // Default template panel
+      if (tplPanels.length) setTpl('tpl-blog');
+    })();
+  </script>
+</body>
+</html>

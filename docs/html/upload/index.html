@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>File Upload + Preview</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top">Uploader</a>
+
+      <nav class="nav" aria-label="페이지 내 이동">
+        <a class="nav__link" href="#upload">Upload</a>
+        <a class="nav__link" href="#preview">Preview</a>
+        <a class="nav__link" href="#notes">Check</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="top">
+    <header class="page-head">
+      <h1 class="page-title">파일 업로드(드래그 앤 드롭 느낌) + 미리보기</h1>
+      <p class="page-desc">
+        Drag&Drop + 다중 선택 + 미리보기 카드 그리드. 서버 업로드는 제외(로컬 미리보기).
+      </p>
+    </header>
+
+    <div class="upload-layout">
+      <!-- Dropzone -->
+      <section class="card" id="upload" aria-label="파일 업로드 영역">
+        <h2 class="h3">업로드</h2>
+        <p class="text-sm text-muted">
+          파일을 끌어다 놓거나, 버튼으로 선택하세요. (이미지/문서 혼합 가능)
+        </p>
+
+        <form class="form" action="#" method="post" novalidate>
+          <input
+            id="fileInput"
+            class="file-input"
+            type="file"
+            multiple
+            accept="image/*,.pdf,.txt,.md,.zip,.csv"
+          />
+
+          <label class="dropzone" for="fileInput" data-dropzone tabindex="0" role="button"
+                 aria-describedby="dz-help">
+            <div class="dropzone__icon" aria-hidden="true">⬆</div>
+            <div class="dropzone__text">
+              <p class="dropzone__title">드래그 앤 드롭</p>
+              <p class="dropzone__sub" id="dz-help">또는 클릭해서 파일 선택 (여러 개 가능)</p>
+            </div>
+            <span class="dropzone__hint text-sm text-muted">권장: 이미지 10MB 이하</span>
+          </label>
+
+          <div class="upload-actions">
+            <button class="btn btn--ghost" type="button" data-clear>전체 제거</button>
+            <button class="btn btn--primary" type="button" data-fake-upload disabled>업로드(샘플)</button>
+          </div>
+
+          <p class="text-sm text-muted">
+            총 <strong data-count>0</strong>개 · <strong data-total>0</strong> MB
+          </p>
+        </form>
+      </section>
+
+      <!-- Preview -->
+      <section class="card" id="preview" aria-label="미리보기">
+        <div class="preview-head">
+          <div>
+            <h2 class="h3">미리보기</h2>
+            <p class="text-sm text-muted">이미지는 썸네일, 그 외는 메타 정보로 표시합니다.</p>
+          </div>
+
+          <div class="seg" role="tablist" aria-label="보기 방식">
+            <button class="seg__btn is-active" type="button" data-view="grid" role="tab" aria-selected="true">Grid</button>
+            <button class="seg__btn" type="button" data-view="list" role="tab" aria-selected="false">List</button>
+          </div>
+        </div>
+
+        <div class="empty" data-empty>
+          <p class="text-muted">아직 파일이 없습니다. 왼쪽에서 파일을 추가하세요.</p>
+        </div>
+
+        <div class="preview-grid" data-preview-grid hidden></div>
+
+        <ul class="preview-list" data-preview-list hidden></ul>
+      </section>
+    </div>
+
+    <section class="card notes" id="notes" aria-label="검증 체크">
+      <h2 class="h3">검증 체크(필수)</h2>
+      <ul class="bullets">
+        <li>드래그 오버 시 dropzone이 강조되는지</li>
+        <li>320/375에서 레이아웃이 1열로 자연스럽게 떨어지는지</li>
+        <li>Tab으로 dropzone 포커스 이동 + Enter로 파일 선택이 되는지</li>
+        <li>이미지 썸네일 표시 후 삭제 시 메모리(URL revoke) 처리되는지</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-text">© Upload UI</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const input = document.getElementById('fileInput');
+      const dropzone = document.querySelector('[data-dropzone]');
+
+      const btnClear = document.querySelector('[data-clear]');
+      const btnUpload = document.querySelector('[data-fake-upload]');
+
+      const countEl = document.querySelector('[data-count]');
+      const totalEl = document.querySelector('[data-total]');
+
+      const emptyEl = document.querySelector('[data-empty]');
+      const gridEl = document.querySelector('[data-preview-grid]');
+      const listEl = document.querySelector('[data-preview-list]');
+
+      const viewBtns = Array.from(document.querySelectorAll('[data-view]'));
+
+      // state: { id, file, url?, isImage }
+      let items = [];
+      let view = 'grid';
+
+      const fmtMB = (bytes) => (bytes / (1024 * 1024)).toFixed(2);
+      const escapeHtml = (s) =>
+        String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+
+      const isImageFile = (file) => file.type.startsWith('image/');
+      const makeId = () => Math.random().toString(16).slice(2) + Date.now().toString(16);
+
+      const setView = (next) => {
+        view = next;
+        viewBtns.forEach(btn => {
+          const active = btn.dataset.view === view;
+          btn.classList.toggle('is-active', active);
+          btn.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+
+        const has = items.length > 0;
+        gridEl.hidden = !(has && view === 'grid');
+        listEl.hidden = !(has && view === 'list');
+      };
+
+      const updateMeta = () => {
+        countEl.textContent = String(items.length);
+        const totalBytes = items.reduce((sum, it) => sum + it.file.size, 0);
+        totalEl.textContent = fmtMB(totalBytes);
+
+        btnUpload.disabled = items.length === 0;
+
+        const has = items.length > 0;
+        emptyEl.hidden = has;
+        setView(view);
+      };
+
+      const iconFor = (file) => {
+        const name = file.name.toLowerCase();
+        if (name.endsWith('.pdf')) return 'PDF';
+        if (name.endsWith('.zip')) return 'ZIP';
+        if (name.endsWith('.csv')) return 'CSV';
+        if (name.endsWith('.md')) return 'MD';
+        if (name.endsWith('.txt')) return 'TXT';
+        return 'FILE';
+      };
+
+      const render = () => {
+        updateMeta();
+
+        if (items.length === 0) {
+          gridEl.innerHTML = '';
+          listEl.innerHTML = '';
+          return;
+        }
+
+        // Grid
+        gridEl.innerHTML = items.map(it => {
+          const f = it.file;
+          const title = escapeHtml(f.name);
+          const sub = `${fmtMB(f.size)} MB · ${escapeHtml(f.type || 'unknown')}`;
+          const thumb = it.isImage
+            ? `<img class="thumb__img" src="${it.url}" alt="${title}" loading="lazy" />`
+            : `<div class="thumb__file" aria-hidden="true">${iconFor(f)}</div>`;
+
+          return `
+            <article class="item" data-id="${it.id}">
+              <div class="thumb">${thumb}</div>
+              <div class="item__body">
+                <p class="item__title" title="${title}">${title}</p>
+                <p class="item__meta">${sub}</p>
+              </div>
+              <div class="item__actions">
+                <button class="link-btn" type="button" data-action="remove">삭제</button>
+              </div>
+            </article>
+          `;
+        }).join('');
+
+        // List
+        listEl.innerHTML = items.map(it => {
+          const f = it.file;
+          const title = escapeHtml(f.name);
+          const sub = `${fmtMB(f.size)} MB · ${escapeHtml(f.type || 'unknown')}`;
+          const left = it.isImage
+            ? `<img class="mini" src="${it.url}" alt="${title}" loading="lazy" />`
+            : `<div class="mini mini--file" aria-hidden="true">${iconFor(f)}</div>`;
+
+          return `
+            <li class="row" data-id="${it.id}">
+              <div class="row__left">${left}</div>
+              <div class="row__mid">
+                <p class="row__title" title="${title}">${title}</p>
+                <p class="row__meta">${sub}</p>
+              </div>
+              <div class="row__right">
+                <button class="link-btn" type="button" data-action="remove">삭제</button>
+              </div>
+            </li>
+          `;
+        }).join('');
+      };
+
+      const addFiles = (files) => {
+        const arr = Array.from(files || []);
+        if (arr.length === 0) return;
+
+        const next = arr.map(file => {
+          const id = makeId();
+          const isImage = isImageFile(file);
+          const url = isImage ? URL.createObjectURL(file) : null;
+          return { id, file, isImage, url };
+        });
+
+        items = items.concat(next);
+        render();
+      };
+
+      const removeById = (id) => {
+        const target = items.find(it => it.id === id);
+        if (target && target.url) URL.revokeObjectURL(target.url);
+        items = items.filter(it => it.id !== id);
+        render();
+      };
+
+      const clearAll = () => {
+        items.forEach(it => { if (it.url) URL.revokeObjectURL(it.url); });
+        items = [];
+        input.value = '';
+        render();
+      };
+
+      // Input change
+      input.addEventListener('change', () => {
+        addFiles(input.files);
+        // 같은 파일 재선택을 허용하려면 value 초기화
+        input.value = '';
+      });
+
+      // Dropzone keyboard: Enter/Space triggers click
+      dropzone.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          input.click();
+        }
+      });
+
+      // Drag & Drop
+      const prevent = (e) => { e.preventDefault(); e.stopPropagation(); };
+
+      ['dragenter', 'dragover'].forEach(evt => {
+        dropzone.addEventListener(evt, (e) => {
+          prevent(e);
+          dropzone.classList.add('is-drag');
+        });
+      });
+
+      ['dragleave', 'drop'].forEach(evt => {
+        dropzone.addEventListener(evt, (e) => {
+          prevent(e);
+          dropzone.classList.remove('is-drag');
+        });
+      });
+
+      dropzone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        if (!dt) return;
+        addFiles(dt.files);
+      });
+
+      // Actions
+      btnClear.addEventListener('click', clearAll);
+
+      btnUpload.addEventListener('click', () => {
+        alert('업로드(샘플). 실무에서는 presigned URL / multipart / progress로 확장합니다.');
+      });
+
+      // View switch
+      viewBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          setView(btn.dataset.view);
+          render();
+        });
+      });
+
+      // Remove buttons (event delegation)
+      const onRemove = (e) => {
+        const btn = e.target.closest('[data-action="remove"]');
+        if (!btn) return;
+        const host = e.currentTarget.closest('[data-id]') || btn.closest('[data-id]');
+        const id = host ? host.getAttribute('data-id') : null;
+        if (id) removeById(id);
+      };
+
+      gridEl.addEventListener('click', onRemove);
+      listEl.addEventListener('click', onRemove);
+
+      // Init
+      setView('grid');
+      render();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HTML/CSS Playground</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+
+  <!--
+[스위치 사용법]
+아래 data-page 값을 바꾸면 해당 섹션만 보입니다.
+
+가능 값:
+- blog     : 블로그 글 템플릿(Ch.01~03)
+- forms    : 로그인/회원가입 폼(Ch.04)
+- marketing: 마케팅 섹션(Ch.07)
+- layout   : 헤더 고정 + 2단 레이아웃(Ch.08~09)
+- cards    : 반응형 카드 그리드(Flex)(Ch.14~16)
+- all      : 전부 표시(검증/비교용)
+
+예)
+<body data-page="blog">
+-->
+
+  <body data-page="forms">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="#switch">Playground</a>
+
+        <nav class="nav" aria-label="템플릿 선택">
+          <a class="nav__link" href="#page-blog" data-page="blog">Blog</a>
+          <a class="nav__link" href="#page-forms" data-page="forms">Forms</a>
+          <a class="nav__link" href="#page-marketing" data-page="marketing"
+            >Marketing</a
+          >
+          <a class="nav__link" href="#page-layout" data-page="layout">Layout</a>
+          <a class="nav__link" href="#page-cards" data-page="cards">Cards</a>
+          <a class="nav__link" href="#switch" data-page="all">All</a>
+        </nav>
+
+        <!-- <nav class="nav" aria-label="템플릿 선택">
+        <a class="nav__link" href="#switch">Switch</a>
+        <a class="nav__link" href="#page-blog">Blog</a>
+        <a class="nav__link" href="#page-forms">Forms</a>
+        <a class="nav__link" href="#page-marketing">Marketing</a>
+        <a class="nav__link" href="#page-layout">Layout</a>
+        <a class="nav__link" href="#page-cards">Cards</a>
+      </nav> -->
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- Switch Panel (항상 표시) -->
+      <section class="switch card" id="switch" aria-labelledby="switch-title">
+        <h1 class="h2" id="switch-title">템플릿 스위치</h1>
+        <p class="text-muted text-sm">
+          index.html에서 <code>&lt;body data-page="..."&gt;</code> 값만
+          변경하세요. (예: <code>blog</code>, <code>forms</code>,
+          <code>marketing</code>, <code>layout</code>, <code>cards</code>,
+          <code>all</code>)
+        </p>
+
+        <ul class="bullets">
+          <li>DevTools로 박스모델/레이아웃 확인</li>
+          <li>320/375/768/1024 뷰포트에서 깨짐 체크</li>
+          <li>폼은 키보드 탭 이동(접근성) 확인</li>
+        </ul>
+      </section>
+
+      <!-- =========================
+      1) 블로그 글 템플릿 (Ch.01~03)
+    ========================== -->
+      <section
+        class="page page-blog"
+        id="page-blog"
+        aria-label="블로그 글 템플릿"
+      >
+        <article class="post">
+          <header class="post-header">
+            <h1 class="post-title">블로그 글 템플릿</h1>
+            <p class="post-meta">
+              <time datetime="2026-01-02">2026-01-02</time>
+              <span class="dot" aria-hidden="true"></span>
+              <span>작성자: Jay</span>
+            </p>
+          </header>
+
+          <div class="prose">
+            <p>
+              이 템플릿은 <strong>텍스트/목록/정의목록/표/이미지/링크</strong>를
+              한 번에 점검하기 위한 기본 형태입니다. 줄바꿈/정렬은
+              <em>HTML이 아니라 CSS</em>로 처리합니다.
+            </p>
+
+            <h2>섹션 제목(h2)</h2>
+            <p>
+              문단은 <code>&lt;p&gt;</code>로, 강조는
+              <code>&lt;strong&gt;</code>/<code>&lt;em&gt;</code>로 처리합니다.
+            </p>
+
+            <h3>목록 예시(h3)</h3>
+            <ol>
+              <li>문서 구조 세팅</li>
+              <li>필수 태그 1회 이상 사용</li>
+              <li>DevTools/뷰포트/탭 이동 검증</li>
+            </ol>
+
+            <h3 id="faq">FAQ(정의 목록)</h3>
+            <dl class="faq">
+              <dt>Q. 왜 br 남용이 문제인가?</dt>
+              <dd>
+                A. 구조가 깨지고 유지보수성이 급락합니다. 여백은 CSS로
+                처리합니다.
+              </dd>
+
+              <dt>Q. table은 언제 쓰나?</dt>
+              <dd>A. 데이터 표현에만 씁니다(레이아웃 용도 금지).</dd>
+            </dl>
+
+            <h3>이미지</h3>
+            <figure class="figure">
+              <img src="./assets/hero.jpg" alt="샘플 이미지(assets/hero.jpg)" />
+              <figcaption>이미지에는 alt를 반드시 작성합니다.</figcaption>
+            </figure>
+
+            <h3>링크</h3>
+            <p>
+              외부 링크:
+              <a
+                href="https://developer.mozilla.org/ko/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                MDN Web Docs
+              </a>
+            </p>
+
+            <h3 id="table">표(데이터용)</h3>
+            <div
+              class="table-wrap"
+              role="region"
+              aria-label="학습 로그 표(가로 스크롤 가능)"
+            >
+              <table class="data-table">
+                <caption>
+                  학습 로그
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">날짜</th>
+                    <th scope="col">주제</th>
+                    <th scope="col">완료</th>
+                    <th scope="col">메모</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">01/01</th>
+                    <td>HTML 구조</td>
+                    <td>✅</td>
+                    <td class="truncate">meta viewport 적용</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">01/02</th>
+                    <td>목록/FAQ</td>
+                    <td>✅</td>
+                    <td class="truncate">dl/dt/dd 사용</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <hr />
+
+            <p class="note">
+              참고: 표는 데이터용입니다. 레이아웃은 flex/grid로 처리합니다(메일
+              HTML 제외).
+            </p>
+          </div>
+
+          <footer class="post-footer">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">Basics</span>
+          </footer>
+        </article>
+      </section>
+
+      <!-- =========================
+      2) 회원가입/로그인 폼 (Ch.04)
+    ========================== -->
+      <section
+        class="page page-forms"
+        id="page-forms"
+        aria-label="회원가입/로그인 폼"
+      >
+        <header class="page-head">
+          <h1 class="h2">회원가입/로그인 폼</h1>
+          <p class="text-muted text-sm">
+            label/fieldset/legend + HTML 기본
+            검증(required/minlength/maxlength/pattern) + 에러 영역 확보.
+          </p>
+        </header>
+
+        <div class="auth-grid">
+          <section class="card" aria-labelledby="login-title">
+            <h2 class="h3" id="login-title">로그인</h2>
+
+            <form class="form" action="#" method="post" novalidate>
+              <fieldset class="fieldset">
+                <legend class="legend">계정</legend>
+
+                <div class="field">
+                  <label class="label" for="login-email">이메일</label>
+                  <input
+                    class="control"
+                    id="login-email"
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    required
+                    placeholder="name@example.com"
+                  />
+                  <p class="hint">
+                    이메일 형식이 아니면 브라우저가 기본 검증을 표시합니다.
+                  </p>
+                  <p class="error" aria-live="polite"></p>
+                </div>
+
+                <div class="field">
+                  <label class="label" for="login-password">비밀번호</label>
+                  <input
+                    class="control"
+                    id="login-password"
+                    name="password"
+                    type="password"
+                    autocomplete="current-password"
+                    minlength="8"
+                    maxlength="64"
+                    required
+                    placeholder="8~64자"
+                  />
+                  <p class="hint">최소 8자 권장(실무는 서버 검증이 최종).</p>
+                  <p class="error" aria-live="polite"></p>
+                </div>
+
+                <button class="btn btn--primary btn--block" type="submit">
+                  로그인
+                </button>
+              </fieldset>
+            </form>
+          </section>
+
+          <section class="card" aria-labelledby="signup-title">
+            <h2 class="h3" id="signup-title">회원가입</h2>
+
+            <form class="form" action="#" method="post" novalidate>
+              <fieldset class="fieldset">
+                <legend class="legend">기본 정보</legend>
+
+                <div class="field">
+                  <label class="label" for="signup-name">이름</label>
+                  <input
+                    class="control"
+                    id="signup-name"
+                    name="name"
+                    type="text"
+                    autocomplete="name"
+                    minlength="2"
+                    maxlength="20"
+                    required
+                    placeholder="2~20자"
+                  />
+                  <p class="hint">공백/특수문자 정책은 서버에서 확정합니다.</p>
+                  <p class="error" aria-live="polite"></p>
+                </div>
+
+                <div class="field">
+                  <label class="label" for="signup-email">이메일</label>
+                  <input
+                    class="control"
+                    id="signup-email"
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    required
+                    placeholder="name@example.com"
+                  />
+                  <p class="hint">로그인 아이디로 사용됩니다.</p>
+                  <p class="error" aria-live="polite"></p>
+                </div>
+
+                <div class="field">
+                  <label class="label" for="signup-tel">전화번호</label>
+                  <input
+                    class="control"
+                    id="signup-tel"
+                    name="tel"
+                    type="tel"
+                    autocomplete="tel"
+                    inputmode="tel"
+                    required
+                    placeholder="01012345678"
+                    pattern="^01[016789]\d{7,8}$"
+                  />
+                  <p class="hint">
+                    예시 패턴(단순). 실무는 국가/포맷 정책 필요.
+                  </p>
+                  <p class="error" aria-live="polite"></p>
+                </div>
+
+                <div class="field">
+                  <label class="label" for="signup-birth">생년월일</label>
+                  <input
+                    class="control"
+                    id="signup-birth"
+                    name="birth"
+                    type="date"
+                    required
+                  />
+                  <p class="hint">OS/브라우저에 따라 UI가 다릅니다.</p>
+                  <p class="error" aria-live="polite"></p>
+                </div>
+
+                <div class="field">
+                  <label class="label" for="signup-role">가입 목적</label>
+                  <select class="control" id="signup-role" name="role" required>
+                    <option value="" selected disabled>선택하세요</option>
+                    <option value="personal">개인</option>
+                    <option value="team">팀</option>
+                    <option value="business">사업</option>
+                  </select>
+                  <p class="hint">select 커스텀은 후순위입니다.</p>
+                  <p class="error" aria-live="polite"></p>
+                </div>
+
+                <div class="field">
+                  <label class="label" for="signup-bio">자기소개</label>
+                  <textarea
+                    class="control"
+                    id="signup-bio"
+                    name="bio"
+                    rows="4"
+                    maxlength="200"
+                    placeholder="최대 200자"
+                  ></textarea>
+                  <p class="hint">rows 중심. 높이 고정 남발 금지.</p>
+                  <p class="error" aria-live="polite"></p>
+                </div>
+
+                <div class="field">
+                  <label class="label" for="signup-password">비밀번호</label>
+                  <input
+                    class="control"
+                    id="signup-password"
+                    name="password"
+                    type="password"
+                    autocomplete="new-password"
+                    minlength="8"
+                    maxlength="64"
+                    required
+                    placeholder="영문+숫자 포함"
+                    pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,64}$"
+                  />
+                  <p class="hint">
+                    예시 정책(단순). 실무는 강화 + 서버 검증 필수.
+                  </p>
+                  <p class="error" aria-live="polite"></p>
+                </div>
+              </fieldset>
+
+              <fieldset class="fieldset">
+                <legend class="legend">약관</legend>
+
+                <label class="check">
+                  <input type="checkbox" name="terms" required />
+                  <span>이용약관 동의(필수)</span>
+                </label>
+                <p class="error" aria-live="polite"></p>
+
+                <label class="check">
+                  <input type="checkbox" name="marketing" />
+                  <span>마케팅 수신 동의(선택)</span>
+                </label>
+              </fieldset>
+
+              <button class="btn btn--primary btn--block" type="submit">
+                회원가입
+              </button>
+            </form>
+          </section>
+        </div>
+      </section>
+
+      <!-- =========================
+      3) 마케팅 섹션 (Ch.07)
+    ========================== -->
+      <section
+        class="page page-marketing"
+        id="page-marketing"
+        aria-label="마케팅 섹션"
+      >
+        <section class="marketing" aria-labelledby="marketing-title">
+          <div class="marketing-inner">
+            <div class="copy">
+              <p class="eyebrow">Product / Landing</p>
+              <h1 class="title" id="marketing-title">
+                그라데이션 배경 + CTA 버튼 템플릿
+              </h1>
+              <p class="desc">
+                핵심은 <strong>가치 제안</strong>과
+                <strong>행동 유도(CTA)</strong>입니다.
+              </p>
+
+              <ul class="bullets">
+                <li>배경 패턴은 “클래스 1개”로 재사용</li>
+                <li>CTA는 Primary 1개 + Secondary 1개</li>
+                <li>모바일 우선 → 넓어지면 2열</li>
+              </ul>
+
+              <div class="actions">
+                <a class="btn btn--primary" href="#switch">무료로 시작</a>
+                <a class="btn btn--ghost" href="#switch">데모 보기</a>
+              </div>
+
+              <p class="fineprint">
+                * 버튼이 3개를 넘어가면 메시지가 흔들린 겁니다.
+              </p>
+            </div>
+
+            <aside class="panel" aria-label="보조 정보">
+              <div class="panel-card">
+                <h2 class="h3">빠른 요약</h2>
+                <dl class="kv">
+                  <div class="kv-row">
+                    <dt>대상</dt>
+                    <dd>랜딩/서비스 소개</dd>
+                  </div>
+                  <div class="kv-row">
+                    <dt>핵심</dt>
+                    <dd>가치 제안 + CTA</dd>
+                  </div>
+                  <div class="kv-row">
+                    <dt>구성</dt>
+                    <dd>배경/카피/버튼</dd>
+                  </div>
+                </dl>
+              </div>
+
+              <div class="panel-card">
+                <h2 class="h3">신뢰 요소</h2>
+                <p class="text-muted">
+                  로고/리뷰/지표(“전환율 18% 개선”)를 붙이면 완성도가
+                  올라갑니다.
+                </p>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </section>
+
+      <!-- =========================
+      4) 헤더 고정 + 2단 레이아웃 (Ch.08~09)
+    ========================== -->
+      <section
+        class="page page-layout"
+        id="page-layout"
+        aria-label="헤더 고정 + 2단 레이아웃"
+      >
+        <div class="layout">
+          <aside class="sidebar card" aria-label="사이드 메뉴">
+            <h2 class="h3">사이드 메뉴</h2>
+            <ul class="menu">
+              <li><a class="link" href="#switch">스위치로</a></li>
+              <li><a class="link" href="#layout-cards">카드</a></li>
+              <li><a class="link" href="#layout-table">테이블</a></li>
+            </ul>
+
+            <section class="note-card">
+              <p class="text-sm text-muted">
+                깨짐 점검: 부모/자식 너비 → overflow → 이미지 고정폭 → 긴 텍스트
+                → flex/grid 내부 <strong>min-width:0</strong>
+              </p>
+            </section>
+          </aside>
+
+          <div class="main stack">
+            <section class="card stack">
+              <header class="section-header">
+                <h1 class="h2">헤더 고정 + 2단 레이아웃</h1>
+                <p class="text-sm text-muted">
+                  상단 헤더 sticky + 본문 grid(좌 260px + 우 가변) + 사이드
+                  sticky.
+                </p>
+              </header>
+              <p class="text">
+                관리 화면/대시보드/문서 페이지에서 가장 흔한 구조입니다. 본문
+                컨테이너에 <strong>min-width:0</strong>는 필수입니다.
+              </p>
+            </section>
+
+            <section class="card stack" id="layout-cards">
+              <h2 class="h3">카드 리스트</h2>
+              <div class="list">
+                <article class="item">
+                  <h3 class="h4">Item 1</h3>
+                  <p class="text-sm text-muted">
+                    sticky 요소는 부모에 overflow가 걸리면 깨질 수 있습니다.
+                  </p>
+                </article>
+                <article class="item">
+                  <h3 class="h4">Item 2</h3>
+                  <p class="text-sm text-muted">
+                    “고정 + 가변” 구조는 grid가 가장 단순합니다.
+                  </p>
+                </article>
+              </div>
+            </section>
+
+            <section class="card stack" id="layout-table">
+              <h2 class="h3">데이터 테이블</h2>
+              <div
+                class="table-wrap"
+                role="region"
+                aria-label="샘플 테이블(가로 스크롤 가능)"
+              >
+                <table class="data-table">
+                  <caption>
+                    샘플 데이터
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">이름</th>
+                      <th scope="col">상태</th>
+                      <th scope="col">메모</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1001</th>
+                      <td>Alpha</td>
+                      <td>OK</td>
+                      <td class="truncate">
+                        https://example.com/some/really/long/path/that/can/break/layout
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">1002</th>
+                      <td>Beta</td>
+                      <td>WARN</td>
+                      <td class="truncate">
+                        긴 텍스트는 ellipsis/overflow-wrap으로 방어합니다.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================
+      5) 반응형 카드 그리드(Flex) (Ch.14~16)
+    ========================== -->
+      <section
+        class="page page-cards"
+        id="page-cards"
+        aria-label="반응형 카드 그리드(Flex)"
+      >
+        <header class="page-head">
+          <h1 class="h2">반응형 카드 그리드(Flex)</h1>
+          <p class="text-sm text-muted">
+            모바일 1열 → 태블릿 2열 → 데스크탑 3열. 핵심은
+            <code>flex-wrap</code> + <code>flex-basis</code> +
+            <code>min-width:0</code>.
+          </p>
+        </header>
+
+        <section class="cards" aria-label="카드 목록">
+          <article class="card card-item">
+            <h2 class="h3">Card 01</h2>
+            <p class="text-sm text-muted">
+              긴 텍스트가 카드 폭을 밀지 않도록 min-width:0 + overflow-wrap
+              적용.
+            </p>
+            <a class="link" href="#switch">자세히</a>
+          </article>
+
+          <article class="card card-item">
+            <h2 class="h3">Card 02</h2>
+            <p class="text-sm text-muted">
+              고정폭(px) 남발 금지. 유동 폭(%) + max-width가 기본.
+            </p>
+            <a class="link" href="#switch">자세히</a>
+          </article>
+
+          <article class="card card-item">
+            <h2 class="h3">Card 03</h2>
+            <p class="text-sm text-muted">
+              https://example.com/some/really/long/path/that/can/break/layout
+            </p>
+            <a class="link" href="#switch">자세히</a>
+          </article>
+
+          <article class="card card-item">
+            <h2 class="h3">Card 04</h2>
+            <p class="text-sm text-muted">
+              카드 내부는 grid로 간격만 관리하면 실수가 줄어듭니다.
+            </p>
+            <a class="link" href="#switch">자세히</a>
+          </article>
+
+          <article class="card card-item">
+            <h2 class="h3">Card 05</h2>
+            <p class="text-sm text-muted">
+              브레이크포인트 2~3구간이면 충분(768/1024).
+            </p>
+            <a class="link" href="#switch">자세히</a>
+          </article>
+
+          <article class="card card-item">
+            <h2 class="h3">Card 06</h2>
+            <p class="text-sm text-muted">
+              “완벽 정렬”보다 “깨지지 않음”이 우선입니다.
+            </p>
+            <a class="link" href="#switch">자세히</a>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p class="text-sm text-muted">© html-css-playground</p>
+      </div>
+    </footer>
+
+    <script>
+  (function () {
+    const body = document.body;
+    const links = Array.from(document.querySelectorAll('.nav__link[data-page]'));
+
+    // href(#page-forms) -> page(forms) 매핑
+    const hashToPage = (hash) => {
+      const id = (hash || '').replace('#', '');
+      if (!id) return null;
+
+      // data-page가 달린 링크의 href와 매칭해서 page를 찾는다(하드코딩 최소화)
+      const found = links.find(a => a.getAttribute('href') === '#' + id);
+      return found ? found.dataset.page : null;
+    };
+
+    const setPage = (page) => {
+      if (!page) return;
+      body.dataset.page = page;
+
+      // 접근성/활성 표시
+      links.forEach(a => {
+        const isCurrent = a.dataset.page === page;
+        if (isCurrent) a.setAttribute('aria-current', 'page');
+        else a.removeAttribute('aria-current');
+      });
+    };
+
+    // 클릭 시: 페이지 전환 + 해시 갱신
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('.nav__link[data-page]');
+      if (!a) return;
+
+      e.preventDefault();
+
+      const page = a.dataset.page;
+      setPage(page);
+
+      const href = a.getAttribute('href');
+      if (href) history.pushState(null, '', href);
+
+      // 페이지 전환 시 스크롤 상단으로(원치 않으면 제거)
+      window.scrollTo({ top: 0 });
+    });
+
+    // 뒤로가기/앞으로가기 대응
+    window.addEventListener('popstate', () => {
+      const page = hashToPage(location.hash);
+      if (page) setPage(page);
+    });
+
+    // 초기 진입: URL 해시 우선, 없으면 body data-page 기본값 사용
+    const initial = hashToPage(location.hash) || body.dataset.page || 'blog';
+    setPage(initial);
+
+    // 해시가 비어있으면 초기 페이지 해시도 맞춰둔다(딥링크/새로고침 안정)
+    if (!location.hash) {
+      const currentLink = links.find(a => a.dataset.page === initial);
+      if (currentLink) history.replaceState(null, '', currentLink.getAttribute('href'));
+    }
+  })();
+</script>
+  </body>
+</html>

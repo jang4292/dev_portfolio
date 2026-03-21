@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>반응형 카드 그리드(Flex)</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#grid">Cards</a>
+
+      <nav class="nav" aria-label="주요 메뉴">
+        <a class="nav__link" href="#grid">Grid</a>
+        <a class="nav__link" href="#tips">Tips</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn--ghost" href="#grid">미리보기</a>
+        <a class="btn btn--primary" href="#grid">시작</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="page-head">
+      <h1 class="page-title" id="grid">반응형 카드 그리드(Flex)</h1>
+      <p class="page-desc">
+        모바일 1열 → 태블릿 2열 → 데스크탑 3열. 핵심은 <strong>flex-wrap</strong> +
+        <strong>flex-basis</strong> + <strong>min-width:0</strong> 입니다.
+      </p>
+    </header>
+
+    <!-- 카드 그리드 -->
+    <section class="cards" aria-label="카드 목록">
+      <article class="card card-item">
+        <h2 class="card-title">Card 01</h2>
+        <p class="card-desc">
+          긴 텍스트가 있어도 레이아웃을 밀지 않도록 <code>min-width:0</code>와
+          <code>overflow-wrap:anywhere</code>를 적용합니다.
+        </p>
+        <a class="link" href="#">자세히</a>
+      </article>
+
+      <article class="card card-item">
+        <h2 class="card-title">Card 02</h2>
+        <p class="card-desc">
+          이미지가 있으면 <code>max-width:100%</code>, <code>height:auto</code>로 깨짐을 방지합니다.
+        </p>
+        <a class="link" href="#">자세히</a>
+      </article>
+
+      <article class="card card-item">
+        <h2 class="card-title">Card 03</h2>
+        <p class="card-desc">
+          고정폭(px) 남발은 반응형에서 가장 흔한 장애물입니다. 유동 폭(%) + max-width를 우선합니다.
+        </p>
+        <a class="link" href="#">자세히</a>
+      </article>
+
+      <article class="card card-item">
+        <h2 class="card-title">Card 04</h2>
+        <p class="card-desc">
+          https://example.com/some/really/long/path/that/can/break/layout 같은 문자열이 들어오면
+          줄바꿈 정책이 중요합니다.
+        </p>
+        <a class="link" href="#">자세히</a>
+      </article>
+
+      <article class="card card-item">
+        <h2 class="card-title">Card 05</h2>
+        <p class="card-desc">
+          CTA는 1~2개로 제한하는 게 기본입니다. 버튼이 많아지면 메시지가 흐려집니다.
+        </p>
+        <a class="link" href="#">자세히</a>
+      </article>
+
+      <article class="card card-item">
+        <h2 class="card-title">Card 06</h2>
+        <p class="card-desc">
+          카드 내부 레이아웃은 grid로 “간격만” 관리하면 실수가 줄어듭니다.
+        </p>
+        <a class="link" href="#">자세히</a>
+      </article>
+
+      <article class="card card-item">
+        <h2 class="card-title">Card 07</h2>
+        <p class="card-desc">
+          실제 서비스에서는 카드 높이가 달라집니다. “완벽 정렬”보다 “깨지지 않음”이 우선입니다.
+        </p>
+        <a class="link" href="#">자세히</a>
+      </article>
+
+      <article class="card card-item">
+        <h2 class="card-title">Card 08</h2>
+        <p class="card-desc">
+          접근성: 링크/버튼은 <code>:focus-visible</code>로 키보드 포커스를 보이게 합니다.
+        </p>
+        <a class="link" href="#">자세히</a>
+      </article>
+
+      <article class="card card-item">
+        <h2 class="card-title">Card 09</h2>
+        <p class="card-desc">
+          데스크탑 3열에서 너무 넓어지면 가독성이 나빠집니다. container 폭을 제한합니다.
+        </p>
+        <a class="link" href="#">자세히</a>
+      </article>
+    </section>
+
+    <section class="card tips" id="tips" aria-labelledby="tips-title">
+      <h2 class="card-title" id="tips-title">실무 체크포인트</h2>
+      <ul class="bullets">
+        <li><strong>고정폭(px)</strong> 남발 금지: 특히 카드/이미지/버튼 폭</li>
+        <li>긴 텍스트는 <code>overflow-wrap:anywhere</code>로 방어</li>
+        <li>Flex 내부 텍스트 깨짐 방지는 <code>min-width:0</code></li>
+        <li>브레이크포인트는 2~3구간이면 충분(320/768/1024 기준)</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-text">© Responsive Cards</p>
+    </div>
+  </footer>
+</body>
+</html>
