@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>설문/온보딩 위저드</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <!-- 상단 고정 헤더(스위치 없음, 단순 네비) -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top">Onboarding Wizard</a>
+
+      <nav class="nav" aria-label="페이지 내 이동">
+        <a class="nav__link" href="#wizard">Wizard</a>
+        <a class="nav__link" href="#notes">Notes</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="top">
+    <header class="page-head">
+      <h1 class="page-title">설문/온보딩 위저드(단일 페이지)</h1>
+      <p class="page-desc">
+        멀티 스텝 폼 + 진행률 + 현재 스텝만 HTML 기본 검증 + 키보드 포커스 이동 기준.
+      </p>
+    </header>
+
+    <section class="wizard card" id="wizard" data-wizard aria-label="온보딩 위저드">
+      <!-- 진행 헤더 -->
+      <div class="wizard-head">
+        <div class="wizard-status">
+          <p class="wizard-kicker">Onboarding</p>
+          <h2 class="wizard-title" aria-live="polite">Step</h2>
+        </div>
+
+        <div class="wizard-progress" aria-label="진행률">
+          <div class="wizard-progress__bar" data-progressbar></div>
+        </div>
+      </div>
+
+      <!-- 단계 인디케이터 -->
+      <ol class="wizard-steps" aria-label="단계">
+        <li class="wizard-step" data-step-indicator="0" role="button" tabindex="0">
+          <span class="wizard-step__num" aria-hidden="true">1</span>
+          <span class="wizard-step__label">목적</span>
+        </li>
+        <li class="wizard-step" data-step-indicator="1" role="button" tabindex="0">
+          <span class="wizard-step__num" aria-hidden="true">2</span>
+          <span class="wizard-step__label">기본 정보</span>
+        </li>
+        <li class="wizard-step" data-step-indicator="2" role="button" tabindex="0">
+          <span class="wizard-step__num" aria-hidden="true">3</span>
+          <span class="wizard-step__label">선호 설정</span>
+        </li>
+        <li class="wizard-step" data-step-indicator="3" role="button" tabindex="0">
+          <span class="wizard-step__num" aria-hidden="true">4</span>
+          <span class="wizard-step__label">확인</span>
+        </li>
+      </ol>
+
+      <form class="wizard-form" action="#" method="post" novalidate>
+        <!-- Step 1 -->
+        <fieldset class="wizard-panel" data-step="0">
+          <legend class="legend">목적 선택</legend>
+
+          <div class="field">
+            <p class="label">어떤 용도로 사용하시나요?</p>
+
+            <label class="radio">
+              <input type="radio" name="goal" value="personal" required />
+              <span>개인 용도</span>
+            </label>
+
+            <label class="radio">
+              <input type="radio" name="goal" value="team" required />
+              <span>팀/협업</span>
+            </label>
+
+            <label class="radio">
+              <input type="radio" name="goal" value="business" required />
+              <span>비즈니스</span>
+            </label>
+
+            <p class="hint">라디오 그룹은 1개 이상 선택(required).</p>
+            <p class="error" aria-live="polite"></p>
+          </div>
+
+          <div class="field">
+            <label class="label" for="usecase">사용 목적(선택)</label>
+            <textarea class="control" id="usecase" name="usecase" rows="4" maxlength="200"
+                      placeholder="예: 템플릿을 빠르게 구성하고 싶습니다."></textarea>
+            <p class="hint">textarea는 rows 중심. 과도한 고정 높이 금지.</p>
+            <p class="error" aria-live="polite"></p>
+          </div>
+        </fieldset>
+
+        <!-- Step 2 -->
+        <fieldset class="wizard-panel" data-step="1">
+          <legend class="legend">기본 정보</legend>
+
+          <div class="field">
+            <label class="label" for="name">이름</label>
+            <input class="control" id="name" name="name" type="text"
+                   autocomplete="name" minlength="2" maxlength="20" required placeholder="2~20자" />
+            <p class="hint">허용 문자/공백 정책은 서버에서 확정.</p>
+            <p class="error" aria-live="polite"></p>
+          </div>
+
+          <div class="field">
+            <label class="label" for="email">이메일</label>
+            <input class="control" id="email" name="email" type="email"
+                   autocomplete="email" required placeholder="name@example.com" />
+            <p class="hint">브라우저 기본 검증 + 서버 검증이 정석.</p>
+            <p class="error" aria-live="polite"></p>
+          </div>
+
+          <div class="field">
+            <label class="label" for="tel">연락처(선택)</label>
+            <input class="control" id="tel" name="tel" type="tel"
+                   autocomplete="tel" inputmode="tel"
+                   placeholder="01012345678" pattern="^01[016789]\\d{7,8}$" />
+            <p class="hint">패턴은 예시(단순). 국가/포맷 정책 필요.</p>
+            <p class="error" aria-live="polite"></p>
+          </div>
+        </fieldset>
+
+        <!-- Step 3 -->
+        <fieldset class="wizard-panel" data-step="2">
+          <legend class="legend">선호 설정</legend>
+
+          <div class="field">
+            <p class="label">관심 항목(선택)</p>
+
+            <label class="check">
+              <input type="checkbox" name="interests" value="ui" />
+              <span>UI 컴포넌트</span>
+            </label>
+
+            <label class="check">
+              <input type="checkbox" name="interests" value="admin" />
+              <span>Admin/ERP</span>
+            </label>
+
+            <label class="check">
+              <input type="checkbox" name="interests" value="a11y" />
+              <span>접근성(A11y)</span>
+            </label>
+
+            <p class="hint">체크박스는 실무에서 배열 형태로 전송되는 경우가 많음.</p>
+            <p class="error" aria-live="polite"></p>
+          </div>
+
+          <div class="field">
+            <label class="label" for="pace">온보딩 속도</label>
+            <select class="control" id="pace" name="pace" required>
+              <option value="" selected disabled>선택하세요</option>
+              <option value="fast">빠르게</option>
+              <option value="normal">보통</option>
+              <option value="slow">천천히</option>
+            </select>
+            <p class="hint">select는 기본 UI 우선. 커스텀은 후순위.</p>
+            <p class="error" aria-live="polite"></p>
+          </div>
+
+          <div class="field">
+            <label class="label" for="notify">알림 빈도(0~10)</label>
+            <input class="control" id="notify" name="notify" type="range" min="0" max="10" value="5" />
+            <p class="hint">range 값 표시/보조 텍스트는 보통 JS로 강화.</p>
+            <p class="error" aria-live="polite"></p>
+          </div>
+        </fieldset>
+
+        <!-- Step 4 -->
+        <fieldset class="wizard-panel" data-step="3">
+          <legend class="legend">확인</legend>
+
+          <div class="review card">
+            <h3 class="h3">제출 전 확인</h3>
+            <p class="text-muted">
+              실무에서는 FormData로 입력값을 수집해 이 영역에 요약을 표시합니다.
+            </p>
+          </div>
+
+          <label class="check">
+            <input type="checkbox" name="terms" required />
+            <span>이용약관 동의(필수)</span>
+          </label>
+          <p class="error" aria-live="polite"></p>
+
+          <button class="btn btn--primary btn--block" type="submit">제출</button>
+        </fieldset>
+
+        <!-- 액션 -->
+        <div class="wizard-actions">
+          <button class="btn btn--ghost" type="button" data-prev>이전</button>
+          <button class="btn btn--primary" type="button" data-next>다음</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card notes" id="notes" aria-label="검증 노트">
+      <h2 class="h3">검증 체크(필수)</h2>
+      <ul class="bullets">
+        <li>DevTools에서 box model/overflow 확인</li>
+        <li>320/375/768/1024 뷰포트 깨짐 체크</li>
+        <li>Tab 키로 입력 이동 + :focus-visible 표시 확인</li>
+        <li>Step 이동 시 현재 Step만 검증되는지 확인</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-text">© Onboarding Wizard</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const root = document.querySelector('[data-wizard]');
+      if (!root) return;
+
+      const form = root.querySelector('form');
+      const panels = Array.from(root.querySelectorAll('[data-step]'));
+      const indicators = Array.from(root.querySelectorAll('[data-step-indicator]'));
+      const title = root.querySelector('.wizard-title');
+      const bar = root.querySelector('[data-progressbar]');
+      const btnPrev = root.querySelector('[data-prev]');
+      const btnNext = root.querySelector('[data-next]');
+
+      let step = 0;
+
+      const stepTitle = (i) => ['목적 선택', '기본 정보', '선호 설정', '확인'][i] || 'Step';
+
+      const setStep = (next) => {
+        step = Math.max(0, Math.min(next, panels.length - 1));
+
+        panels.forEach((p, i) => p.classList.toggle('is-active', i === step));
+        indicators.forEach((li, i) => {
+          li.classList.toggle('is-active', i === step);
+          li.classList.toggle('is-done', i < step);
+          li.setAttribute('aria-current', i === step ? 'step' : 'false');
+        });
+
+        const pct = Math.round((step / (panels.length - 1)) * 100);
+        bar.style.width = pct + '%';
+        title.textContent = `Step ${step + 1}. ${stepTitle(step)}`;
+
+        btnPrev.disabled = step === 0;
+        btnNext.style.display = (step === panels.length - 1) ? 'none' : 'inline-flex';
+
+        // 키보드 UX: 스텝 전환 시 첫 입력으로 포커스
+        const first = panels[step].querySelector('input, select, textarea, button');
+        if (first) first.focus({ preventScroll: true });
+      };
+
+      const validateCurrentStep = () => {
+        const current = panels[step];
+
+        // 다른 스텝은 disabled로 검증 대상에서 제외(브라우저별 안정성)
+        panels.forEach((p, i) => {
+          p.querySelectorAll('input, select, textarea').forEach(el => el.disabled = (i !== step));
+        });
+
+        const fields = Array.from(current.querySelectorAll('input, select, textarea'));
+        const ok = fields.every(el => el.checkValidity());
+
+        if (!ok) {
+          const firstInvalid = fields.find(el => !el.checkValidity());
+          if (firstInvalid) firstInvalid.reportValidity();
+        }
+
+        // 원복
+        panels.forEach((p) => {
+          p.querySelectorAll('input, select, textarea').forEach(el => el.disabled = false);
+        });
+
+        return ok;
+      };
+
+      btnPrev.addEventListener('click', () => setStep(step - 1));
+      btnNext.addEventListener('click', () => {
+        if (validateCurrentStep()) setStep(step + 1);
+      });
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!validateCurrentStep()) return;
+        alert('제출 완료(샘플). 실무에서는 서버로 전송하세요.');
+      });
+
+      // 인디케이터 클릭/키보드 이동: 지나온 단계만 이동 허용
+      const goIndicator = (li) => {
+        const i = Number(li.dataset.stepIndicator);
+        if (!Number.isNaN(i) && i <= step) setStep(i);
+      };
+
+      indicators.forEach((li) => {
+        li.addEventListener('click', () => goIndicator(li));
+        li.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            goIndicator(li);
+          }
+        });
+      });
+
+      setStep(0);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>블로그 글 템플릿</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#post">My Blog</a>
+
+      <nav class="nav" aria-label="주요 메뉴">
+        <a class="nav__link" href="#post">Post</a>
+        <a class="nav__link" href="#faq">FAQ</a>
+        <a class="nav__link" href="#table">Table</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="post">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">블로그 글 템플릿</h1>
+        <p class="post-meta">
+          <time datetime="2026-01-02">2026-01-02</time>
+          <span class="dot" aria-hidden="true"></span>
+          <span>작성자: Jay</span>
+        </p>
+      </header>
+
+      <div class="prose">
+        <p>
+          이 템플릿은 <strong>텍스트/목록/정의목록/표/이미지/링크</strong>를 한 번에 점검하기 위한 기본 형태입니다.
+          줄바꿈/정렬은 <em>HTML이 아니라 CSS</em>로 처리합니다.
+        </p>
+
+        <h2>섹션 제목(h2)</h2>
+        <p>
+          문단은 <code>&lt;p&gt;</code>로, 강조는 <code>&lt;strong&gt;</code>/<code>&lt;em&gt;</code>로 처리합니다.
+        </p>
+
+        <h3>목록 예시(h3)</h3>
+        <ol>
+          <li>문서 구조 세팅</li>
+          <li>필수 태그 1회 이상 사용</li>
+          <li>DevTools/뷰포트/탭 이동 검증</li>
+        </ol>
+
+        <h3 id="faq">FAQ(정의 목록)</h3>
+        <dl class="faq">
+          <dt>Q. 왜 br 남용이 문제인가?</dt>
+          <dd>A. 구조가 깨지고 유지보수성이 급락합니다. 여백은 CSS로 처리합니다.</dd>
+
+          <dt>Q. table은 언제 쓰나?</dt>
+          <dd>A. 데이터 표현에만 씁니다(레이아웃 용도 금지).</dd>
+        </dl>
+
+        <h3>이미지</h3>
+        <figure class="figure">
+          <img src="./assets/hero.jpg" alt="샘플 이미지(assets/hero.jpg)" />
+          <figcaption>이미지에는 alt를 반드시 작성합니다.</figcaption>
+        </figure>
+
+        <h3>링크</h3>
+        <p>
+          외부 링크:
+          <a href="https://developer.mozilla.org/ko/" target="_blank" rel="noopener noreferrer">
+            MDN Web Docs
+          </a>
+        </p>
+
+        <h3 id="table">표(데이터용)</h3>
+        <div class="table-wrap" role="region" aria-label="학습 로그 표(가로 스크롤 가능)">
+          <table class="data-table">
+            <caption>학습 로그</caption>
+            <thead>
+              <tr>
+                <th scope="col">날짜</th>
+                <th scope="col">주제</th>
+                <th scope="col">완료</th>
+                <th scope="col">메모</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">01/01</th>
+                <td>HTML 구조</td>
+                <td>✅</td>
+                <td class="truncate">meta viewport 적용</td>
+              </tr>
+              <tr>
+                <th scope="row">01/02</th>
+                <td>목록/FAQ</td>
+                <td>✅</td>
+                <td class="truncate">dl/dt/dd 사용</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <hr />
+
+        <p class="note">
+          참고: 표는 데이터용입니다. 레이아웃은 flex/grid로 처리합니다(메일 HTML 제외).
+        </p>
+      </div>
+
+      <footer class="post-footer">
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">Basics</span>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-text">© My Blog</p>
+    </div>
+  </footer>
+</body>
+</html>
