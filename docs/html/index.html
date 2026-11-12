@@ -1,703 +1,192 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>HTML/CSS Playground</title>
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-
-  <!--
-[스위치 사용법]
-아래 data-page 값을 바꾸면 해당 섹션만 보입니다.
-
-가능 값:
-- blog     : 블로그 글 템플릿(Ch.01~03)
-- forms    : 로그인/회원가입 폼(Ch.04)
-- marketing: 마케팅 섹션(Ch.07)
-- layout   : 헤더 고정 + 2단 레이아웃(Ch.08~09)
-- cards    : 반응형 카드 그리드(Flex)(Ch.14~16)
-- all      : 전부 표시(검증/비교용)
-
-예)
-<body data-page="blog">
--->
-
-  <body data-page="forms">
-    <header class="site-header">
-      <div class="container header-inner">
-        <a class="brand" href="#switch">Playground</a>
-
-        <nav class="nav" aria-label="템플릿 선택">
-          <a class="nav__link" href="#page-blog" data-page="blog">Blog</a>
-          <a class="nav__link" href="#page-forms" data-page="forms">Forms</a>
-          <a class="nav__link" href="#page-marketing" data-page="marketing"
-            >Marketing</a
-          >
-          <a class="nav__link" href="#page-layout" data-page="layout">Layout</a>
-          <a class="nav__link" href="#page-cards" data-page="cards">Cards</a>
-          <a class="nav__link" href="#switch" data-page="all">All</a>
-        </nav>
-
-        <!-- <nav class="nav" aria-label="템플릿 선택">
-        <a class="nav__link" href="#switch">Switch</a>
-        <a class="nav__link" href="#page-blog">Blog</a>
-        <a class="nav__link" href="#page-forms">Forms</a>
-        <a class="nav__link" href="#page-marketing">Marketing</a>
-        <a class="nav__link" href="#page-layout">Layout</a>
-        <a class="nav__link" href="#page-cards">Cards</a>
-      </nav> -->
-      </div>
-    </header>
-
-    <main class="container">
-      <!-- Switch Panel (항상 표시) -->
-      <section class="switch card" id="switch" aria-labelledby="switch-title">
-        <h1 class="h2" id="switch-title">템플릿 스위치</h1>
-        <p class="text-muted text-sm">
-          index.html에서 <code>&lt;body data-page="..."&gt;</code> 값만
-          변경하세요. (예: <code>blog</code>, <code>forms</code>,
-          <code>marketing</code>, <code>layout</code>, <code>cards</code>,
-          <code>all</code>)
-        </p>
-
-        <ul class="bullets">
-          <li>DevTools로 박스모델/레이아웃 확인</li>
-          <li>320/375/768/1024 뷰포트에서 깨짐 체크</li>
-          <li>폼은 키보드 탭 이동(접근성) 확인</li>
-        </ul>
-      </section>
-
-      <!-- =========================
-      1) 블로그 글 템플릿 (Ch.01~03)
-    ========================== -->
-      <section
-        class="page page-blog"
-        id="page-blog"
-        aria-label="블로그 글 템플릿"
-      >
-        <article class="post">
-          <header class="post-header">
-            <h1 class="post-title">블로그 글 템플릿</h1>
-            <p class="post-meta">
-              <time datetime="2026-01-02">2026-01-02</time>
-              <span class="dot" aria-hidden="true"></span>
-              <span>작성자: Jay</span>
-            </p>
-          </header>
-
-          <div class="prose">
-            <p>
-              이 템플릿은 <strong>텍스트/목록/정의목록/표/이미지/링크</strong>를
-              한 번에 점검하기 위한 기본 형태입니다. 줄바꿈/정렬은
-              <em>HTML이 아니라 CSS</em>로 처리합니다.
-            </p>
-
-            <h2>섹션 제목(h2)</h2>
-            <p>
-              문단은 <code>&lt;p&gt;</code>로, 강조는
-              <code>&lt;strong&gt;</code>/<code>&lt;em&gt;</code>로 처리합니다.
-            </p>
-
-            <h3>목록 예시(h3)</h3>
-            <ol>
-              <li>문서 구조 세팅</li>
-              <li>필수 태그 1회 이상 사용</li>
-              <li>DevTools/뷰포트/탭 이동 검증</li>
-            </ol>
-
-            <h3 id="faq">FAQ(정의 목록)</h3>
-            <dl class="faq">
-              <dt>Q. 왜 br 남용이 문제인가?</dt>
-              <dd>
-                A. 구조가 깨지고 유지보수성이 급락합니다. 여백은 CSS로
-                처리합니다.
-              </dd>
-
-              <dt>Q. table은 언제 쓰나?</dt>
-              <dd>A. 데이터 표현에만 씁니다(레이아웃 용도 금지).</dd>
-            </dl>
-
-            <h3>이미지</h3>
-            <figure class="figure">
-              <img src="./assets/hero.jpg" alt="샘플 이미지(assets/hero.jpg)" />
-              <figcaption>이미지에는 alt를 반드시 작성합니다.</figcaption>
-            </figure>
-
-            <h3>링크</h3>
-            <p>
-              외부 링크:
-              <a
-                href="https://developer.mozilla.org/ko/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                MDN Web Docs
-              </a>
-            </p>
-
-            <h3 id="table">표(데이터용)</h3>
-            <div
-              class="table-wrap"
-              role="region"
-              aria-label="학습 로그 표(가로 스크롤 가능)"
-            >
-              <table class="data-table">
-                <caption>
-                  학습 로그
-                </caption>
-                <thead>
-                  <tr>
-                    <th scope="col">날짜</th>
-                    <th scope="col">주제</th>
-                    <th scope="col">완료</th>
-                    <th scope="col">메모</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">01/01</th>
-                    <td>HTML 구조</td>
-                    <td>✅</td>
-                    <td class="truncate">meta viewport 적용</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">01/02</th>
-                    <td>목록/FAQ</td>
-                    <td>✅</td>
-                    <td class="truncate">dl/dt/dd 사용</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <hr />
-
-            <p class="note">
-              참고: 표는 데이터용입니다. 레이아웃은 flex/grid로 처리합니다(메일
-              HTML 제외).
-            </p>
-          </div>
-
-          <footer class="post-footer">
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-            <span class="tag">Basics</span>
-          </footer>
-        </article>
-      </section>
-
-      <!-- =========================
-      2) 회원가입/로그인 폼 (Ch.04)
-    ========================== -->
-      <section
-        class="page page-forms"
-        id="page-forms"
-        aria-label="회원가입/로그인 폼"
-      >
-        <header class="page-head">
-          <h1 class="h2">회원가입/로그인 폼</h1>
-          <p class="text-muted text-sm">
-            label/fieldset/legend + HTML 기본
-            검증(required/minlength/maxlength/pattern) + 에러 영역 확보.
-          </p>
-        </header>
-
-        <div class="auth-grid">
-          <section class="card" aria-labelledby="login-title">
-            <h2 class="h3" id="login-title">로그인</h2>
-
-            <form class="form" action="#" method="post" novalidate>
-              <fieldset class="fieldset">
-                <legend class="legend">계정</legend>
-
-                <div class="field">
-                  <label class="label" for="login-email">이메일</label>
-                  <input
-                    class="control"
-                    id="login-email"
-                    name="email"
-                    type="email"
-                    autocomplete="email"
-                    required
-                    placeholder="name@example.com"
-                  />
-                  <p class="hint">
-                    이메일 형식이 아니면 브라우저가 기본 검증을 표시합니다.
-                  </p>
-                  <p class="error" aria-live="polite"></p>
-                </div>
-
-                <div class="field">
-                  <label class="label" for="login-password">비밀번호</label>
-                  <input
-                    class="control"
-                    id="login-password"
-                    name="password"
-                    type="password"
-                    autocomplete="current-password"
-                    minlength="8"
-                    maxlength="64"
-                    required
-                    placeholder="8~64자"
-                  />
-                  <p class="hint">최소 8자 권장(실무는 서버 검증이 최종).</p>
-                  <p class="error" aria-live="polite"></p>
-                </div>
-
-                <button class="btn btn--primary btn--block" type="submit">
-                  로그인
-                </button>
-              </fieldset>
-            </form>
-          </section>
-
-          <section class="card" aria-labelledby="signup-title">
-            <h2 class="h3" id="signup-title">회원가입</h2>
-
-            <form class="form" action="#" method="post" novalidate>
-              <fieldset class="fieldset">
-                <legend class="legend">기본 정보</legend>
-
-                <div class="field">
-                  <label class="label" for="signup-name">이름</label>
-                  <input
-                    class="control"
-                    id="signup-name"
-                    name="name"
-                    type="text"
-                    autocomplete="name"
-                    minlength="2"
-                    maxlength="20"
-                    required
-                    placeholder="2~20자"
-                  />
-                  <p class="hint">공백/특수문자 정책은 서버에서 확정합니다.</p>
-                  <p class="error" aria-live="polite"></p>
-                </div>
-
-                <div class="field">
-                  <label class="label" for="signup-email">이메일</label>
-                  <input
-                    class="control"
-                    id="signup-email"
-                    name="email"
-                    type="email"
-                    autocomplete="email"
-                    required
-                    placeholder="name@example.com"
-                  />
-                  <p class="hint">로그인 아이디로 사용됩니다.</p>
-                  <p class="error" aria-live="polite"></p>
-                </div>
-
-                <div class="field">
-                  <label class="label" for="signup-tel">전화번호</label>
-                  <input
-                    class="control"
-                    id="signup-tel"
-                    name="tel"
-                    type="tel"
-                    autocomplete="tel"
-                    inputmode="tel"
-                    required
-                    placeholder="01012345678"
-                    pattern="^01[016789]\d{7,8}$"
-                  />
-                  <p class="hint">
-                    예시 패턴(단순). 실무는 국가/포맷 정책 필요.
-                  </p>
-                  <p class="error" aria-live="polite"></p>
-                </div>
-
-                <div class="field">
-                  <label class="label" for="signup-birth">생년월일</label>
-                  <input
-                    class="control"
-                    id="signup-birth"
-                    name="birth"
-                    type="date"
-                    required
-                  />
-                  <p class="hint">OS/브라우저에 따라 UI가 다릅니다.</p>
-                  <p class="error" aria-live="polite"></p>
-                </div>
-
-                <div class="field">
-                  <label class="label" for="signup-role">가입 목적</label>
-                  <select class="control" id="signup-role" name="role" required>
-                    <option value="" selected disabled>선택하세요</option>
-                    <option value="personal">개인</option>
-                    <option value="team">팀</option>
-                    <option value="business">사업</option>
-                  </select>
-                  <p class="hint">select 커스텀은 후순위입니다.</p>
-                  <p class="error" aria-live="polite"></p>
-                </div>
-
-                <div class="field">
-                  <label class="label" for="signup-bio">자기소개</label>
-                  <textarea
-                    class="control"
-                    id="signup-bio"
-                    name="bio"
-                    rows="4"
-                    maxlength="200"
-                    placeholder="최대 200자"
-                  ></textarea>
-                  <p class="hint">rows 중심. 높이 고정 남발 금지.</p>
-                  <p class="error" aria-live="polite"></p>
-                </div>
-
-                <div class="field">
-                  <label class="label" for="signup-password">비밀번호</label>
-                  <input
-                    class="control"
-                    id="signup-password"
-                    name="password"
-                    type="password"
-                    autocomplete="new-password"
-                    minlength="8"
-                    maxlength="64"
-                    required
-                    placeholder="영문+숫자 포함"
-                    pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,64}$"
-                  />
-                  <p class="hint">
-                    예시 정책(단순). 실무는 강화 + 서버 검증 필수.
-                  </p>
-                  <p class="error" aria-live="polite"></p>
-                </div>
-              </fieldset>
-
-              <fieldset class="fieldset">
-                <legend class="legend">약관</legend>
-
-                <label class="check">
-                  <input type="checkbox" name="terms" required />
-                  <span>이용약관 동의(필수)</span>
-                </label>
-                <p class="error" aria-live="polite"></p>
-
-                <label class="check">
-                  <input type="checkbox" name="marketing" />
-                  <span>마케팅 수신 동의(선택)</span>
-                </label>
-              </fieldset>
-
-              <button class="btn btn--primary btn--block" type="submit">
-                회원가입
-              </button>
-            </form>
-          </section>
-        </div>
-      </section>
-
-      <!-- =========================
-      3) 마케팅 섹션 (Ch.07)
-    ========================== -->
-      <section
-        class="page page-marketing"
-        id="page-marketing"
-        aria-label="마케팅 섹션"
-      >
-        <section class="marketing" aria-labelledby="marketing-title">
-          <div class="marketing-inner">
-            <div class="copy">
-              <p class="eyebrow">Product / Landing</p>
-              <h1 class="title" id="marketing-title">
-                그라데이션 배경 + CTA 버튼 템플릿
-              </h1>
-              <p class="desc">
-                핵심은 <strong>가치 제안</strong>과
-                <strong>행동 유도(CTA)</strong>입니다.
-              </p>
-
-              <ul class="bullets">
-                <li>배경 패턴은 “클래스 1개”로 재사용</li>
-                <li>CTA는 Primary 1개 + Secondary 1개</li>
-                <li>모바일 우선 → 넓어지면 2열</li>
-              </ul>
-
-              <div class="actions">
-                <a class="btn btn--primary" href="#switch">무료로 시작</a>
-                <a class="btn btn--ghost" href="#switch">데모 보기</a>
-              </div>
-
-              <p class="fineprint">
-                * 버튼이 3개를 넘어가면 메시지가 흔들린 겁니다.
-              </p>
-            </div>
-
-            <aside class="panel" aria-label="보조 정보">
-              <div class="panel-card">
-                <h2 class="h3">빠른 요약</h2>
-                <dl class="kv">
-                  <div class="kv-row">
-                    <dt>대상</dt>
-                    <dd>랜딩/서비스 소개</dd>
-                  </div>
-                  <div class="kv-row">
-                    <dt>핵심</dt>
-                    <dd>가치 제안 + CTA</dd>
-                  </div>
-                  <div class="kv-row">
-                    <dt>구성</dt>
-                    <dd>배경/카피/버튼</dd>
-                  </div>
-                </dl>
-              </div>
-
-              <div class="panel-card">
-                <h2 class="h3">신뢰 요소</h2>
-                <p class="text-muted">
-                  로고/리뷰/지표(“전환율 18% 개선”)를 붙이면 완성도가
-                  올라갑니다.
-                </p>
-              </div>
-            </aside>
-          </div>
-        </section>
-      </section>
-
-      <!-- =========================
-      4) 헤더 고정 + 2단 레이아웃 (Ch.08~09)
-    ========================== -->
-      <section
-        class="page page-layout"
-        id="page-layout"
-        aria-label="헤더 고정 + 2단 레이아웃"
-      >
-        <div class="layout">
-          <aside class="sidebar card" aria-label="사이드 메뉴">
-            <h2 class="h3">사이드 메뉴</h2>
-            <ul class="menu">
-              <li><a class="link" href="#switch">스위치로</a></li>
-              <li><a class="link" href="#layout-cards">카드</a></li>
-              <li><a class="link" href="#layout-table">테이블</a></li>
-            </ul>
-
-            <section class="note-card">
-              <p class="text-sm text-muted">
-                깨짐 점검: 부모/자식 너비 → overflow → 이미지 고정폭 → 긴 텍스트
-                → flex/grid 내부 <strong>min-width:0</strong>
-              </p>
-            </section>
-          </aside>
-
-          <div class="main stack">
-            <section class="card stack">
-              <header class="section-header">
-                <h1 class="h2">헤더 고정 + 2단 레이아웃</h1>
-                <p class="text-sm text-muted">
-                  상단 헤더 sticky + 본문 grid(좌 260px + 우 가변) + 사이드
-                  sticky.
-                </p>
-              </header>
-              <p class="text">
-                관리 화면/대시보드/문서 페이지에서 가장 흔한 구조입니다. 본문
-                컨테이너에 <strong>min-width:0</strong>는 필수입니다.
-              </p>
-            </section>
-
-            <section class="card stack" id="layout-cards">
-              <h2 class="h3">카드 리스트</h2>
-              <div class="list">
-                <article class="item">
-                  <h3 class="h4">Item 1</h3>
-                  <p class="text-sm text-muted">
-                    sticky 요소는 부모에 overflow가 걸리면 깨질 수 있습니다.
-                  </p>
-                </article>
-                <article class="item">
-                  <h3 class="h4">Item 2</h3>
-                  <p class="text-sm text-muted">
-                    “고정 + 가변” 구조는 grid가 가장 단순합니다.
-                  </p>
-                </article>
-              </div>
-            </section>
-
-            <section class="card stack" id="layout-table">
-              <h2 class="h3">데이터 테이블</h2>
-              <div
-                class="table-wrap"
-                role="region"
-                aria-label="샘플 테이블(가로 스크롤 가능)"
-              >
-                <table class="data-table">
-                  <caption>
-                    샘플 데이터
-                  </caption>
-                  <thead>
-                    <tr>
-                      <th scope="col">ID</th>
-                      <th scope="col">이름</th>
-                      <th scope="col">상태</th>
-                      <th scope="col">메모</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">1001</th>
-                      <td>Alpha</td>
-                      <td>OK</td>
-                      <td class="truncate">
-                        https://example.com/some/really/long/path/that/can/break/layout
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">1002</th>
-                      <td>Beta</td>
-                      <td>WARN</td>
-                      <td class="truncate">
-                        긴 텍스트는 ellipsis/overflow-wrap으로 방어합니다.
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
-          </div>
-        </div>
-      </section>
-
-      <!-- =========================
-      5) 반응형 카드 그리드(Flex) (Ch.14~16)
-    ========================== -->
-      <section
-        class="page page-cards"
-        id="page-cards"
-        aria-label="반응형 카드 그리드(Flex)"
-      >
-        <header class="page-head">
-          <h1 class="h2">반응형 카드 그리드(Flex)</h1>
-          <p class="text-sm text-muted">
-            모바일 1열 → 태블릿 2열 → 데스크탑 3열. 핵심은
-            <code>flex-wrap</code> + <code>flex-basis</code> +
-            <code>min-width:0</code>.
-          </p>
-        </header>
-
-        <section class="cards" aria-label="카드 목록">
-          <article class="card card-item">
-            <h2 class="h3">Card 01</h2>
-            <p class="text-sm text-muted">
-              긴 텍스트가 카드 폭을 밀지 않도록 min-width:0 + overflow-wrap
-              적용.
-            </p>
-            <a class="link" href="#switch">자세히</a>
-          </article>
-
-          <article class="card card-item">
-            <h2 class="h3">Card 02</h2>
-            <p class="text-sm text-muted">
-              고정폭(px) 남발 금지. 유동 폭(%) + max-width가 기본.
-            </p>
-            <a class="link" href="#switch">자세히</a>
-          </article>
-
-          <article class="card card-item">
-            <h2 class="h3">Card 03</h2>
-            <p class="text-sm text-muted">
-              https://example.com/some/really/long/path/that/can/break/layout
-            </p>
-            <a class="link" href="#switch">자세히</a>
-          </article>
-
-          <article class="card card-item">
-            <h2 class="h3">Card 04</h2>
-            <p class="text-sm text-muted">
-              카드 내부는 grid로 간격만 관리하면 실수가 줄어듭니다.
-            </p>
-            <a class="link" href="#switch">자세히</a>
-          </article>
-
-          <article class="card card-item">
-            <h2 class="h3">Card 05</h2>
-            <p class="text-sm text-muted">
-              브레이크포인트 2~3구간이면 충분(768/1024).
-            </p>
-            <a class="link" href="#switch">자세히</a>
-          </article>
-
-          <article class="card card-item">
-            <h2 class="h3">Card 06</h2>
-            <p class="text-sm text-muted">
-              “완벽 정렬”보다 “깨지지 않음”이 우선입니다.
-            </p>
-            <a class="link" href="#switch">자세히</a>
-          </article>
-        </section>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="container footer-inner">
-        <p class="text-sm text-muted">© html-css-playground</p>
-      </div>
-    </footer>
-
-    <script>
-  (function () {
-    const body = document.body;
-    const links = Array.from(document.querySelectorAll('.nav__link[data-page]'));
-
-    // href(#page-forms) -> page(forms) 매핑
-    const hashToPage = (hash) => {
-      const id = (hash || '').replace('#', '');
-      if (!id) return null;
-
-      // data-page가 달린 링크의 href와 매칭해서 page를 찾는다(하드코딩 최소화)
-      const found = links.find(a => a.getAttribute('href') === '#' + id);
-      return found ? found.dataset.page : null;
-    };
-
-    const setPage = (page) => {
-      if (!page) return;
-      body.dataset.page = page;
-
-      // 접근성/활성 표시
-      links.forEach(a => {
-        const isCurrent = a.dataset.page === page;
-        if (isCurrent) a.setAttribute('aria-current', 'page');
-        else a.removeAttribute('aria-current');
-      });
-    };
-
-    // 클릭 시: 페이지 전환 + 해시 갱신
-    document.addEventListener('click', (e) => {
-      const a = e.target.closest('.nav__link[data-page]');
-      if (!a) return;
-
-      e.preventDefault();
-
-      const page = a.dataset.page;
-      setPage(page);
-
-      const href = a.getAttribute('href');
-      if (href) history.pushState(null, '', href);
-
-      // 페이지 전환 시 스크롤 상단으로(원치 않으면 제거)
-      window.scrollTo({ top: 0 });
-    });
-
-    // 뒤로가기/앞으로가기 대응
-    window.addEventListener('popstate', () => {
-      const page = hashToPage(location.hash);
-      if (page) setPage(page);
-    });
-
-    // 초기 진입: URL 해시 우선, 없으면 body data-page 기본값 사용
-    const initial = hashToPage(location.hash) || body.dataset.page || 'blog';
-    setPage(initial);
-
-    // 해시가 비어있으면 초기 페이지 해시도 맞춰둔다(딥링크/새로고침 안정)
-    if (!location.hash) {
-      const currentLink = links.find(a => a.dataset.page === initial);
-      if (currentLink) history.replaceState(null, '', currentLink.getAttribute('href'));
-    }
-  })();
-</script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="dev_portfolio 프로젝트 구현 현황, API, WebView 브리지, 작업 이력과 독립 배포 안내">
+  <title>프로젝트 문서 · dev_portfolio</title>
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/portal.css">
+  <script src="assets/portal.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 이동</a>
+<header class="masthead">
+  <a class="brand" href="index.html">dev<span>_</span>portfolio <small>WORKBOOK</small></a>
+  <nav aria-label="문서 메뉴"><a href="index.html" aria-current="page">프로젝트 문서</a><a href="examples.html">예제와 데모</a><a href="history.html">전체 작업 이력</a><a href="worklog.html">정리 보고서</a></nav>
+</header>
+<main id="main" class="page">
+  <section class="hero" aria-labelledby="title">
+    <div><div class="eyebrow">PROJECT DOCUMENTATION / 2026.11.12</div>
+      <h1 id="title">흩어진 작업을,<br>하나의 기록으로.</h1>
+      <p class="lead">서비스·모바일 실험·웹 예제의 현재 구현과 한계를 정리했습니다. 원본 작업을 보존하면서 코드, 실행 예제, 변경 이력을 연결하는 독립형 문서 모음입니다.</p>
+      <div class="actions"><a class="button" href="#projects">프로젝트 살펴보기</a><a class="button secondary" href="examples.html">예제 실행하기</a></div>
+    </div>
+    <div class="stats" aria-label="문서 범위"><div class="stat"><strong>11</strong><span>소스 프로젝트</span></div><div class="stat"><strong>16</strong><span>HTML 예제</span></div><div class="stat"><strong>102</strong><span>공개 커밋 기록</span></div></div>
+  </section>
+  <nav class="toc" aria-label="본문 목차"><a href="#structure">구조</a><a href="#projects">프로젝트 목록</a><a href="#contracts">API·브리지</a><a href="#workflow">통합 정책</a><a href="#verification">검증 범위</a><a href="#deploy">독립 배포·유지보수</a></nav>
+
+  <section class="section" id="structure">
+    <div class="section-heading"><h2>01 / 저장소 지도</h2><span class="eyebrow">INDEPENDENT PROJECTS</span></div>
+    <p>각 디렉터리는 독립적으로 진행된 학습·포트폴리오 작업입니다. 모든 서버와 앱이 하나의 완성된 제품으로 연결된 상태는 아닙니다.</p>
+    <div class="table-wrap"><table><caption>저장소 디렉터리와 문서 역할</caption><thead><tr><th>원본 위치</th><th>역할과 범위</th></tr></thead><tbody>
+      <tr><td><code>services/</code></td><td>서비스 6개. pnpm 워크스페이스에 포함된 경로이며 .NET·Python 프로젝트는 각 런타임으로 실행합니다.</td></tr>
+      <tr><td><code>services-backend/</code></td><td>독립 Express 음악 API 실습.</td></tr>
+      <tr><td><code>labs/</code></td><td>Android 앱 2개와 Excel 데이터 변환 도구. 로컬 빌드·실험 작업.</td></tr>
+      <tr><td><code>playground/</code></td><td>React Native 계산기 UI 학습.</td></tr>
+      <tr><td><code>experiments/</code></td><td>향후 PoC 분류용 공간. 별도 완성 앱으로 집계하지 않습니다.</td></tr>
+      <tr><td><code>docs/</code></td><td>기존 포트폴리오, 정적 빌드, 브리지 설명과 이 문서 사이트. 기존 배포 경로는 유지합니다.</td></tr>
+      <tr><td><code>docs/html/</code></td><td>이 폴더 자체가 독립 배포 단위. 문서·예제·정적 데모·이력·자산·관리 도구 포함.</td></tr>
+    </tbody></table></div>
+    <div class="flow">웹 화면 <strong>↔ WebView 메시지 브리지 ↔</strong> 네이티브 앱<br>독립 백엔드 실습 <strong>≠</strong> 전체 앱의 통합 운영 서버</div>
+    <p>공통 관심사는 WebView 통신, 프런트엔드 실험, API 기본 구조, 게임 관련 데이터 변환입니다. Cocos 게임은 정적 빌드만 보유하므로 편집 가능한 게임 원본 프로젝트와 구분합니다.</p>
+  </section>
+
+  <section class="section" id="projects" data-filter-list>
+    <div class="section-heading"><h2>02 / 프로젝트별 작업 내역</h2><span class="eyebrow">11 SOURCE PROJECTS</span></div>
+    <p>기준: 통합 브랜치의 소스 및 설정을 조사한 스냅샷. 아래 실행 명령은 각 프로젝트 폴더 기준이며, 실행 완료를 의미하지 않습니다. 외부 의존성 설치·SDK·환경 설정이 별도로 필요할 수 있습니다.</p>
+    <div class="filterbar" hidden data-filter-controls><label for="project-search">프로젝트 검색<input id="project-search" type="search" data-filter-input placeholder="예: Android, API, WebView" autocomplete="off"></label><button class="button secondary" type="button" data-filter-clear>초기화</button><p data-filter-count role="status" aria-live="polite"></p></div>
+    <p data-filter-empty hidden>일치하는 프로젝트가 없습니다. 검색어를 바꾸거나 초기화하세요.</p>
+    <div class="grid">
+      <article class="card" id="nestjs" data-search="backend-nestjs-fastify NestJS Fastify TypeScript API lists user 백엔드">
+        <span class="badge">API 기본 구조</span><h3>NestJS + Fastify</h3><div class="path">services/backend-nestjs-fastify</div>
+        <p>NestJS 11의 모듈·컨트롤러·서비스 구조. Fastify 어댑터와 ValidationPipe의 whitelist/transform, helmet·compression·CORS 설정을 구성했습니다.</p>
+        <ul><li><code>GET /</code> 인사 응답.</li><li><code>GET /lists</code>, <code>GET /user</code>는 문자열 stub. 실제 목록·사용자 저장소 미구현.</li><li><code>PORT</code> 또는 3000번 포트.</li></ul>
+        <details><summary>실행·코드 근거</summary><pre><code>pnpm start:dev
+pnpm build
+pnpm typecheck
+pnpm test
+pnpm test:e2e</code></pre><p>근거: <code>src/main.ts</code>, <code>app.module.ts</code>, <code>app.service.ts</code>, <code>src/list/</code>. 테스트 파일은 존재하지만 이번 문서 작업에서 서버 테스트는 실행하지 않았습니다.</p></details>
+      </article>
+      <article class="card" id="dotnet" data-search="dotnet-server .NET C# Minimal API Swagger weatherforecast ping 백엔드">
+        <span class="badge">API 예제</span><h3>.NET Minimal API</h3><div class="path">services/dotnet-server</div>
+        <p>.NET 8 기반 경량 API. 임의 날씨 예보 5개와 UTC 시각 ping 응답을 제공합니다. Swagger는 Development 환경에서만 활성화됩니다.</p>
+        <ul><li><code>GET /weatherforecast</code>, <code>GET /ping</code>.</li><li>실제 launchSettings 기준 HTTP 5048 / HTTPS 7296. 환경 설정으로 달라질 수 있습니다.</li><li>영구 데이터 저장이나 외부 날씨 API 연동은 없습니다.</li></ul>
+        <details><summary>실행·코드 근거</summary><pre><code>dotnet run --launch-profile http</code></pre><p>근거: <code>Program.cs</code>, <code>Properties/launchSettings.json</code>. 서버 실행 미검증.</p></details>
+      </article>
+      <article class="card" id="fastapi" data-search="python-fastapi Python FastAPI uvicorn API 백엔드">
+        <span class="badge">최소 API</span><h3>Python FastAPI</h3><div class="path">services/python-fastapi</div>
+        <p><code>GET /</code>에서 <code>{"Hello":"World"}</code>를 반환하는 시작 예제입니다.</p>
+        <p>독립적인 의존성 명세가 없어 재현 가능한 설치 환경 정리가 후속 과제입니다.</p>
+        <details><summary>실행·코드 근거</summary><pre><code>cd app
+python main.py</code></pre><p>FastAPI·uvicorn 환경이 먼저 필요합니다. <code>app/main.py</code>는 <code>127.0.0.1</code>에 reload 모드로 uvicorn을 실행합니다. 실행 미검증.</p></details>
+      </article>
+      <article class="card" id="expo-webview" data-search="rn-expo-webview Expo React Native TypeScript WebView Android iOS bridge 모바일">
+        <span class="badge">브리지 구현</span><h3>Expo WebView</h3><div class="path">services/rn-expo-webview</div>
+        <p>Expo 53·React Native 0.79·WebView 13 기반 컨테이너. 화면과 메시지 처리 훅, 설정을 분리하고 로딩·오류 상태를 처리합니다.</p>
+        <ul><li>iOS 스타일 <code>window.webkit.messageHandlers.bridge.postMessage</code> 호환 shim 주입.</li><li><code>action</code>과 선택적 <code>payload</code> 메시지 파싱, 비정상 메시지 경고.</li><li>네이티브 → 웹은 <code>nativeBridgeMessage</code> 이벤트.</li></ul>
+        <details><summary>실행·코드 근거</summary><pre><code>pnpm dev
+pnpm dev:android
+pnpm dev:ios
+pnpm web
+pnpm lint</code></pre><p>근거: <code>App.tsx</code>, <code>src/screens/WebViewScreen.tsx</code>, 브리지 유틸리티·<code>useWebViewBridge</code> 훅. 네이티브 실행 및 사이트별 연동 미검증.</p></details>
+      </article>
+      <article class="card" id="vite" data-search="web-frontend-vite React Vite TypeScript counter 프런트엔드 카운터">
+        <span class="badge">카운터 예제</span><h3>React + Vite</h3><div class="path">services/web-frontend-vite</div>
+        <p>React 19·Vite 7·TypeScript·SWC 시작 앱. 클릭 횟수 카운터를 구현했습니다. React Router 의존성은 있지만 실제 라우팅은 구현 예정입니다.</p>
+        <p><a href="demos/web-frontend-vite/index.html">기존 정적 빌드 실행</a> — 소스 재빌드가 아닌 보존된 배포 산출물입니다.</p>
+        <details><summary>실행·코드 근거</summary><pre><code>pnpm dev
+pnpm build
+pnpm preview</code></pre><p>근거: <code>src/App.tsx</code>, <code>src/main.tsx</code>, <code>vite.config.ts</code>. build는 TypeScript 검사와 Vite 빌드를 수행합니다. 이번 작업에서 소스 재빌드는 하지 않았습니다.</p></details>
+      </article>
+      <article class="card" id="react-placeholder" data-search="web-frontend-react React placeholder 플레이스홀더 미구현 프런트엔드">
+        <span class="badge partial">미구현</span><h3>React 프로젝트 예약 공간</h3><div class="path">services/web-frontend-react</div>
+        <p><code>.gitkeep</code>만 있는 플레이스홀더입니다. 앱 소스·실행 스크립트·독립 기능이 없으므로 실행 가능한 데모로 안내하지 않습니다.</p>
+      </article>
+      <article class="card" id="express" data-search="express-musics Express TypeScript API tracks upload 음악 업로드 백엔드">
+        <span class="badge partial">업로드 stub</span><h3>Express 음악 API</h3><div class="path">services-backend/express-musics</div>
+        <p>Express 5·TypeScript 서버. cors·morgan과 라우터를 구성했으며 <code>PORT</code> 또는 3000번 포트를 사용합니다.</p>
+        <ul><li><code>GET /api/</code> 기본 인사 컨트롤러.</li><li><code>POST /tracks/upload</code>는 body 로그 후 201과 <code>{"trackId":0}</code>을 반환합니다.</li><li>실제 파일 업로드·음악 저장·DB 연동은 미구현. test 스크립트도 미설정 오류를 반환합니다.</li></ul>
+        <details><summary>실행·코드 근거</summary><pre><code>npm run dev
+npm run build
+npm start</code></pre><p>근거: <code>src/server.ts</code>, <code>src/app.ts</code>, <code>src/routes/</code>, <code>src/modules/tracks/</code>. API 동작 미검증.</p></details>
+      </article>
+      <article class="card" id="android-compose" data-search="MyApplication Android Kotlin Compose MVVM clean WebView bridge 모바일">
+        <span class="badge">Compose 구조화</span><h3>Android WebView / Compose</h3><div class="path">labs/MyApplication</div>
+        <p>Kotlin·Compose·MVVM 및 계층 분리를 적용한 WebView 실습. domain의 BridgeMessage, core의 NativeBridge, presentation의 화면·ViewModel로 역할을 나눴습니다.</p>
+        <ul><li>iOS 스타일 메시지 호출 호환 처리.</li><li>minSDK 24, compile/target 36, JVM 11 설정.</li><li>별도 앱인 blackjackai_test와 혼동하지 않아야 합니다.</li></ul>
+        <details><summary>실행·코드 근거</summary><pre><code>.\gradlew.bat assembleDebug</code></pre><p>JDK·Android SDK 환경 필요. 근거: <code>MainActivity</code>, <code>NativeBridge</code>, <code>BridgeMessage</code>, <code>WebViewScreen</code>, <code>WebViewViewModel</code>, <code>README.kr.md</code>. 빌드·실기기 동작 미검증.</p></details>
+      </article>
+      <article class="card" id="android-blackjack" data-search="blackjackai_test Android Kotlin WebView Google login Credential Manager OkHttp 인증 게임 모바일">
+        <span class="badge">네이티브 연동 실험</span><h3>Android 블랙잭 WebView 앱</h3><div class="path">labs/blackjackai_test</div>
+        <p>View Binding·몰입형 WebView 앱. Credential Manager Google 로그인과 웹 브리지 요청, OkHttp 기반 토큰 교환 및 코루틴 HTTP 처리를 구현했습니다.</p>
+        <ul><li><code>NativeBridge.googleLogin</code> → 네이티브 로그인 → <code>OkHttpAuthApi</code> 토큰 교환 흐름.</li><li>소셜 링크의 외부 앱 연결 처리.</li><li>결제 권한·커밋 기록만으로 결제 완료를 주장하지 않습니다. 인증 서버·외부 서비스 동작도 미검증입니다.</li></ul>
+        <details><summary>실행·코드 근거</summary><pre><code>.\gradlew.bat assembleDebug</code></pre><p>근거: <code>MainActivity</code>, <code>NativeBridge</code>, <code>OkHttpAuthApi</code>. JDK·Android SDK와 별도 인증 환경이 필요합니다. 키·클라이언트 값·로컬 릴리스 파일은 이 문서에 복제하지 않습니다.</p></details>
+      </article>
+      <article class="card" id="xlsx" data-search="xlsltojson xlsx Excel JSON blackjack strategy offers HARD SOFT PAIR 보험 데이터 변환">
+        <span class="badge">데이터 변환</span><h3>Excel → 블랙잭 JSON</h3><div class="path">labs/xlsltojson</div>
+        <p>xlsx 기반 스프레드시트 변환 실험. 폴더명 <code>xlsltojson</code>은 저장소 원본 표기를 유지합니다.</p>
+        <ul><li><code>xlsx-to-json.mjs</code>: 특정 시트 행을 출력하는 초기 디버그 스크립트. JSON 저장 코드는 주석 상태.</li><li><code>xlsx-to-json2.mjs</code>: HARD·SOFT·PAIR 전략, 딜러 카드 정규화, H/S/D/P/R 행동·ruleset·이유·조건부 우선순위 변환.</li><li><code>xlsx-to-offers.mjs</code>: insurance/even money, Y/N, 플레이어 상태·업카드·중복 처리.</li></ul>
+        <details><summary>CLI 예시·한계</summary><pre><code>node scripts\xlsx-to-offers.mjs .\input\data.xlsx --sheet=offers --rulesetId=BJ_6D_S17_DAS_NS --out=.\out\offers.json</code></pre><p>입력 파일과 시트·열 구조를 스크립트 기대 형식에 맞춰야 합니다. 예시 경로는 사용자가 준비할 입력이며 포함된 테스트 데이터가 아닙니다. 실제 변환 결과는 이번 작업에서 실행 검증하지 않았습니다.</p></details>
+      </article>
+      <article class="card" id="calculator" data-search="rn_expo_calculator Expo React Native JavaScript calculator 계산기 UI 학습 모바일">
+        <span class="badge partial">UI 학습 단계</span><h3>React Native 계산기 화면</h3><div class="path">playground/rn_expo_calculator</div>
+        <p>Expo·React Native의 Pressable과 스타일링 실습. 1·0·+·- 버튼 콜백은 콘솔 로그를 남깁니다. 산술 계산 엔진은 구현하지 않았습니다.</p>
+        <details><summary>실행·코드 근거</summary><pre><code>npm start
+npm run android
+npm run ios
+npm run web</code></pre><p><code>index.js</code> → 루트 <code>App.js</code> → <code>src/App.js</code>로 연결됩니다. 테스트 스크립트 없음. 네이티브·웹 실행 미검증.</p></details>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="contracts">
+    <div class="section-heading"><h2>03 / API와 브리지 계약</h2><span class="eyebrow">OBSERVED BEHAVIOR</span></div>
+    <div class="table-wrap"><table><caption>구현된 HTTP 진입점</caption><thead><tr><th>프로젝트</th><th>메서드·경로</th><th>실제 범위</th></tr></thead><tbody>
+      <tr><td>NestJS</td><td><code>GET /</code><br><code>GET /lists</code><br><code>GET /user</code></td><td>인사 및 문자열 stub. 목록/사용자 CRUD 아님.</td></tr>
+      <tr><td>.NET</td><td><code>GET /weatherforecast</code><br><code>GET /ping</code></td><td>랜덤 예보 5개 / UTC timestamp.</td></tr>
+      <tr><td>FastAPI</td><td><code>GET /</code></td><td><code>{"Hello":"World"}</code>.</td></tr>
+      <tr><td>Express</td><td><code>GET /api/</code><br><code>POST /tracks/upload</code></td><td>인사 / 고정 trackId 0, HTTP 201. 파일 저장 아님.</td></tr>
+    </tbody></table></div>
+    <h3>WebView의 공통 메시지 형태</h3>
+    <pre><code>// 웹 → 호스트: 호스트가 주입한 호환 브리지 필요
+window.webkit.messageHandlers.bridge.postMessage(
+  JSON.stringify({ action: "example", payload: { value: 1 } })
+);
+
+// Expo 호스트 → 웹: 이벤트의 detail에서 메시지 읽기
+window.addEventListener("nativeBridgeMessage", (event) => {
+  console.log(event.detail);
+});</code></pre>
+    <p><code>example</code>은 형식 설명용이며 실제 지원 액션이 아닙니다. 각 앱의 액션 처리기를 확인해야 합니다. Expo의 브리지 이벤트와 Android 인증 앱의 콜백은 자동으로 동일해지지 않습니다.</p>
+    <div class="flow">웹 요청 <strong>→</strong> 호환 shim <strong>→</strong> 호스트 메시지 파싱 <strong>→</strong> 액션 처리 <strong>→</strong> 웹 응답<br>Android 인증 앱: 웹 로그인 요청 <strong>→</strong> Google 로그인 <strong>→</strong> 서버 토큰 교환 <strong>→</strong> 앱별 응답</div>
+    <p>웹 예제만 열어서는 네이티브 브리지·인증이 활성화되지 않습니다. 원본의 한국어·영어 브리지 가이드는 저장소 <code>docs/webview-bridge/</code>에 보존되어 있으며, 독립 배포에 필요한 핵심 내용은 위 설명과 프로젝트 카드에 포함했습니다.</p>
+  </section>
+
+  <section class="section" id="workflow">
+    <div class="section-heading"><h2>04 / 보존 중심의 통합 흐름</h2><a href="worklog.html">분석·진행 보고서 →</a></div>
+    <div class="flow">작업 브랜치 <strong>→ feature/integration → develop → main</strong></div>
+    <p>구조상 main 아래 develop, 그 아래 통합 Feature를 두고 변경은 반대 방향으로 올립니다. #46을 Feature에 병합하고 #47을 develop 대상 Draft로 생성했습니다. 이번 문서화는 아직 커밋되지 않은 후속 작업입니다.</p>
+    <ul><li>원본 브랜치·stash·로컬 릴리스 작업은 삭제하지 않았습니다. 비공개 백업과 복원 검증을 먼저 수행했습니다.</li><li><code>github-pages</code> 및 <code>ci/docs-web-frontend-vite</code>는 배포 운영 예외입니다. Pages 설정·자동화는 변경하지 않았습니다.</li><li>브랜치 삭제와 develop/main 병합은 별도 승인·검증 후 진행합니다. main의 선형 이력 요구도 별도 검토 대상입니다.</li></ul>
+    <p><a href="history.html">102개 커밋 전체 보기</a> · <a href="history/commits.json">이력 JSON</a> · <a href="https://github.com/jang4292/dev_portfolio/pull/47" rel="noreferrer">#47 Draft PR (온라인)</a></p>
+  </section>
+
+  <section class="section" id="verification">
+    <div class="section-heading"><h2>05 / 검증과 남은 작업</h2><span class="eyebrow">NO IMPLIED COMPLETION</span></div>
+    <p>이 문서는 소스에 있는 기능과 실제로 동작 검증한 범위를 구분합니다. 이전 커밋 제목이나 설치된 의존성만으로 기능 완료를 판단하지 않습니다.</p>
+    <div class="grid">
+      <div class="card"><h3>문서 패키지 검증 대상</h3><ul><li>html 내부 링크·프래그먼트·자산 경로.</li><li>LFS 포인터 해소와 데모 복사본 해시 기록.</li><li>공개 브랜치·태그 도달 커밋 수와 내보내기 수 일치.</li><li>폴더 단독 이동 후 문서·검색·정적 데모 로딩.</li></ul><p>실행 결과와 한계는 <a href="worklog.html#validation">보고서의 검증 기록</a>에 남깁니다.</p></div>
+      <div class="card"><h3>후속 기능 검증</h3><ul><li>백엔드별 빌드·단위·API 테스트.</li><li>Android/Expo 실기기 브리지·로그인 검증.</li><li>Excel 실데이터 변환·출력 스키마 검증.</li><li>Cocos 게임 전체 흐름·외부 서버·결제 연동 확인.</li><li>배포 브랜치와 CI의 통합 정책 정합성 검토.</li></ul></div>
+    </div>
+  </section>
+
+  <section class="section" id="deploy">
+    <div class="section-heading"><h2>06 / html 폴더만으로 배포</h2><span class="eyebrow">COPY / SERVE / READ</span></div>
+    <ol><li><code>docs/html</code> 폴더의 <strong>전체 내용</strong>을 복사합니다. assets·demos·history·각 예제 폴더도 함께 필요합니다.</li><li>웹서버의 문서 루트 또는 원하는 하위 디렉터리에 놓습니다. 루트 경로 설정·SPA rewrite·Node 서버는 필요하지 않습니다.</li><li><code>index.html</code>을 엽니다. 문서·검색은 외부 API/CDN 없이 동작합니다. 정적 데모는 HTTP(S)로 접속해야 합니다.</li></ol>
+    <pre><code># html 폴더에서 로컬 미리보기
+python -m http.server 8080 --bind 127.0.0.1
+# http://127.0.0.1:8080/</code></pre>
+    <div class="notice">문서는 파일을 직접 열어도 읽을 수 있습니다. Vite의 ES module, Cocos/WASM 등 실행 데모는 <code>file://</code> 대신 HTTP(S)가 필요합니다. Python은 관리·미리보기 도구일 뿐 웹서버 배포 시 필수 런타임이 아닙니다.</div>
+    <h3>저장소에서 내용 갱신</h3>
+    <pre><code>python .\docs\html\tools\package_demos.py
+python .\docs\html\tools\export_history.py
+python -m unittest discover -s .\docs\html\tools -p "test_*.py"
+python .\docs\html\tools\check_site.py</code></pre>
+    <p>도구는 Python 3.10 이상 표준 라이브러리를 사용합니다. 데모 재포장에는 원본 docs와 Git LFS 로컬 객체가, 이력 재생성에는 Git 저장소가 필요합니다. 복사된 사이트를 읽거나 서비스할 때는 원본 저장소가 필요 없습니다.</p>
+    <p><a href="README.md">독립 배포·관리 안내</a> · <a href="demos/manifest.json">데모 출처·복사 결과 SHA-256</a></p>
+    <p>외부 GitHub·학습 자료 링크는 선택적인 온라인 참고 자료입니다. 이 폴더에는 서버 코드·인증 설정·토큰·비공개 백업·앱 릴리스 파일을 포함하지 않습니다. 정적 공개 데모의 기존 클라이언트 코드는 포함됩니다.</p>
+  </section>
+  <footer class="footer">dev_portfolio WORKBOOK · 기존 작업 보존 / 구현과 계획 구분 / 독립 정적 배포<br><a href="examples.html">예제와 데모</a> · <a href="history.html">전체 이력</a> · <a href="worklog.html">정리 보고서</a></footer>
+</main>
+</body>
 </html>
