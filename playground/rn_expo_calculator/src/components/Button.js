@@ -18,7 +18,7 @@ const Button = ({ title, onPress, buttonStyle, buttonTypes }) => {
         pressed && { backgroundColor: COLORS[buttonTypes][1] },
         buttonStyle
       ]}
-      onPressOut={onPress}
+      onPress={onPress}
     >
       <Text style={styles.title}>{title}</Text>
     </Pressable>
