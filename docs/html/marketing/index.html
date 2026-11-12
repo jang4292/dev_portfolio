@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>마케팅 섹션(그라데이션/CTA)</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body class="page">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#marketing">Marketing</a>
+
+      <nav class="nav" aria-label="주요 메뉴">
+        <a class="nav__link" href="#marketing">Section</a>
+        <a class="nav__link" href="#cta">CTA</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn--ghost" href="#cta">문의</a>
+        <a class="btn btn--primary" href="#cta">시작하기</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 마케팅 섹션 -->
+    <section class="marketing" id="marketing" aria-labelledby="marketing-title">
+      <div class="marketing-inner">
+        <!-- 좌측 카피 -->
+        <div class="copy">
+          <p class="eyebrow">Product / Landing</p>
+          <h1 class="title" id="marketing-title">그라데이션 배경 + CTA 버튼 템플릿</h1>
+          <p class="desc">
+            목적은 단순합니다. <strong>한 줄 가치 제안</strong> + <strong>행동 유도(CTA)</strong>.
+            나머지는 잡음입니다.
+          </p>
+
+          <ul class="bullets">
+            <li>배경 패턴은 “클래스 1개”로 재사용</li>
+            <li>CTA는 Primary 1개 + Secondary 1개</li>
+            <li>모바일 우선 → 넓어지면 2열 레이아웃</li>
+          </ul>
+
+          <div class="actions" id="cta">
+            <a class="btn btn--primary" href="#cta">무료로 시작</a>
+            <a class="btn btn--ghost" href="#cta">데모 보기</a>
+          </div>
+
+          <p class="fineprint">
+            * 문구/버튼은 “짧고 명확하게”. 버튼이 3개 넘어가면 설계가 흔들린 겁니다.
+          </p>
+        </div>
+
+        <!-- 우측 카드(보조 정보) -->
+        <aside class="panel" aria-label="보조 정보">
+          <div class="panel-card">
+            <h2 class="panel-title">빠른 요약</h2>
+            <dl class="kv">
+              <div class="kv-row">
+                <dt>대상</dt><dd>랜딩/서비스 소개</dd>
+              </div>
+              <div class="kv-row">
+                <dt>핵심</dt><dd>가치 제안 + CTA</dd>
+              </div>
+              <div class="kv-row">
+                <dt>구성</dt><dd>배경/카피/버튼</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="panel-card">
+            <h2 class="panel-title">신뢰 요소</h2>
+            <p class="muted">
+              고객 로고/리뷰/지표(예: “전환율 18% 개선”) 같은 신뢰 요소를 아래에 추가하면 완성도가 올라갑니다.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-text">© Marketing Section</p>
+    </div>
+  </footer>
+</body>
+</html>

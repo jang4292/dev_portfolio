@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Toast + Notification Center</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top">Notify</a>
+
+      <nav class="nav" aria-label="데모 버튼">
+        <button class="btn btn--ghost" type="button" data-toast="info">Info</button>
+        <button class="btn btn--ghost" type="button" data-toast="success">Success</button>
+        <button class="btn btn--ghost" type="button" data-toast="warning">Warning</button>
+        <button class="btn btn--ghost" type="button" data-toast="danger">Danger</button>
+        <button class="btn btn--primary" type="button" data-center-open>
+          알림 센터 <span class="pill" data-unread>0</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="top">
+    <header class="page-head">
+      <h1 class="page-title">토스트/알림 센터 UI + 상태별 스타일 시스템</h1>
+      <p class="page-desc">
+        토스트는 “즉시 피드백”, 알림 센터는 “기록/재확인” 용도입니다. 상태 토큰으로 스타일을 통일합니다.
+      </p>
+    </header>
+
+    <section class="card">
+      <h2 class="h3">정책 요약</h2>
+      <ul class="bullets">
+        <li>Toast: 짧게, 자동 닫힘 기본(중요/위험은 자동 닫힘 비활성 고려)</li>
+        <li>알림 센터: 읽음/미읽음, 시간, 액션 링크 제공</li>
+        <li>상태(Info/Success/Warning/Danger)는 토큰으로 일관되게</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2 class="h3">실무 체크</h2>
+      <ul class="bullets">
+        <li>모바일에서 토스트가 키보드/바텀바와 겹치지 않는지</li>
+        <li>스크린리더: 토스트는 <code>aria-live</code> 영역에</li>
+        <li>같은 이벤트 중복 토스트는 디듀프(옵션) 필요</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Toast region (screen reader live) -->
+  <div class="toast-region" aria-live="polite" aria-atomic="true">
+    <div class="toast-stack" data-toast-stack></div>
+  </div>
+
+  <!-- Notification Center (panel) -->
+  <aside class="center" data-center aria-label="알림 센터" hidden>
+    <div class="center__head">
+      <div>
+        <h2 class="center__title">알림 센터</h2>
+        <p class="center__sub text-muted"><span data-center-count>0</span>개</p>
+      </div>
+
+      <div class="center__actions">
+        <button class="btn btn--ghost" type="button" data-center-markall>모두 읽음</button>
+        <button class="btn btn--ghost" type="button" data-center-clear>전체 삭제</button>
+        <button class="icon-btn" type="button" data-center-close aria-label="닫기">✕</button>
+      </div>
+    </div>
+
+    <div class="center__body">
+      <div class="center__empty text-muted" data-center-empty>
+        아직 알림이 없습니다.
+      </div>
+
+      <ul class="center__list" data-center-list></ul>
+    </div>
+
+    <div class="center__foot">
+      <p class="text-sm text-muted">
+        센터는 “기록”입니다. 중요한 이벤트는 센터에 남기고, 토스트는 보조로 씁니다.
+      </p>
+    </div>
+  </aside>
+
+  <!-- Backdrop for center -->
+  <div class="backdrop" data-center-backdrop hidden></div>
+
+  <script>
+    (function () {
+      // ----- DOM -----
+      const toastStack = document.querySelector('[data-toast-stack]');
+      const toastBtns = document.querySelectorAll('[data-toast]');
+      const unreadBadge = document.querySelector('[data-unread]');
+
+      const center = document.querySelector('[data-center]');
+      const centerBackdrop = document.querySelector('[data-center-backdrop]');
+      const centerList = document.querySelector('[data-center-list]');
+      const centerEmpty = document.querySelector('[data-center-empty]');
+      const centerCount = document.querySelector('[data-center-count]');
+
+      const btnCenterOpen = document.querySelector('[data-center-open]');
+      const btnCenterClose = document.querySelector('[data-center-close]');
+      const btnMarkAll = document.querySelector('[data-center-markall]');
+      const btnClearAll = document.querySelector('[data-center-clear]');
+
+      // ----- State -----
+      let notifications = []; // {id,type,title,body,time,read}
+      let toasts = []; // {id,type,title,body,timeout,createdAt}
+
+      const nowTime = () => {
+        const d = new Date();
+        const hh = String(d.getHours()).padStart(2,'0');
+        const mm = String(d.getMinutes()).padStart(2,'0');
+        return `${hh}:${mm}`;
+      };
+
+      const makeId = () => Math.random().toString(16).slice(2) + Date.now().toString(16);
+
+      const escapeHtml = (s) =>
+        String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+
+      const typeLabel = (t) => ({
+        info: 'Info',
+        success: 'Success',
+        warning: 'Warning',
+        danger: 'Danger',
+      }[t] || 'Info');
+
+      const sampleMsg = (t) => {
+        if (t === 'success') return { title: '저장 완료', body: '변경사항이 정상 반영되었습니다.' };
+        if (t === 'warning') return { title: '주의 필요', body: '입력값 일부가 누락되었습니다.' };
+        if (t === 'danger')  return { title: '실패', body: '요청 처리 중 오류가 발생했습니다.' };
+        return { title: '안내', body: '처리가 진행 중입니다.' };
+      };
+
+      // ----- Toasts -----
+      const pushToast = (type, title, body, opts = {}) => {
+        const id = makeId();
+        const timeout = opts.timeout ?? (type === 'danger' ? 0 : 3500); // danger는 자동 닫힘 OFF(0)
+        const toast = { id, type, title, body, timeout, createdAt: Date.now() };
+        toasts = [toast, ...toasts].slice(0, 5); // 최대 5개
+        renderToasts();
+
+        if (timeout > 0) {
+          window.setTimeout(() => {
+            removeToast(id);
+          }, timeout);
+        }
+      };
+
+      const removeToast = (id) => {
+        toasts = toasts.filter(t => t.id !== id);
+        renderToasts();
+      };
+
+      const renderToasts = () => {
+        toastStack.innerHTML = toasts.map(t => {
+          const title = escapeHtml(t.title);
+          const body = escapeHtml(t.body);
+          const showBar = t.timeout > 0;
+          const dur = t.timeout;
+
+          return `
+            <article class="toast toast--${t.type}" data-toast-id="${t.id}">
+              <div class="toast__icon" aria-hidden="true">${typeLabel(t.type).slice(0,1)}</div>
+
+              <div class="toast__body">
+                <p class="toast__title">${title}</p>
+                <p class="toast__text">${body}</p>
+              </div>
+
+              <div class="toast__actions">
+                <button class="icon-btn icon-btn--sm" type="button" data-toast-close aria-label="토스트 닫기">✕</button>
+              </div>
+
+              ${showBar ? `<div class="toast__bar" style="--dur:${dur}ms"></div>` : ``}
+            </article>
+          `;
+        }).join('');
+      };
+
+      toastStack.addEventListener('click', (e) => {
+        const closeBtn = e.target.closest('[data-toast-close]');
+        if (!closeBtn) return;
+        const host = closeBtn.closest('[data-toast-id]');
+        if (!host) return;
+        removeToast(host.getAttribute('data-toast-id'));
+      });
+
+      // ----- Notification Center -----
+      const openCenter = () => {
+        center.hidden = false;
+        centerBackdrop.hidden = false;
+        document.documentElement.classList.add('is-center-open');
+
+        // 첫 포커스
+        const focusable = center.querySelector('button');
+        if (focusable) focusable.focus();
+      };
+
+      const closeCenter = () => {
+        center.hidden = true;
+        centerBackdrop.hidden = true;
+        document.documentElement.classList.remove('is-center-open');
+        btnCenterOpen.focus();
+      };
+
+      const pushNotification = (type, title, body) => {
+        const n = {
+          id: makeId(),
+          type,
+          title,
+          body,
+          time: nowTime(),
+          read: false,
+        };
+        notifications = [n, ...notifications].slice(0, 50);
+        renderCenter();
+      };
+
+      const markRead = (id, read = true) => {
+        notifications = notifications.map(n => n.id === id ? { ...n, read } : n);
+        renderCenter();
+      };
+
+      const removeNotification = (id) => {
+        notifications = notifications.filter(n => n.id !== id);
+        renderCenter();
+      };
+
+      const markAllRead = () => {
+        notifications = notifications.map(n => ({ ...n, read: true }));
+        renderCenter();
+      };
+
+      const clearAll = () => {
+        notifications = [];
+        renderCenter();
+      };
+
+      const renderCenter = () => {
+        const unread = notifications.filter(n => !n.read).length;
+        unreadBadge.textContent = String(unread);
+
+        centerCount.textContent = String(notifications.length);
+        centerEmpty.hidden = notifications.length > 0;
+
+        centerList.innerHTML = notifications.map(n => {
+          const title = escapeHtml(n.title);
+          const body = escapeHtml(n.body);
+          const time = escapeHtml(n.time);
+          const readClass = n.read ? 'is-read' : 'is-unread';
+
+          return `
+            <li class="note note--${n.type} ${readClass}" data-note-id="${n.id}">
+              <div class="note__mark" aria-hidden="true"></div>
+
+              <div class="note__body">
+                <div class="note__top">
+                  <p class="note__title">${title}</p>
+                  <p class="note__time">${time}</p>
+                </div>
+                <p class="note__text">${body}</p>
+
+                <div class="note__meta">
+                  <span class="chip chip--${n.type}">${typeLabel(n.type)}</span>
+                  ${n.read ? `<span class="meta-text">읽음</span>` : `<span class="meta-text">미읽음</span>`}
+                </div>
+              </div>
+
+              <div class="note__actions">
+                ${n.read
+                  ? `<button class="link-btn" type="button" data-note-unread>미읽음</button>`
+                  : `<button class="link-btn" type="button" data-note-read>읽음</button>`
+                }
+                <button class="link-btn" type="button" data-note-remove>삭제</button>
+              </div>
+            </li>
+          `;
+        }).join('');
+      };
+
+      centerList.addEventListener('click', (e) => {
+        const host = e.target.closest('[data-note-id]');
+        if (!host) return;
+        const id = host.getAttribute('data-note-id');
+
+        if (e.target.closest('[data-note-read]')) markRead(id, true);
+        if (e.target.closest('[data-note-unread]')) markRead(id, false);
+        if (e.target.closest('[data-note-remove]')) removeNotification(id);
+      });
+
+      // ----- Wiring -----
+      toastBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const type = btn.getAttribute('data-toast');
+          const msg = sampleMsg(type);
+
+          // 토스트는 즉시 피드백
+          pushToast(type, msg.title, msg.body);
+
+          // 센터는 기록 (실무에서 보통 success/info도 기록 여부 정책화)
+          pushNotification(type, msg.title, msg.body);
+        });
+      });
+
+      btnCenterOpen.addEventListener('click', openCenter);
+      btnCenterClose.addEventListener('click', closeCenter);
+      centerBackdrop.addEventListener('click', closeCenter);
+
+      btnMarkAll.addEventListener('click', markAllRead);
+      btnClearAll.addEventListener('click', clearAll);
+
+      // ESC로 닫기
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !center.hidden) closeCenter();
+      });
+
+      // init
+      renderToasts();
+      renderCenter();
+    })();
+  </script>
+</body>
+</html>

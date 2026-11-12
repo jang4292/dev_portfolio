@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Modal / Dialog UI</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top">UI</a>
+      <nav class="nav" aria-label="데모">
+        <button class="btn btn--primary" type="button" data-open="#dlg-basic">기본 모달</button>
+        <button class="btn btn--ghost" type="button" data-open="#dlg-form">폼 모달</button>
+        <button class="btn btn--ghost" type="button" data-open="#dlg-danger">위험 확인</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="top">
+    <header class="page-head">
+      <h1 class="page-title">모달/다이얼로그 UI</h1>
+      <p class="page-desc">
+        HTML 표준 <strong>&lt;dialog&gt;</strong> 기반. CSS로 UI 완성도를 올리고, JS는 동작만 최소화합니다.
+      </p>
+    </header>
+
+    <section class="card">
+      <h2 class="h3">사용 가이드</h2>
+      <ul class="bullets">
+        <li>모달은 “필요할 때만”. 남발하면 UX 악화.</li>
+        <li>닫기 경로는 최소 2개 이상 제공(ESC/버튼).</li>
+        <li>폼 모달은 submit/cancel을 명확히 분리.</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- 1) Basic dialog -->
+  <dialog class="dialog" id="dlg-basic" aria-labelledby="dlg-basic-title">
+    <div class="dialog__panel" role="document">
+      <header class="dialog__head">
+        <h2 class="dialog__title" id="dlg-basic-title">기본 모달</h2>
+
+        <!-- method="dialog": 표준 close 트리거 -->
+        <form method="dialog">
+          <button class="icon-btn" type="submit" aria-label="닫기">✕</button>
+        </form>
+      </header>
+
+      <div class="dialog__body">
+        <p class="text-muted">
+          기본 안내/확인용 모달. 컨텐츠가 길어지면 body 스크롤이 생깁니다.
+        </p>
+        <p>
+          실무에서는 “모달 안에서 또 모달”은 피하는 게 안전합니다(포커스/레이어링 지옥).
+        </p>
+      </div>
+
+      <footer class="dialog__foot">
+        <form method="dialog" class="dialog__actions">
+          <button class="btn btn--ghost" type="submit">닫기</button>
+          <button class="btn btn--primary" type="submit" value="ok">확인</button>
+        </form>
+      </footer>
+    </div>
+  </dialog>
+
+  <!-- 2) Form dialog -->
+  <dialog class="dialog" id="dlg-form" aria-labelledby="dlg-form-title">
+    <div class="dialog__panel" role="document">
+      <header class="dialog__head">
+        <h2 class="dialog__title" id="dlg-form-title">프로필 수정</h2>
+        <form method="dialog">
+          <button class="icon-btn" type="submit" aria-label="닫기">✕</button>
+        </form>
+      </header>
+
+      <div class="dialog__body">
+        <!-- 실제 제출은 서버/JS로 처리. 여기서는 UI 구조만 -->
+        <form class="form" id="profileForm">
+          <div class="field">
+            <label class="label" for="name">이름</label>
+            <input class="control" id="name" name="name" type="text" placeholder="예: Jay" required minlength="2" />
+            <p class="hint">필수 입력. 2자 이상.</p>
+          </div>
+
+          <div class="field">
+            <label class="label" for="email">이메일</label>
+            <input class="control" id="email" name="email" type="email" placeholder="name@example.com" required />
+          </div>
+
+          <div class="field">
+            <label class="label" for="bio">소개</label>
+            <textarea class="control" id="bio" name="bio" rows="4" placeholder="간단한 소개"></textarea>
+          </div>
+
+          <p class="error" aria-live="polite" data-form-error></p>
+        </form>
+      </div>
+
+      <footer class="dialog__foot">
+        <div class="dialog__actions">
+          <form method="dialog">
+            <button class="btn btn--ghost" type="submit">취소</button>
+          </form>
+
+          <button class="btn btn--primary" type="button" data-submit-form="#profileForm">
+            저장
+          </button>
+        </div>
+      </footer>
+    </div>
+  </dialog>
+
+  <!-- 3) Danger confirm -->
+  <dialog class="dialog dialog--danger" id="dlg-danger" aria-labelledby="dlg-danger-title" aria-describedby="dlg-danger-desc">
+    <div class="dialog__panel" role="document">
+      <header class="dialog__head">
+        <h2 class="dialog__title" id="dlg-danger-title">삭제 확인</h2>
+        <form method="dialog">
+          <button class="icon-btn" type="submit" aria-label="닫기">✕</button>
+        </form>
+      </header>
+
+      <div class="dialog__body">
+        <p id="dlg-danger-desc">
+          이 작업은 되돌릴 수 없습니다. 삭제하시겠습니까?
+        </p>
+      </div>
+
+      <footer class="dialog__foot">
+        <form method="dialog" class="dialog__actions">
+          <button class="btn btn--ghost" type="submit">취소</button>
+          <button class="btn btn--danger" type="submit" value="delete">삭제</button>
+        </form>
+      </footer>
+    </div>
+  </dialog>
+
+  <script>
+    (function () {
+      const openBtns = document.querySelectorAll('[data-open]');
+      const submitBtns = document.querySelectorAll('[data-submit-form]');
+
+      // open
+      openBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const sel = btn.getAttribute('data-open');
+          const dlg = document.querySelector(sel);
+          if (!dlg) return;
+
+          // showModal: backdrop + 포커스 트랩(브라우저 기본)
+          dlg.showModal();
+
+          // 첫 포커스(원하면 지정)
+          const focusable = dlg.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+          if (focusable) focusable.focus();
+        });
+      });
+
+      // backdrop click close (옵션)
+      document.querySelectorAll('dialog.dialog').forEach(dlg => {
+        dlg.addEventListener('click', (e) => {
+          // dialog 자체(패널 바깥) 클릭이면 닫기
+          const panel = dlg.querySelector('.dialog__panel');
+          if (!panel) return;
+          const rect = panel.getBoundingClientRect();
+          const inPanel =
+            e.clientX >= rect.left && e.clientX <= rect.right &&
+            e.clientY >= rect.top && e.clientY <= rect.bottom;
+
+          if (!inPanel) dlg.close('backdrop');
+        });
+
+        dlg.addEventListener('close', () => {
+          // close returnValue 확인(샘플)
+          const rv = dlg.returnValue;
+          if (rv && rv !== 'backdrop') {
+            // 실제 앱에서는 여기서 라우팅/요청/토스트 처리
+            // console.log('dialog closed:', dlg.id, rv);
+          }
+        });
+      });
+
+      // Form submit button (샘플)
+      submitBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const sel = btn.getAttribute('data-submit-form');
+          const form = document.querySelector(sel);
+          if (!form) return;
+
+          const dlg = btn.closest('dialog');
+          const errorEl = form.querySelector('[data-form-error]');
+
+          if (!form.checkValidity()) {
+            form.reportValidity();
+            if (errorEl) errorEl.textContent = '입력값을 확인하세요.';
+            return;
+          }
+
+          if (errorEl) errorEl.textContent = '';
+
+          // 실무: 여기서 fetch/submit 처리 후 성공 시 close
+          dlg.close('saved');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

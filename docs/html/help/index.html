@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FAQ / Help Center</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top">Help Center</a>
+
+      <nav class="nav" aria-label="페이지 내 이동">
+        <a class="nav__link" href="#search">Search</a>
+        <a class="nav__link" href="#faq">FAQ</a>
+        <a class="nav__link" href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="top">
+    <header class="page-head">
+      <h1 class="page-title">FAQ / 도움말 센터 + 아코디언</h1>
+      <p class="page-desc">
+        검색/카테고리 필터 + 아코디언 토글(접근성 포함). 실무 기본형 구조입니다.
+      </p>
+    </header>
+
+    <!-- Search + Filters -->
+    <section class="card" id="search" aria-label="도움말 검색">
+      <div class="search-head">
+        <div>
+          <h2 class="h3">빠른 검색</h2>
+          <p class="text-sm text-muted">키워드로 질문을 필터링합니다(로컬 검색 샘플).</p>
+        </div>
+
+        <div class="toggle">
+          <label class="check">
+            <input type="checkbox" data-multi />
+            <span>다중 열기(여러 개 펼치기)</span>
+          </label>
+        </div>
+      </div>
+
+      <form class="search" data-search-form>
+        <div class="search__field">
+          <label class="label" for="q">검색어</label>
+          <input class="control" id="q" name="q" type="search" placeholder="예: 환불, 결제, 비밀번호" />
+        </div>
+
+        <div class="search__field">
+          <label class="label" for="cat">카테고리</label>
+          <select class="control" id="cat" name="cat">
+            <option value="all" selected>전체</option>
+            <option value="account">계정</option>
+            <option value="billing">결제</option>
+            <option value="policy">정책</option>
+            <option value="trouble">문제 해결</option>
+          </select>
+        </div>
+
+        <div class="search__actions">
+          <button class="btn btn--ghost" type="button" data-reset>초기화</button>
+          <button class="btn btn--primary" type="submit">적용</button>
+        </div>
+      </form>
+
+      <p class="text-sm text-muted">결과: <strong data-count>0</strong>개</p>
+    </section>
+
+    <!-- FAQ -->
+    <section class="card" id="faq" aria-label="FAQ 목록">
+      <div class="faq-head">
+        <div>
+          <h2 class="h3">자주 묻는 질문</h2>
+          <p class="text-sm text-muted">버튼 토글 + ARIA + 키보드(Enter/Space) 지원.</p>
+        </div>
+
+        <div class="faq-actions">
+          <button class="btn btn--ghost" type="button" data-collapse>모두 접기</button>
+          <button class="btn btn--ghost" type="button" data-expand>모두 펼치기</button>
+        </div>
+      </div>
+
+      <div class="faq-list" data-faq-list>
+        <!-- JS render -->
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="card" id="contact" aria-label="문의">
+      <h2 class="h3">추가 도움이 필요하신가요?</h2>
+      <p class="text-sm text-muted">
+        실무에서는 “문의 티켓 생성/챗봇/메일”로 연결합니다.
+      </p>
+
+      <div class="contact-actions">
+        <a class="btn btn--primary" href="#top">문의하기(샘플)</a>
+        <a class="btn btn--ghost" href="#top">운영 정책 보기(샘플)</a>
+      </div>
+    </section>
+
+    <section class="card notes" aria-label="검증 체크">
+      <h2 class="h3">검증 체크(필수)</h2>
+      <ul class="bullets">
+        <li>Tab으로 질문 버튼에 포커스가 가는지</li>
+        <li>Enter/Space로 열고 닫히는지</li>
+        <li>다중 열기 OFF일 때 한 개만 열리는지</li>
+        <li>검색/카테고리 변경 시 결과 카운트가 맞는지</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-text">© Help Center</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const DATA = [
+        {
+          id: 'a1',
+          cat: 'account',
+          q: '비밀번호를 잊어버렸습니다. 어떻게 재설정하나요?',
+          a: '로그인 화면에서 “비밀번호 재설정”을 통해 이메일 인증 후 변경합니다. 실무에서는 토큰 만료/1회성/회수 정책이 핵심입니다.',
+          tags: ['비밀번호', '재설정', '로그인']
+        },
+        {
+          id: 'a2',
+          cat: 'account',
+          q: '이메일을 변경하고 싶습니다.',
+          a: '계정 설정에서 변경 가능합니다. 변경 시 재인증(verify) 과정을 요구하는 것이 표준입니다.',
+          tags: ['이메일', '계정']
+        },
+        {
+          id: 'b1',
+          cat: 'billing',
+          q: '결제는 어떤 방식으로 처리되나요?',
+          a: '운영에서는 PG(Stripe/토스 등) 위젯을 사용합니다. 카드 정보를 직접 받지 않는 것이 기본입니다(Payments 보안/PCI).',
+          tags: ['결제', 'PG', '카드']
+        },
+        {
+          id: 'b2',
+          cat: 'billing',
+          q: '환불 정책은 어떻게 되나요?',
+          a: '환불은 결제수단/사용량/구매 시점에 따라 다릅니다. 실무에서는 “정책 문구 + 처리 SLA + 예외 케이스(부분 환불)”가 필수입니다.',
+          tags: ['환불', '정책']
+        },
+        {
+          id: 'p1',
+          cat: 'policy',
+          q: '개인정보는 어떻게 보관하나요?',
+          a: '최소 수집 + 목적 제한 + 접근 통제 + 로그(감사) + 보관/파기 정책으로 설계합니다.',
+          tags: ['개인정보', '보안']
+        },
+        {
+          id: 't1',
+          cat: 'trouble',
+          q: '업로드가 실패합니다. 어떤 점을 확인해야 하나요?',
+          a: '파일 크기/확장자 제한, 네트워크 상태, CORS, presigned URL 만료 여부를 우선 확인합니다.',
+          tags: ['업로드', '에러', 'CORS']
+        }
+      ];
+
+      const listEl = document.querySelector('[data-faq-list]');
+      const form = document.querySelector('[data-search-form]');
+      const countEl = document.querySelector('[data-count]');
+      const multiEl = document.querySelector('[data-multi]');
+
+      const btnCollapse = document.querySelector('[data-collapse]');
+      const btnExpand = document.querySelector('[data-expand]');
+      const btnReset = document.querySelector('[data-reset]');
+
+      let multi = false;
+      let openIds = new Set();
+      let view = DATA.slice();
+
+      const escapeHtml = (s) =>
+        String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+
+      const matches = (item, q, cat) => {
+        const okCat = cat === 'all' ? true : item.cat === cat;
+        if (!okCat) return false;
+
+        const kw = q.trim().toLowerCase();
+        if (!kw) return true;
+
+        const hay = (item.q + ' ' + item.a + ' ' + item.tags.join(' ')).toLowerCase();
+        return hay.includes(kw);
+      };
+
+      const setOpen = (id, isOpen) => {
+        if (!multi) {
+          // single-open 모드: 하나 열면 나머지는 닫기
+          openIds.clear();
+          if (isOpen) openIds.add(id);
+        } else {
+          if (isOpen) openIds.add(id);
+          else openIds.delete(id);
+        }
+        render();
+      };
+
+      const collapseAll = () => { openIds.clear(); render(); };
+      const expandAll = () => {
+        if (!multi) return; // single-open에서는 전체 펼치기 금지(정책)
+        view.forEach(x => openIds.add(x.id));
+        render();
+      };
+
+      const render = () => {
+        countEl.textContent = String(view.length);
+
+        if (view.length === 0) {
+          listEl.innerHTML = `
+            <div class="empty">
+              <p class="text-muted">일치하는 FAQ가 없습니다.</p>
+            </div>
+          `;
+          return;
+        }
+
+        listEl.innerHTML = view.map((item, idx) => {
+          const isOpen = openIds.has(item.id);
+          const panelId = `panel-${item.id}`;
+          const btnId = `btn-${item.id}`;
+
+          return `
+            <article class="faq" data-id="${item.id}">
+              <button
+                class="faq__q"
+                type="button"
+                id="${btnId}"
+                aria-expanded="${isOpen ? 'true' : 'false'}"
+                aria-controls="${panelId}"
+                data-toggle
+              >
+                <span class="faq__qtext">${escapeHtml(item.q)}</span>
+                <span class="faq__meta">
+                  <span class="chip">${item.cat}</span>
+                  <span class="chev" aria-hidden="true">${isOpen ? '−' : '+'}</span>
+                </span>
+              </button>
+
+              <div
+                class="faq__a"
+                id="${panelId}"
+                role="region"
+                aria-labelledby="${btnId}"
+                ${isOpen ? '' : 'hidden'}
+              >
+                <div class="faq__a-inner">
+                  <p class="faq__atext">${escapeHtml(item.a)}</p>
+                  <div class="tags" aria-label="태그">
+                    ${item.tags.map(t => `<span class="tag">#${escapeHtml(t)}</span>`).join('')}
+                  </div>
+                </div>
+              </div>
+            </article>
+          `;
+        }).join('');
+
+        // 버튼 상태에 맞춰 “모두 펼치기” 활성화/비활성
+        btnExpand.disabled = !multi || view.length === 0;
+        btnCollapse.disabled = view.length === 0;
+      };
+
+      const applyFilters = () => {
+        const q = form.elements.q.value || '';
+        const cat = form.elements.cat.value || 'all';
+
+        view = DATA.filter(item => matches(item, q, cat));
+
+        // 현재 openIds 중 화면에 없는 것 제거
+        const ids = new Set(view.map(x => x.id));
+        openIds = new Set(Array.from(openIds).filter(id => ids.has(id)));
+
+        render();
+      };
+
+      // Events
+      multiEl.addEventListener('change', () => {
+        multi = !!multiEl.checked;
+        // single-open 전환 시, 여러 개 열려 있으면 첫 번째만 유지
+        if (!multi && openIds.size > 1) {
+          const first = openIds.values().next().value;
+          openIds = new Set([first]);
+        }
+        render();
+      });
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        applyFilters();
+      });
+
+      btnReset.addEventListener('click', () => {
+        form.reset();
+        multiEl.checked = false;
+        multi = false;
+        openIds.clear();
+        view = DATA.slice();
+        render();
+      });
+
+      btnCollapse.addEventListener('click', collapseAll);
+      btnExpand.addEventListener('click', expandAll);
+
+      // Toggle delegation
+      listEl.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-toggle]');
+        if (!btn) return;
+
+        const host = btn.closest('[data-id]');
+        if (!host) return;
+
+        const id = host.getAttribute('data-id');
+        const isOpen = openIds.has(id);
+        setOpen(id, !isOpen);
+      });
+
+      // Init
+      applyFilters();
+    })();
+  </script>
+</body>
+</html>
