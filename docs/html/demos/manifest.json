@@ -1,0 +1,717 @@
+[
+  {
+    "source": "docs/cc-blackjack/application.e82e8.js",
+    "destination": "demos/cc-blackjack/application.e82e8.js",
+    "sha256": "4034e09c4807d84af79db8f0cef677ec6e8575c1a5f989e56e0ba818d4e2e84d"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/internal/config.2a469.json",
+    "destination": "demos/cc-blackjack/assets/internal/config.2a469.json",
+    "sha256": "d1000ffe0a2d25b23bd3e3205855bc1015e937a8190881cbfe0a9c1490522cb3"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/internal/import/06/06585a170.f1ef4.json",
+    "destination": "demos/cc-blackjack/assets/internal/import/06/06585a170.f1ef4.json",
+    "sha256": "bd111e6d2764c92401ba47bc3aaf579e16d3f014e1423459e6e03e9d946e70a8"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/internal/index.2a469.js",
+    "destination": "demos/cc-blackjack/assets/internal/index.2a469.js",
+    "sha256": "bc4abf1b771b630caf714d9530a74d4f7d638fc77ad00b612a51e6eb6fcf95a8"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/config.38de8.json",
+    "destination": "demos/cc-blackjack/assets/main/config.38de8.json",
+    "sha256": "c5c1b7bee3d49398cffcfa717d14c2dff1c5f5b0998218ca7daab2c9260041e0"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/import/0c/0c5ea6477.a4af2.json",
+    "destination": "demos/cc-blackjack/assets/main/import/0c/0c5ea6477.a4af2.json",
+    "sha256": "9f22fe9b51b8b8fe0baae217c30a2b7b131cd7faf0fcc3c8922534f50bce3aa0"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/index.38de8.js",
+    "destination": "demos/cc-blackjack/assets/main/index.38de8.js",
+    "sha256": "0d5eac197d99b85ce1b72e573d97405989446ee81ebdc60cda495866257aae93"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/01/010d4da9-0a44-40f1-b40d-60ef2498c224.ba173.png",
+    "destination": "demos/cc-blackjack/assets/main/native/01/010d4da9-0a44-40f1-b40d-60ef2498c224.ba173.png",
+    "sha256": "3673b12af1c6d9ba90957dcb57cebda4c5e157589062a179c32b827114a22f7f"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/06/06773874-1fae-4b11-95e8-4f4793129006.597ab.png",
+    "destination": "demos/cc-blackjack/assets/main/native/06/06773874-1fae-4b11-95e8-4f4793129006.597ab.png",
+    "sha256": "fac196f01a091ae2d73c296bb8d3fa903294852c94a225e91bd61426bbada503"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/09/09687ca4-f34d-471f-80ee-a3d7dcba124d.caa0f.png",
+    "destination": "demos/cc-blackjack/assets/main/native/09/09687ca4-f34d-471f-80ee-a3d7dcba124d.caa0f.png",
+    "sha256": "e6f2be1a9e49f202485330bf27453cd4ee1dc5fa048ecdb7a6a6860866fb9c8d"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/0d/0d51b9fe-881b-496d-be7c-34212c6f467c.3011c.png",
+    "destination": "demos/cc-blackjack/assets/main/native/0d/0d51b9fe-881b-496d-be7c-34212c6f467c.3011c.png",
+    "sha256": "f0ff01aef746b4f3cd13075889acca1c1c7e38376bd9f26c133081c321ab38c7"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/0e/0e11d676-6f0d-4ac9-af98-462eb0e1e181.c7850.png",
+    "destination": "demos/cc-blackjack/assets/main/native/0e/0e11d676-6f0d-4ac9-af98-462eb0e1e181.c7850.png",
+    "sha256": "79b1795a8b456ee027cbc5aa601e61b2d1a68a83639b4faab6f102d2a994ebb4"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/13/1346df2d-532e-4bd9-aab7-01d126dac88c.3a12a.png",
+    "destination": "demos/cc-blackjack/assets/main/native/13/1346df2d-532e-4bd9-aab7-01d126dac88c.3a12a.png",
+    "sha256": "34fcf8246b38c6cab1655bd7e24c7466487fbf360f72da835662b5919ee9e1b4"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/13/137168ae8.cdb29.png",
+    "destination": "demos/cc-blackjack/assets/main/native/13/137168ae8.cdb29.png",
+    "sha256": "b6bb8f7426e05c7b524ae1d8f0c196cd9cf0be923501aa5763c88b94d03b444f"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/14/14416055-cd00-46d7-800f-4d16545859ae.9a681.png",
+    "destination": "demos/cc-blackjack/assets/main/native/14/14416055-cd00-46d7-800f-4d16545859ae.9a681.png",
+    "sha256": "d19b3d10a874a0ae0a74b7b466356e975ae65f6ca78e3b138377ec13b9c04853"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/15/1598564e-6cf4-4c09-8598-019c2bdce7ba.52bac.png",
+    "destination": "demos/cc-blackjack/assets/main/native/15/1598564e-6cf4-4c09-8598-019c2bdce7ba.52bac.png",
+    "sha256": "2c7eb1aff1e91ce2fc1d0d13b0854f0da9dc0b2e120ba7f5f94e125adc1cd3da"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/17/1744e342-5c70-4d3c-bffa-7cf9cbbb48a9.63109.png",
+    "destination": "demos/cc-blackjack/assets/main/native/17/1744e342-5c70-4d3c-bffa-7cf9cbbb48a9.63109.png",
+    "sha256": "820ccaf2dbaae81c09ebde20750ac968ffbe2109e11712591e3b80c1079d87bd"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/19/1995a2b6-1894-49d4-83c7-63580e6fb371.be27d.png",
+    "destination": "demos/cc-blackjack/assets/main/native/19/1995a2b6-1894-49d4-83c7-63580e6fb371.be27d.png",
+    "sha256": "1ee308ca4a329bd94612fe1f69f356cfb0c1ed87990050b092b75371eb1b1e4c"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/1c/1cf27f7b-02f0-4038-b165-f24e437fa918.82747.png",
+    "destination": "demos/cc-blackjack/assets/main/native/1c/1cf27f7b-02f0-4038-b165-f24e437fa918.82747.png",
+    "sha256": "121aa251ddbc74aefcea6fd45da7cc263b77357acee5d17bb15b397327376ae6"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/1e/1eb5051d-d2c1-4f2b-9ad8-96742ba98c95.6901b.png",
+    "destination": "demos/cc-blackjack/assets/main/native/1e/1eb5051d-d2c1-4f2b-9ad8-96742ba98c95.6901b.png",
+    "sha256": "43fd881e3ca64443f52aac3a08a035f1196f5292b8db214842fab14d2227e4a0"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/20/20653c1c-cc7f-49aa-a769-75185e6a56e2.57d86.png",
+    "destination": "demos/cc-blackjack/assets/main/native/20/20653c1c-cc7f-49aa-a769-75185e6a56e2.57d86.png",
+    "sha256": "ef43e4e4e9d28aa9f6cb732a4bdb11c93119d5804a7298926b51eb8e6f9b4cde"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/22/22bc7be6-9e19-428d-8d02-c52069ee7d19.75233.png",
+    "destination": "demos/cc-blackjack/assets/main/native/22/22bc7be6-9e19-428d-8d02-c52069ee7d19.75233.png",
+    "sha256": "24d0cc51303f31eb1a6f4de9d4607895843e7eff51ba075b77102b468c7947da"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/25/258e8e79-526c-4614-b8cf-6d8736858eff.f06f9.png",
+    "destination": "demos/cc-blackjack/assets/main/native/25/258e8e79-526c-4614-b8cf-6d8736858eff.f06f9.png",
+    "sha256": "a48a2a0efd5c87fda523d3b53e98b1ef0730ccfb8a6c3977b491ea9890d243ad"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/2c/2cc48ee6-620f-4891-aca1-8a6c1427c035.c583a.png",
+    "destination": "demos/cc-blackjack/assets/main/native/2c/2cc48ee6-620f-4891-aca1-8a6c1427c035.c583a.png",
+    "sha256": "76c73977ee2200c700ccd4dae2a1ff486281a5921c14831ba273685393d2a7ae"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/2d/2da80c19-f23d-45c0-854d-8982c05fe5e4.d427e.png",
+    "destination": "demos/cc-blackjack/assets/main/native/2d/2da80c19-f23d-45c0-854d-8982c05fe5e4.d427e.png",
+    "sha256": "33ba0c7f4782034d039d30eb6d5bb4119e6d43cb66260c9dfcf687529ee846b2"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/2e/2ec6a7bc-9943-4452-b58b-4150a2347426.b0893.png",
+    "destination": "demos/cc-blackjack/assets/main/native/2e/2ec6a7bc-9943-4452-b58b-4150a2347426.b0893.png",
+    "sha256": "102053b2df5cfa926e2993319eb629358ee76584f8cdaa1bcc4d94064243f475"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/30/30ac1568-606b-4cc5-a060-4d1159b1555a.1585c.png",
+    "destination": "demos/cc-blackjack/assets/main/native/30/30ac1568-606b-4cc5-a060-4d1159b1555a.1585c.png",
+    "sha256": "75cb862a0072d3a10382a9f4b50d1889cf935a7a1b0d8f125b73e018cc6a5317"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/30/30c9223b-0e10-47e6-8a7b-771161ab7c7a.aed2b.png",
+    "destination": "demos/cc-blackjack/assets/main/native/30/30c9223b-0e10-47e6-8a7b-771161ab7c7a.aed2b.png",
+    "sha256": "3ce94142abcc2be94101a85b52e7f463235462c1198b650d9e4f99d1901199ff"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/31/31846332-8ef9-4bac-9114-7d1c2d271d81.5a99c.png",
+    "destination": "demos/cc-blackjack/assets/main/native/31/31846332-8ef9-4bac-9114-7d1c2d271d81.5a99c.png",
+    "sha256": "677237685588f898aaca08be7cf2d9dee3562f9ec887bfafc19bf4ed65c30416"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/36/365e5b85-b7c8-4d3c-af1d-e8898a7f44e6.3dd66.png",
+    "destination": "demos/cc-blackjack/assets/main/native/36/365e5b85-b7c8-4d3c-af1d-e8898a7f44e6.3dd66.png",
+    "sha256": "ae82bf5df2778663f0615622301453c35f805d60df4326e3344e90892cae52a8"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/3e/3edb6595-d816-49fb-8cde-ae8d5a281b80.a6c2d.png",
+    "destination": "demos/cc-blackjack/assets/main/native/3e/3edb6595-d816-49fb-8cde-ae8d5a281b80.a6c2d.png",
+    "sha256": "8f39b2f13369680bd1762acce3e2e5001c765037038073a90e13c2e234057424"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/40/402dd4fc-5714-446b-ad6d-11ac03472e35.28f32.png",
+    "destination": "demos/cc-blackjack/assets/main/native/40/402dd4fc-5714-446b-ad6d-11ac03472e35.28f32.png",
+    "sha256": "4f5e775802c2ceecf7137492979eaddf36c51818c269a6b0c1ca4c14f5400844"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/41/41ebf0c9-5275-466b-9bc4-25ab60bfd901.312e8.png",
+    "destination": "demos/cc-blackjack/assets/main/native/41/41ebf0c9-5275-466b-9bc4-25ab60bfd901.312e8.png",
+    "sha256": "a83313fba73ffd2d68749c9520b6a18217965a44e219f823e399078f91ae43ca"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/47/47c28dc8-93ed-48ec-a2c1-88866a680fad.42ce0.png",
+    "destination": "demos/cc-blackjack/assets/main/native/47/47c28dc8-93ed-48ec-a2c1-88866a680fad.42ce0.png",
+    "sha256": "7cac97e6c1ec410d7d6811f5b184f3a226a2d963ece6e5336b3b8e56f0a35395"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/48/48cb8b33-6d3d-440f-b187-f20ce5c03859.6d7a0.png",
+    "destination": "demos/cc-blackjack/assets/main/native/48/48cb8b33-6d3d-440f-b187-f20ce5c03859.6d7a0.png",
+    "sha256": "acb42254135ca93408fd1a64ec10d86764e26e2dc19b5141c25ac41b2e2df58d"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/4c/4c2d5cb4-2c97-422d-b480-90a526c6e7c5.f7bde.png",
+    "destination": "demos/cc-blackjack/assets/main/native/4c/4c2d5cb4-2c97-422d-b480-90a526c6e7c5.f7bde.png",
+    "sha256": "95f75c1699b2318d2c9cecd85d1432b2f5e58e5de5be36e408397ecf00d5bde7"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/4d/4df1d0e9-45c5-4c93-acd6-1a689009ff85.33d4b.png",
+    "destination": "demos/cc-blackjack/assets/main/native/4d/4df1d0e9-45c5-4c93-acd6-1a689009ff85.33d4b.png",
+    "sha256": "038ed9bad48b2069ffdf53e04f7a802b4a1ae4b506c7534cb8a510b7e33e745d"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/56/5628e268-4a28-4293-981a-c45a6c5f4087.af907.png",
+    "destination": "demos/cc-blackjack/assets/main/native/56/5628e268-4a28-4293-981a-c45a6c5f4087.af907.png",
+    "sha256": "5277affbdaaa9cdd0bebb05d9d11bea0f1bd00efc58b1673c1a7860526d784e8"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/58/583dfa3d-f7f3-44be-8bd2-6bed801fa726.564f4.png",
+    "destination": "demos/cc-blackjack/assets/main/native/58/583dfa3d-f7f3-44be-8bd2-6bed801fa726.564f4.png",
+    "sha256": "730d8855d9d4d9b0ab6a1c57d3b284447a520e8023fcc5701cc98d04012bcb00"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/58/5843896f-bd20-4828-a2ce-8ea8c24d00a9.f9397.png",
+    "destination": "demos/cc-blackjack/assets/main/native/58/5843896f-bd20-4828-a2ce-8ea8c24d00a9.f9397.png",
+    "sha256": "ae2767aee5d168815902fd7d012651e1656082169798df963d87eaa3104fb7b3"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/5c/5c51b52d-797d-441f-ae2e-86fd5d751802.d9a04.png",
+    "destination": "demos/cc-blackjack/assets/main/native/5c/5c51b52d-797d-441f-ae2e-86fd5d751802.d9a04.png",
+    "sha256": "b4931eeff3c88a3792ebeda7107d4a806380d02a88b979e6fdeeac4b54f23dca"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/5d/5d3f7239-080c-4622-9ab7-a0bf3ae291f8.619eb.png",
+    "destination": "demos/cc-blackjack/assets/main/native/5d/5d3f7239-080c-4622-9ab7-a0bf3ae291f8.619eb.png",
+    "sha256": "3609ee83f0e6d0766b14e6b4ddee4cb7b585fd114053dbdea88504d5be1067b4"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/5f/5f73bf20-1488-4c4a-9622-04181d168475.2f965.png",
+    "destination": "demos/cc-blackjack/assets/main/native/5f/5f73bf20-1488-4c4a-9622-04181d168475.2f965.png",
+    "sha256": "9d4cf30ed802f0cabf51459c7344e751e738983f9798dc6d45dfd1d97f9ac934"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/60/60829df1-53e5-4567-bed5-d510d073c2df.1047c.png",
+    "destination": "demos/cc-blackjack/assets/main/native/60/60829df1-53e5-4567-bed5-d510d073c2df.1047c.png",
+    "sha256": "a9b6076a42038a527707afd817078c65473c97f41b196579e1449cc1359fdc1d"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/61/611037c1-0fbd-4c27-8015-ba3c70ff2490.716d4.png",
+    "destination": "demos/cc-blackjack/assets/main/native/61/611037c1-0fbd-4c27-8015-ba3c70ff2490.716d4.png",
+    "sha256": "f32cbdf3edb20fed3b4ac5073214fabeb437c00dc140ba28c8f0333e35a5b966"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/64/643ff134-84e3-4b68-a475-9604e9dbda7d.c3863.png",
+    "destination": "demos/cc-blackjack/assets/main/native/64/643ff134-84e3-4b68-a475-9604e9dbda7d.c3863.png",
+    "sha256": "242bb1e5aebf11b6e584d2bbc732517a093effa7ff1377cc2603e4afe5c836a6"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/64/64c038b9-cc39-45f7-9e35-ab26b0668730.49f03.png",
+    "destination": "demos/cc-blackjack/assets/main/native/64/64c038b9-cc39-45f7-9e35-ab26b0668730.49f03.png",
+    "sha256": "82921d004a0ea687e7ad5d29f4babbe03ba7be289a9ef8912a9b1cd711621578"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/65/650cd9e9-cba5-4dc4-94c2-611f054ca79e.1ccc2.png",
+    "destination": "demos/cc-blackjack/assets/main/native/65/650cd9e9-cba5-4dc4-94c2-611f054ca79e.1ccc2.png",
+    "sha256": "b5aa6c95036276eed804755d2092b6f1d8a7cafcd8d6e563deb24d53e4ded17a"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/67/679c2210-0387-4ce5-a719-342a934bcf15.07e5e.png",
+    "destination": "demos/cc-blackjack/assets/main/native/67/679c2210-0387-4ce5-a719-342a934bcf15.07e5e.png",
+    "sha256": "d086161e0755e79f69b7a3923d960d2fd1fc177dbce633da9cf63a83e22f9c13"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/67/67a6c197-c48c-4245-8f64-21a0eed73d4b.b7ad2.png",
+    "destination": "demos/cc-blackjack/assets/main/native/67/67a6c197-c48c-4245-8f64-21a0eed73d4b.b7ad2.png",
+    "sha256": "d315216c771a2bda982a17743b119548cfcbc61a73d6719a944d8af5a4d568d9"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/68/6851849e-5095-41c6-86d5-dbe752656dd2.93b17.png",
+    "destination": "demos/cc-blackjack/assets/main/native/68/6851849e-5095-41c6-86d5-dbe752656dd2.93b17.png",
+    "sha256": "83163a2416408c81d113732ae90cb7ae8486c0d1b72549e77cdd9b63f2faad7a"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/69/6913767d-2443-48cc-9c99-c4b01c6accc8.836d2.png",
+    "destination": "demos/cc-blackjack/assets/main/native/69/6913767d-2443-48cc-9c99-c4b01c6accc8.836d2.png",
+    "sha256": "315cf5a34881d85266e77c58e5b021f15c5a6d3f7ce9990dbcaf3e579f50ddc9"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/69/694237ae-8b1b-4a12-9d2a-9d1febf76fac.7e698.png",
+    "destination": "demos/cc-blackjack/assets/main/native/69/694237ae-8b1b-4a12-9d2a-9d1febf76fac.7e698.png",
+    "sha256": "cdc7e6f4a8b74dc34dbfabb351c1a0b676e2d165f171c92d00f5c2c90cc38ffe"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/69/69e2dfec-d2a7-4675-ac4e-4469a2269ae9.f22bb.png",
+    "destination": "demos/cc-blackjack/assets/main/native/69/69e2dfec-d2a7-4675-ac4e-4469a2269ae9.f22bb.png",
+    "sha256": "3cac79b2214c4ab5971d7ffb17210633792594a6db8cc9a66ebae0a0dca65a68"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/6c/6c040787-b9bd-4047-84dd-949f04f51ee0.d3d08.png",
+    "destination": "demos/cc-blackjack/assets/main/native/6c/6c040787-b9bd-4047-84dd-949f04f51ee0.d3d08.png",
+    "sha256": "8b247b20744b20524a61fb2ec99aefa76e6e50ecc23ac3371f3706c278a49d25"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/6e/6e35a6bd-6a17-45dd-b57c-75035b91956b.e53bc.png",
+    "destination": "demos/cc-blackjack/assets/main/native/6e/6e35a6bd-6a17-45dd-b57c-75035b91956b.e53bc.png",
+    "sha256": "857027cc2e54c8723a00b66f7912abf716106c88521fb54497dbaafd889cc1f1"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/74/74961205-84af-446a-ac72-e03fadef5e1d.a2c45.png",
+    "destination": "demos/cc-blackjack/assets/main/native/74/74961205-84af-446a-ac72-e03fadef5e1d.a2c45.png",
+    "sha256": "7c8488adff130d34914c980e162e714ce2d2f5e384b5391ccc8333e0c5c91c5b"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/75/75d65148-a3a8-4834-8adb-d9c52aeda566.f648c.png",
+    "destination": "demos/cc-blackjack/assets/main/native/75/75d65148-a3a8-4834-8adb-d9c52aeda566.f648c.png",
+    "sha256": "d7c7b7d8d32d44c5bdf0065c1d83566f15e56b3e78fc102bde7946551a153ef6"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/76/760dee8e-84d7-452e-b4b3-fe49cfe1e97b.422e8.png",
+    "destination": "demos/cc-blackjack/assets/main/native/76/760dee8e-84d7-452e-b4b3-fe49cfe1e97b.422e8.png",
+    "sha256": "8222db09a28d3137a0a1a62cb281cbc7f191a1c933fab83a16da93681297d2c1"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/76/765e842d-6af2-4d05-9fd2-c5cb257dd2e1.c9aa7.png",
+    "destination": "demos/cc-blackjack/assets/main/native/76/765e842d-6af2-4d05-9fd2-c5cb257dd2e1.c9aa7.png",
+    "sha256": "8535b026e910ef1a8d1f20b08b2c54c3e06ee48f94cf376efd1bfbaab60bd4b6"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/7b/7b0ad715-dac4-4805-b9ef-a8b9666af98a.bb5d1.png",
+    "destination": "demos/cc-blackjack/assets/main/native/7b/7b0ad715-dac4-4805-b9ef-a8b9666af98a.bb5d1.png",
+    "sha256": "570c649304d88d286fbb2883fbb8216be91898dabae239c8be86281ba74626fa"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/83/83261b75-0e4f-4f07-8983-a08674cb83fd.805c7.png",
+    "destination": "demos/cc-blackjack/assets/main/native/83/83261b75-0e4f-4f07-8983-a08674cb83fd.805c7.png",
+    "sha256": "53cad762a9de64a1f1f9cca4867009d21159f28d6def12cf3c8def64259983a8"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/86/861dcd54-8087-4714-b631-fcd5bddbf5d8.568d3.png",
+    "destination": "demos/cc-blackjack/assets/main/native/86/861dcd54-8087-4714-b631-fcd5bddbf5d8.568d3.png",
+    "sha256": "31fe872ef1322b3dc0b08467317f7579d517638f18a1ac013295dbaa4a2d3bfa"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/87/87eea234-f955-492c-9a0c-f986132c6ef4.fac62.png",
+    "destination": "demos/cc-blackjack/assets/main/native/87/87eea234-f955-492c-9a0c-f986132c6ef4.fac62.png",
+    "sha256": "e0c5a1cc359ac950e4e854a0184786aa6c91c71f6b4c426d7ae8a5802592d48e"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/88/88701ea2-7c92-4380-939f-f8cd075dc868.e9a3c.png",
+    "destination": "demos/cc-blackjack/assets/main/native/88/88701ea2-7c92-4380-939f-f8cd075dc868.e9a3c.png",
+    "sha256": "0e496aedb9ad387e3fc2542bcc845966b8327f4f5f6b0a6a6d49a67d8eac7503"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/89/8964316f-e914-4b98-b35a-d58fcb5a03dc.3f838.png",
+    "destination": "demos/cc-blackjack/assets/main/native/89/8964316f-e914-4b98-b35a-d58fcb5a03dc.3f838.png",
+    "sha256": "854e420b19993cead6379c19ff50bfc1c6f5fba75b1bbd5e2086261ee410f929"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/8b/8bd4286f-968f-4f9d-aa6e-628d757941f4.5b85d.png",
+    "destination": "demos/cc-blackjack/assets/main/native/8b/8bd4286f-968f-4f9d-aa6e-628d757941f4.5b85d.png",
+    "sha256": "d810d96d7730af4a3a3fbb039ca03c4e82df6d816dfd6f353fbc69c928eca362"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/8c/8c3987a8-bec6-4108-809d-179b89d6c95b.1af38.png",
+    "destination": "demos/cc-blackjack/assets/main/native/8c/8c3987a8-bec6-4108-809d-179b89d6c95b.1af38.png",
+    "sha256": "0a660a19457fe9e1b4930745e8d180868a564216bc759cfb399ec91e55f5c9fc"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/8d/8d917570-dad3-479b-b840-3ac8b98d6917.2642e.png",
+    "destination": "demos/cc-blackjack/assets/main/native/8d/8d917570-dad3-479b-b840-3ac8b98d6917.2642e.png",
+    "sha256": "858a33111276be266fa4739180707fa45461bb1b5de7697bd708091943e97a6f"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/91/91dc8907-a1d6-4f98-8830-3ac04922d2ae.1d4df.png",
+    "destination": "demos/cc-blackjack/assets/main/native/91/91dc8907-a1d6-4f98-8830-3ac04922d2ae.1d4df.png",
+    "sha256": "aaf523801e5ff73615c7b56939de290ec2dca7eb7dc71646d3080d0212ab4613"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/92/92e8d0d5-0bfb-4b55-acba-cabe5365f9e8.31962.png",
+    "destination": "demos/cc-blackjack/assets/main/native/92/92e8d0d5-0bfb-4b55-acba-cabe5365f9e8.31962.png",
+    "sha256": "acb3e89d4177a13a931c0f75aa1e7cef58f48093cc780ff70063768b047cfd07"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/95/9538efa7-7ea8-4401-b7e3-4ac7e63d822c.166b3.png",
+    "destination": "demos/cc-blackjack/assets/main/native/95/9538efa7-7ea8-4401-b7e3-4ac7e63d822c.166b3.png",
+    "sha256": "b8d8ee11047cb3f71d56689cdef6f20ccbf1b35443e17b12923ce2b1038fc889"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/98/98d6740b-ac26-4e56-93a9-091e002e7d26.cec24.png",
+    "destination": "demos/cc-blackjack/assets/main/native/98/98d6740b-ac26-4e56-93a9-091e002e7d26.cec24.png",
+    "sha256": "fc705a8161b2e7ec5d8d4323256a8639d0c4dafff00fed393a6e8d1aecb660da"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/99/9971cb67-0cdb-4078-8393-30d7ec37b3e8.dcd02.png",
+    "destination": "demos/cc-blackjack/assets/main/native/99/9971cb67-0cdb-4078-8393-30d7ec37b3e8.dcd02.png",
+    "sha256": "a4d2c5c50645771cc5b919a4bb286b7b6463f88bf818d4295f5d461b4a59d5e8"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/9e/9ef04977-28c0-4e8a-bd7e-6cac842a8373.05aa3.png",
+    "destination": "demos/cc-blackjack/assets/main/native/9e/9ef04977-28c0-4e8a-bd7e-6cac842a8373.05aa3.png",
+    "sha256": "25b77770509394e178c45262bb2a6df6c8aeb2b4b38100f28fdfe687cf971800"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/a1/a1c0e818-561f-4096-b474-0e256c509abb.76a63.png",
+    "destination": "demos/cc-blackjack/assets/main/native/a1/a1c0e818-561f-4096-b474-0e256c509abb.76a63.png",
+    "sha256": "07bde4035d6ca8b5f1aa81240b5c03b1a6c0b8354f4e1bb8428a5188ecf47f74"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/a3/a38cabed-0777-49c7-82fd-8045c432ce26.b3bae.png",
+    "destination": "demos/cc-blackjack/assets/main/native/a3/a38cabed-0777-49c7-82fd-8045c432ce26.b3bae.png",
+    "sha256": "d4052819b5771a55695f6a29eb2876f7ee62b2fcdb2b0671a007cac6b801d039"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/a6/a6776600-5d15-4062-9b34-8a3ea6be47f7.022d3.png",
+    "destination": "demos/cc-blackjack/assets/main/native/a6/a6776600-5d15-4062-9b34-8a3ea6be47f7.022d3.png",
+    "sha256": "653664f6834f4c01278a45c3caa5b28d3551a539f813bb5ebc7243f0f1ac2be4"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/a6/a6b36cbf-134f-40aa-b9ed-4b4b534ba9e5.0dc39.png",
+    "destination": "demos/cc-blackjack/assets/main/native/a6/a6b36cbf-134f-40aa-b9ed-4b4b534ba9e5.0dc39.png",
+    "sha256": "b7ad6fc31e3593c20c0e270ef7453cc7a718f0afbbbbfdfba7038f0088702b36"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/a7/a7261e1e-f99f-4b56-aa24-2b5ac0c317ef.73542.png",
+    "destination": "demos/cc-blackjack/assets/main/native/a7/a7261e1e-f99f-4b56-aa24-2b5ac0c317ef.73542.png",
+    "sha256": "1089f9a45496a9d08a5f0ee483d1b4987c376192382cc2884c86b268287310f3"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/a9/a92fab50-7d92-4ae0-bf6e-91872c0be3f2.9b4de.png",
+    "destination": "demos/cc-blackjack/assets/main/native/a9/a92fab50-7d92-4ae0-bf6e-91872c0be3f2.9b4de.png",
+    "sha256": "fa146fd6d2cbb4b7eac36350e936ca6e3d8d697739aaf63f8be48f43569f1695"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/ab/ab66d09b-cb76-46ad-9699-eb3e2c6ffced.69135.png",
+    "destination": "demos/cc-blackjack/assets/main/native/ab/ab66d09b-cb76-46ad-9699-eb3e2c6ffced.69135.png",
+    "sha256": "5eb8cbaf2db7b926e4c23cc1edc0567a53d050ca7b40d6b0c3226bf40629e353"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/ab/abca5024-f0cb-4af1-b401-7436c0ddc67e.7368e.png",
+    "destination": "demos/cc-blackjack/assets/main/native/ab/abca5024-f0cb-4af1-b401-7436c0ddc67e.7368e.png",
+    "sha256": "ade8cc3c8c16f772b81df5fbd2fcb9220febffdcaced7545e634ca2fa7934fe9"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/b0/b0992ac2-4934-47ec-a3e7-7fa680f5669c.ce83b/LilitaOne-Regular.ttf",
+    "destination": "demos/cc-blackjack/assets/main/native/b0/b0992ac2-4934-47ec-a3e7-7fa680f5669c.ce83b/LilitaOne-Regular.ttf",
+    "sha256": "4444c23631884f411aa7f2fee35061b1756a9927940c62d2a5572acf470b3ffa"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/b1/b1496eec-165f-49f8-b752-810894ea6550.03d04.png",
+    "destination": "demos/cc-blackjack/assets/main/native/b1/b1496eec-165f-49f8-b752-810894ea6550.03d04.png",
+    "sha256": "a358377798c950b1978b0ac8b96a8b0309ec93a33feb96097b65b5a73498f4ef"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/b1/b1ace003-9d8a-4553-b229-30c0a01733c1.4ea26.png",
+    "destination": "demos/cc-blackjack/assets/main/native/b1/b1ace003-9d8a-4553-b229-30c0a01733c1.4ea26.png",
+    "sha256": "803a09db6fcc868749e17c8ea4640de7c3106f867afd07c80f232189c47da0da"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/b1/b1e97980-08b6-43f3-8dbe-0d4f8cf37731.6b183.png",
+    "destination": "demos/cc-blackjack/assets/main/native/b1/b1e97980-08b6-43f3-8dbe-0d4f8cf37731.6b183.png",
+    "sha256": "1860ab498502379c1ad7c119f5ddb9f4134f0f5070e9d1a3ae8af366c41c117d"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/b2/b23d4b51-898c-4f42-ad90-33798b798ddc.94a62.png",
+    "destination": "demos/cc-blackjack/assets/main/native/b2/b23d4b51-898c-4f42-ad90-33798b798ddc.94a62.png",
+    "sha256": "a6f7a320e9947c9df0d6ac442a101ee0190605a9dc86753a68e79842f39fee75"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/b3/b30c71b6-e584-4c8d-8c5e-adb618eba60e.038b1.png",
+    "destination": "demos/cc-blackjack/assets/main/native/b3/b30c71b6-e584-4c8d-8c5e-adb618eba60e.038b1.png",
+    "sha256": "67fee2913a9f5a4537db65775cbda64243600ec08e87be9bf1cfe3b0922c2787"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/b9/b9553074-5bbc-428e-a692-3595457617cc.24d5a.png",
+    "destination": "demos/cc-blackjack/assets/main/native/b9/b9553074-5bbc-428e-a692-3595457617cc.24d5a.png",
+    "sha256": "b1bbf6020bf6e8b53c0efb9f37f79e9bfb911cb14e9ceeeb03ea01a2185e304b"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/c0/c07efdcb-ec54-472e-8e7b-653bdfde9c97.f6ba0.png",
+    "destination": "demos/cc-blackjack/assets/main/native/c0/c07efdcb-ec54-472e-8e7b-653bdfde9c97.f6ba0.png",
+    "sha256": "e78693687dc9142a24b606a8a1847729d148d806ba50faa43d5e665d3686ec51"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/c0/c0d0f015-befd-4c9f-9dac-a5cd5b1d24ce.5637c.png",
+    "destination": "demos/cc-blackjack/assets/main/native/c0/c0d0f015-befd-4c9f-9dac-a5cd5b1d24ce.5637c.png",
+    "sha256": "d15df8390dbc910121e079d3d411301d1176c75c6e30f3e0aaa0f4dd0cefc381"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/c1/c14c60e3-59b6-4d9b-a989-4e02dcd237ab.a908d.png",
+    "destination": "demos/cc-blackjack/assets/main/native/c1/c14c60e3-59b6-4d9b-a989-4e02dcd237ab.a908d.png",
+    "sha256": "2ebb3065052284524ec6f3538dc9033f3c8f476645e4bdc3e21613fbe460d55d"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/c2/c2918331-bc56-49f3-9e94-f0e6b340b824.32854.png",
+    "destination": "demos/cc-blackjack/assets/main/native/c2/c2918331-bc56-49f3-9e94-f0e6b340b824.32854.png",
+    "sha256": "dcd322d7929df011f8590a05ca9b19479cf9cb8ee022b16eff30a26d4c79559e"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/c5/c55dd790-1a50-430f-a574-c813b4d7adb3.fa9da.png",
+    "destination": "demos/cc-blackjack/assets/main/native/c5/c55dd790-1a50-430f-a574-c813b4d7adb3.fa9da.png",
+    "sha256": "cacfa9b284439104943edbbc73010c37818bf02825c2f15f1dcee70dec9a6d90"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/c6/c6a5778b-b799-4c02-834a-fbe9c3398c4a.775e5.png",
+    "destination": "demos/cc-blackjack/assets/main/native/c6/c6a5778b-b799-4c02-834a-fbe9c3398c4a.775e5.png",
+    "sha256": "97ba0aeed1a2546fd0033cec681a3481ba648ba92e0ef5421c15a25b221aa2f0"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/c6/c6ce66de-4923-4aae-9d95-eca68738f5da.9a2da.png",
+    "destination": "demos/cc-blackjack/assets/main/native/c6/c6ce66de-4923-4aae-9d95-eca68738f5da.9a2da.png",
+    "sha256": "d32eeda91b7546542170ab51a0ea618df06990313e0c5285e260a9ee286705a9"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/cf/cf7666d6-8df2-48c8-97da-feb6717d4400.6ef13.png",
+    "destination": "demos/cc-blackjack/assets/main/native/cf/cf7666d6-8df2-48c8-97da-feb6717d4400.6ef13.png",
+    "sha256": "7ab86d9be67ee4a8398416fb503b0f9a9ac518f57fcfee7bd586e956b8a180f4"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/d0/d05072c9-72ea-4aa0-979a-371c11e501d9.55051.png",
+    "destination": "demos/cc-blackjack/assets/main/native/d0/d05072c9-72ea-4aa0-979a-371c11e501d9.55051.png",
+    "sha256": "d9283385567e072157d64412d6a4a132c8c842fe922f2e25209bc0075b8301e7"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/da/da6243a9-6f49-40c4-aa49-27775cdbac07.c6f65.png",
+    "destination": "demos/cc-blackjack/assets/main/native/da/da6243a9-6f49-40c4-aa49-27775cdbac07.c6f65.png",
+    "sha256": "51b5f5ef16f37d18ad11756fee8cd3630e9f8eca67fba5b68fce28d060f2c5d0"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/db/db008be1-8627-4fde-8bd3-0fe13bd5cd0e.683aa.png",
+    "destination": "demos/cc-blackjack/assets/main/native/db/db008be1-8627-4fde-8bd3-0fe13bd5cd0e.683aa.png",
+    "sha256": "82515f95562081547fd8da31f44bf6ff773ef04226892b181859b42a363a5a6c"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/db/dbad9ae7-1916-40d9-84a5-2f442bfad7d0.4afbd.png",
+    "destination": "demos/cc-blackjack/assets/main/native/db/dbad9ae7-1916-40d9-84a5-2f442bfad7d0.4afbd.png",
+    "sha256": "abc561025d009de37a5c5b63ffb50126e74f188cb419908a9a1019d148c70d07"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/dd/ddd2fb47-f1fe-40fe-b03a-63487e5a9262.b4113.png",
+    "destination": "demos/cc-blackjack/assets/main/native/dd/ddd2fb47-f1fe-40fe-b03a-63487e5a9262.b4113.png",
+    "sha256": "5406a8559548cca08b0fe4a2e122fffd79d58e9940d413f19c95f728eb313cf2"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/e4/e4b17dd5-07bc-4039-bb04-77c2777a33ec.8e0f9.png",
+    "destination": "demos/cc-blackjack/assets/main/native/e4/e4b17dd5-07bc-4039-bb04-77c2777a33ec.8e0f9.png",
+    "sha256": "cf6a172b0a6ef0a8195106aa1406562fe9b4588cdfc83a623381ee4c274ad301"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/e9/e986ba2e-daab-48d1-b829-03ecea8d863d.6098a.png",
+    "destination": "demos/cc-blackjack/assets/main/native/e9/e986ba2e-daab-48d1-b829-03ecea8d863d.6098a.png",
+    "sha256": "4d9c9635c50cdbb638ead7a125391f0cdb75c6583d4dad15709908452fa9cf53"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/eb/ebaf7d21-b06a-48af-b30d-9d65563da99e.65442.png",
+    "destination": "demos/cc-blackjack/assets/main/native/eb/ebaf7d21-b06a-48af-b30d-9d65563da99e.65442.png",
+    "sha256": "33dbef48dc2385c4fe28363e2711f51a11c49a2db021e9dd090b9f381da8f1b9"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/ec/ecd15487-f23e-4d20-a237-1878ed4dbbdf.9f216.png",
+    "destination": "demos/cc-blackjack/assets/main/native/ec/ecd15487-f23e-4d20-a237-1878ed4dbbdf.9f216.png",
+    "sha256": "65b4637d01ea6072baa1649d3b1e67ea78b91d8cfd81e56f022de9a1358821cb"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/ec/ecea72f8-504f-4129-af5a-c01f35206288.464b4.png",
+    "destination": "demos/cc-blackjack/assets/main/native/ec/ecea72f8-504f-4129-af5a-c01f35206288.464b4.png",
+    "sha256": "92197487c30b244da0ada522cc2dd84d465e46c76f60de2e6c673f8c56ffb020"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/ed/ed0dbcbb-b4c1-4b47-96b8-450458768404.4bc49.png",
+    "destination": "demos/cc-blackjack/assets/main/native/ed/ed0dbcbb-b4c1-4b47-96b8-450458768404.4bc49.png",
+    "sha256": "bda8efa000486006d3db27d07b9713a9d143594410c3727d54389146caec74d5"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/ed/ed893dcd-3154-4fdb-ae69-bc53d45bc983.dde03.png",
+    "destination": "demos/cc-blackjack/assets/main/native/ed/ed893dcd-3154-4fdb-ae69-bc53d45bc983.dde03.png",
+    "sha256": "1b954eb51b83c50eecc1bf68c515bd31bb28fb18aee3ccfeb1c5a365aaab2ad1"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/main/native/ee/ee073a2b-78a4-4b95-8eb4-bbcae70b0e00.4bad8.png",
+    "destination": "demos/cc-blackjack/assets/main/native/ee/ee073a2b-78a4-4b95-8eb4-bbcae70b0e00.4bad8.png",
+    "sha256": "95caf6e37147a794730a4daf2a2c72aec4abdde86a8c39475b0757d20db3af46"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/resources/config.5e555.json",
+    "destination": "demos/cc-blackjack/assets/resources/config.5e555.json",
+    "sha256": "1b37cc55055029ffcd8a5547fe3cd4f1502e90527876966f8a13c0072dbdc241"
+  },
+  {
+    "source": "docs/cc-blackjack/assets/resources/index.5e555.js",
+    "destination": "demos/cc-blackjack/assets/resources/index.5e555.js",
+    "sha256": "a653248974dfa7ec8c0dd32567c772439248f2e2bba25daebb9cc8bbb6142bad"
+  },
+  {
+    "source": "docs/cc-blackjack/cocos-js/_virtual_cc-BDI-j-as.js",
+    "destination": "demos/cc-blackjack/cocos-js/_virtual_cc-BDI-j-as.js",
+    "sha256": "3fb75e82a70f68a6dd20f9bf1e89f4ff347f44f653a37bac5934d945aa287e7c"
+  },
+  {
+    "source": "docs/cc-blackjack/cocos-js/assets/spine-BUh5FZoK.wasm",
+    "destination": "demos/cc-blackjack/cocos-js/assets/spine-BUh5FZoK.wasm",
+    "sha256": "2d59702f6f2c289fbadd25ef9d0972473b348da39524a90766a3c9dfa572251d"
+  },
+  {
+    "source": "docs/cc-blackjack/cocos-js/assets/spine.js.mem-DnIU7NNm.bin",
+    "destination": "demos/cc-blackjack/cocos-js/assets/spine.js.mem-DnIU7NNm.bin",
+    "sha256": "6d52433437161a7a6a10eb00067766bc0b113a32c5b6fae44304ea91427a132f"
+  },
+  {
+    "source": "docs/cc-blackjack/cocos-js/cc.bd27a.js",
+    "destination": "demos/cc-blackjack/cocos-js/cc.bd27a.js",
+    "sha256": "b6d020a20d8128afa0feadf536d41b580d2bbf728cbfcd44753199b088c7286d"
+  },
+  {
+    "source": "docs/cc-blackjack/cocos-js/spine-d8iUy6nV.js",
+    "destination": "demos/cc-blackjack/cocos-js/spine-d8iUy6nV.js",
+    "sha256": "d7393eeac13978114187d2385712d965156864156dc5319b41d3953d79f528df"
+  },
+  {
+    "source": "docs/cc-blackjack/cocos-js/spine.asm-zJvCw0OZ.js",
+    "destination": "demos/cc-blackjack/cocos-js/spine.asm-zJvCw0OZ.js",
+    "sha256": "a4944acd4fdb80d86f9bfffa3eb98dfd675ee2cc3546953b9eb41076ca220e54"
+  },
+  {
+    "source": "docs/cc-blackjack/cocos-js/spine.js-BqekK_Hv.js",
+    "destination": "demos/cc-blackjack/cocos-js/spine.js-BqekK_Hv.js",
+    "sha256": "c1ca32913890e74afb14b335832c3a02591f0a0f6c61b68615325690ed80e2c3"
+  },
+  {
+    "source": "docs/cc-blackjack/cocos-js/spine.wasm-DgE8Hu0O.js",
+    "destination": "demos/cc-blackjack/cocos-js/spine.wasm-DgE8Hu0O.js",
+    "sha256": "1e80291f05fe99d58f7afaae98b1b3a8a7920714d23f710068c8d9003b9353fe"
+  },
+  {
+    "source": "docs/cc-blackjack/index.76d89.js",
+    "destination": "demos/cc-blackjack/index.76d89.js",
+    "sha256": "f0dbc5b027446a3ad7bf94ff7c7a1f0caa0b195989ef315183e5fde496a578fe"
+  },
+  {
+    "source": "docs/cc-blackjack/index.html",
+    "destination": "demos/cc-blackjack/index.html",
+    "sha256": "a440b172bd940d5625d1b74aa9566b78edd1114f3d736c6b76dff202681c0df7"
+  },
+  {
+    "source": "docs/cc-blackjack/src/chunks/bundle.21f1c.js",
+    "destination": "demos/cc-blackjack/src/chunks/bundle.21f1c.js",
+    "sha256": "9aa4501aeb52ad1b1cc48ca345203ea84ad3bcadfd818bd5a38d9af41ef4d194"
+  },
+  {
+    "source": "docs/cc-blackjack/src/effect.bin",
+    "destination": "demos/cc-blackjack/src/effect.bin",
+    "sha256": "b1720631e11a2ec9a3867fd348997d77fe56535aecd2fa07998a7196cc58933b"
+  },
+  {
+    "source": "docs/cc-blackjack/src/import-map.b1601.json",
+    "destination": "demos/cc-blackjack/src/import-map.b1601.json",
+    "sha256": "eb116c39c3bd93c8dcfa92ea464af27c09e9cdb1e36c9485c939c1b75bdf2f55"
+  },
+  {
+    "source": "docs/cc-blackjack/src/polyfills.bundle.5adbf.js",
+    "destination": "demos/cc-blackjack/src/polyfills.bundle.5adbf.js",
+    "sha256": "f1e4ced3322168d6b9915e782e4c1cf1055d75f66f2b38e7fcd60f48cf89082b"
+  },
+  {
+    "source": "docs/cc-blackjack/src/settings.fb8fd.json",
+    "destination": "demos/cc-blackjack/src/settings.fb8fd.json",
+    "sha256": "85d7d3bd4a3deedacef80852bf3d0f2464d2576461b381128f3051e333a288d8"
+  },
+  {
+    "source": "docs/cc-blackjack/src/system.bundle.f8495.js",
+    "destination": "demos/cc-blackjack/src/system.bundle.f8495.js",
+    "sha256": "467a6e8a0cad2f7d6ba620dde5ddb03250b8ac7b7c90f60cefd449a74afbd5bf"
+  },
+  {
+    "source": "docs/cc-blackjack/style.f76d1.css",
+    "destination": "demos/cc-blackjack/style.f76d1.css",
+    "sha256": "338fc9d734af60103e6d303333e28b413f477b295fd7dd233dc7022320c56e48"
+  },
+  {
+    "source": "docs/web-frontend-vite/.gitkeep",
+    "destination": "demos/web-frontend-vite/.gitkeep",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "source": "docs/web-frontend-vite/404.html",
+    "destination": "demos/web-frontend-vite/404.html",
+    "sha256": "23c7430ca61cd0747f19422b95f63fbcb8074b5c76e85c70b63ecf124baa5bdd"
+  },
+  {
+    "source": "docs/web-frontend-vite/assets/index-B5IzWNc6.css",
+    "destination": "demos/web-frontend-vite/assets/index-B5IzWNc6.css",
+    "sha256": "034a9c61004792c208d0814f1256071931e91a6b54b09fcab892754a0dd3b883"
+  },
+  {
+    "source": "docs/web-frontend-vite/assets/index-BBiqvsP4.js",
+    "destination": "demos/web-frontend-vite/assets/index-BBiqvsP4.js",
+    "sha256": "699e4232fcca90db89b49ca799c15cc797574e5b0520932e96b3136dd032e5f3"
+  },
+  {
+    "source": "docs/web-frontend-vite/assets/react-CHdo91hT.svg",
+    "destination": "demos/web-frontend-vite/assets/react-CHdo91hT.svg",
+    "sha256": "35ef61ed53b323ae94a16a8ec659b3d0af3880698791133f23b084085ab1c2e5"
+  },
+  {
+    "source": "docs/web-frontend-vite/index.html",
+    "destination": "demos/web-frontend-vite/index.html",
+    "sha256": "23c7430ca61cd0747f19422b95f63fbcb8074b5c76e85c70b63ecf124baa5bdd"
+  },
+  {
+    "source": "docs/web-frontend-vite/vite.svg",
+    "destination": "demos/web-frontend-vite/vite.svg",
+    "sha256": "4a748afd443918bb16591c834c401dae33e87861ab5dbad0811c3a3b4a9214fb"
+  },
+  {
+    "source": "docs/index.html",
+    "destination": "demos/portfolio/index.html",
+    "sha256": "b34d3f61bf68dcfcfcc9ed9765c4cf084b409daa3b10fe8ff700fdd3a3597ed1"
+  },
+  {
+    "source": "docs/about.html",
+    "destination": "demos/portfolio/about.html",
+    "sha256": "87c0ed4baa26f22cca88570a642384d2a4bea7a340a3339ce7422ee4d9afdd90"
+  },
+  {
+    "source": "docs/style.css",
+    "destination": "demos/portfolio/style.css",
+    "sha256": "f4bab6c5b86ddb02744ddf53718c5b52ddaa2a8d87673134bf610f406c435817"
+  },
+  {
+    "source": "docs/script.js",
+    "destination": "demos/portfolio/script.js",
+    "sha256": "a50d6938d7a886f94ba2d3a11f7119a37d7805bd04075eea323d3cb712ea0a96"
+  },
+  {
+    "source": "docs/blog/index.html",
+    "destination": "demos/portfolio/blog/index.html",
+    "sha256": "55192555a8c3edcf2898ac0a1d0ceaa4cea5870622a6b5fa7c8d0138f888a9da"
+  },
+  {
+    "source": "docs/portfolio/index.html",
+    "destination": "demos/portfolio/portfolio/index.html",
+    "sha256": "024f88ce327860b3a4c2045bc72e318cbec2c0c200b11c029d12b1e826e3d00c"
+  }
+]

@@ -1,0 +1,100 @@
+:root {
+  color-scheme: light;
+  --paper: #f5f3ed;
+  --ink: #172e2a;
+  --muted: #53655f;
+  --line: #cdd7cf;
+  --green: #245c46;
+  --accent: #d7ed9b;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.75;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); }
+a { color: var(--green); text-underline-offset: .22em; }
+a:hover { color: #142c20; }
+:focus-visible { outline: 3px solid #946020; outline-offset: 4px; }
+[hidden] { display: none !important; }
+.skip { position: absolute; left: 1rem; top: -6rem; padding: .6rem 1rem; background: white; z-index: 3; }
+.skip:focus { top: 1rem; }
+.masthead { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.4rem max(5%, calc((100% - 1180px) / 2)); border-bottom: 1px solid var(--line); }
+.brand { font-size: 1.25rem; font-weight: 800; text-decoration: none; white-space: nowrap; }
+.brand span { color: #718b3c; }
+.brand small { display: block; font-size: .62rem; letter-spacing: .24em; font-weight: 500; }
+nav { display: flex; flex-wrap: wrap; gap: .6rem 1.25rem; }
+nav a { font-size: .88rem; text-decoration: none; }
+nav a[aria-current] { font-weight: 750; border-bottom: 2px solid var(--green); }
+.page { max-width: 1180px; margin: auto; padding: 3.5rem 5% 2rem; }
+.hero { display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem; align-items: end; padding-bottom: 3rem; }
+.eyebrow { color: var(--green); letter-spacing: .18em; font-size: .74rem; font-weight: 750; }
+h1 { font-size: clamp(2.1rem, 5vw, 3.8rem); line-height: 1.22; letter-spacing: -.05em; margin: .8rem 0 1.4rem; overflow-wrap: anywhere; }
+h2 { font-size: 1.65rem; line-height: 1.4; letter-spacing: -.03em; margin-top: 0; }
+h3 { font-size: 1.12rem; margin-bottom: .6rem; }
+p { margin: .7rem 0 1rem; }
+.lead { color: var(--muted); font-size: 1.05rem; max-width: 52rem; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: .7rem; }
+.stat { padding: 1rem; background: #e8eee1; border-radius: .4rem; }
+.stat strong { font-size: 2rem; display: block; line-height: 1.4; }
+.stat span { font-size: .8rem; }
+.section { padding: 2.5rem 0; border-top: 1px solid var(--line); scroll-margin-top: 1rem; }
+.section-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .7rem; margin-bottom: 1.5rem; }
+.section-heading h2 { margin: 0; }
+.toc { display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; margin-bottom: 2rem; }
+.toc a { font-size: .88rem; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.card { padding: 1.5rem; background: #fffefa; border: 1px solid var(--line); border-radius: .5rem; min-width: 0; }
+.card h3 { margin-top: .6rem; overflow-wrap: anywhere; }
+.card p, .card li { font-size: .92rem; }
+.card ul { padding-left: 1.2rem; }
+.card .path { font-size: .76rem; color: var(--muted); overflow-wrap: anywhere; }
+.badge { display: inline-block; font-size: .7rem; font-weight: 650; color: #244e38; background: #e3edda; padding: .12rem .5rem; border-radius: .25rem; margin-right: .4rem; vertical-align: middle; }
+.badge.partial { background: #f5e8c9; color: #68501c; }
+.notice { background: #e9eee2; border-left: 3px solid var(--green); padding: 1rem 1.25rem; margin: 1.3rem 0; font-size: .9rem; overflow-wrap: anywhere; }
+.notice.warning { background: #f5eddc; border-color: #9c7325; }
+.button { display: inline-block; cursor: pointer; border: 1px solid var(--green); background: var(--green); color: white; border-radius: .25rem; padding: .5rem .85rem; text-decoration: none; font: inherit; font-size: .85rem; }
+.button:hover { background: #173d2e; color: white; }
+.button.secondary { background: transparent; color: var(--green); }
+.button.secondary:hover { background: #e3edda; }
+.actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.5rem; }
+.filterbar { display: flex; flex-wrap: wrap; align-items: end; gap: .75rem; margin-bottom: 1.5rem; }
+.filterbar label { flex: 1; min-width: 180px; font-size: .8rem; font-weight: 650; }
+.filterbar input { display: block; width: 100%; margin-top: .3rem; border: 1px solid #8a9e90; padding: .65rem .8rem; border-radius: .25rem; background: #fffefa; color: var(--ink); font: inherit; font-size: 1rem; }
+.filterbar p { margin: .5rem 0; font-size: .8rem; min-width: 7rem; }
+code { font-family: Consolas, monospace; font-size: .87em; overflow-wrap: anywhere; }
+pre { overflow-x: auto; padding: 1rem; background: #e9eee5; border-radius: .3rem; line-height: 1.7; }
+details { border-top: 1px solid var(--line); margin-top: 1rem; padding-top: .7rem; }
+summary { cursor: pointer; font-size: .85rem; font-weight: 650; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .86rem; }
+th, td { padding: .8rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+th { background: #e9eee5; }
+.flow { padding: 1.5rem; background: var(--ink); color: #eff5e9; border-radius: .4rem; overflow-wrap: anywhere; }
+.flow strong { color: var(--accent); }
+.commit-list { padding: 0; list-style: none; }
+.commit { padding: 1.5rem 0; border-top: 1px solid var(--line); }
+.commit h2 { font-size: 1.08rem; margin: .5rem 0; overflow-wrap: anywhere; }
+.commit time { color: var(--muted); font-size: .8rem; margin-right: 1rem; }
+.commit details { border: 0; margin-top: .3rem; padding: 0; }
+.break { overflow-wrap: anywhere; }
+.footer { padding: 2rem 0; margin-top: 2rem; border-top: 1px solid var(--line); font-size: .8rem; color: var(--muted); }
+@media (max-width: 720px) {
+  .masthead { padding: 1.2rem 5%; }
+  .page { padding-top: 2rem; }
+  .hero, .grid { grid-template-columns: 1fr; }
+  .hero { gap: 1rem; }
+  .stats { gap: .4rem; }
+  .stat { padding: .7rem; }
+  .stat strong { font-size: 1.6rem; }
+  .card { padding: 1.2rem; }
+  nav { gap: .5rem 1rem; }
+}
+@media print {
+  body { background: white; color: black; }
+  .masthead, .toc, .filterbar, .skip, .actions { display: none !important; }
+  .page { max-width: none; padding: 0; }
+  .hero, .grid { display: block; }
+  .card { margin-bottom: 1rem; break-inside: avoid; }
+  .card[hidden], .commit[hidden] { display: block !important; }
+  details > * { display: block; }
+  a { color: inherit; }
+}

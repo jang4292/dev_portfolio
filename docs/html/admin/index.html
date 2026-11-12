@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin List + Filter</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top">Admin</a>
+
+      <nav class="nav" aria-label="페이지 내 이동">
+        <a class="nav__link" href="#filters">Filters</a>
+        <a class="nav__link" href="#table">Table</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="top">
+    <header class="page-head">
+      <h1 class="page-title">관리자 목록(테이블) + 필터 패널</h1>
+      <p class="page-desc">
+        실무형 기본 구조: 좌측 필터(Sticky) + 우측 테이블(가로 스크롤) + 검색/정렬/페이지.
+      </p>
+    </header>
+
+    <div class="admin-layout">
+      <!-- Filters -->
+      <aside class="card filters" id="filters" aria-label="필터 패널">
+        <h2 class="h3">필터</h2>
+
+        <form class="form" data-filter-form>
+          <div class="field">
+            <label class="label" for="q">검색</label>
+            <input class="control" id="q" name="q" type="search" placeholder="ID, 이름, 이메일" />
+            <p class="hint">실무: 서버 검색(페이지 단위) + 디바운스가 기본.</p>
+          </div>
+
+          <div class="field">
+            <label class="label" for="status">상태</label>
+            <select class="control" id="status" name="status">
+              <option value="all" selected>전체</option>
+              <option value="active">Active</option>
+              <option value="paused">Paused</option>
+              <option value="blocked">Blocked</option>
+            </select>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label class="label" for="from">시작일</label>
+              <input class="control" id="from" name="from" type="date" />
+            </div>
+            <div class="field">
+              <label class="label" for="to">종료일</label>
+              <input class="control" id="to" name="to" type="date" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="sort">정렬</label>
+            <select class="control" id="sort" name="sort">
+              <option value="created_desc" selected>생성일 최신순</option>
+              <option value="created_asc">생성일 오래된순</option>
+              <option value="name_asc">이름 A→Z</option>
+              <option value="name_desc">이름 Z→A</option>
+            </select>
+            <p class="hint">실무: 정렬은 DB 인덱스와 세트로 설계.</p>
+          </div>
+
+          <div class="field">
+            <p class="label">표시 컬럼</p>
+            <label class="check"><input type="checkbox" name="col_email" checked /> <span>Email</span></label>
+            <label class="check"><input type="checkbox" name="col_role" checked /> <span>Role</span></label>
+            <label class="check"><input type="checkbox" name="col_last" checked /> <span>Last Login</span></label>
+            <p class="hint">컬럼 토글은 “가로 폭 부족” 해결에 효과적.</p>
+          </div>
+
+          <div class="filters-actions">
+            <button class="btn btn--ghost" type="button" data-reset>초기화</button>
+            <button class="btn btn--primary" type="submit">적용</button>
+          </div>
+
+          <div class="meta">
+            <p class="text-sm text-muted">
+              현재 결과: <strong data-count>0</strong>건
+            </p>
+          </div>
+        </form>
+      </aside>
+
+      <!-- Table -->
+      <section class="card table-card" id="table" aria-label="목록 테이블">
+        <div class="table-head">
+          <div>
+            <h2 class="h3">사용자 목록</h2>
+            <p class="text-sm text-muted">체크박스 선택 + 상태 배지 + 행 액션(샘플).</p>
+          </div>
+
+          <div class="table-actions">
+            <button class="btn btn--ghost" type="button" data-bulk disabled>선택 일괄 처리</button>
+            <button class="btn btn--primary" type="button" data-add>+ 추가</button>
+          </div>
+        </div>
+
+        <div class="table-wrap" role="region" aria-label="가로 스크롤 가능한 테이블">
+          <table class="data-table admin-table">
+            <caption>관리자 목록</caption>
+            <thead>
+              <tr>
+                <th class="col-select" scope="col">
+                  <input type="checkbox" aria-label="전체 선택" data-select-all />
+                </th>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col" data-col="email">Email</th>
+                <th scope="col" data-col="role">Role</th>
+                <th scope="col">Status</th>
+                <th scope="col" data-col="last">Last Login</th>
+                <th scope="col">Created</th>
+                <th class="col-actions" scope="col">Action</th>
+              </tr>
+            </thead>
+
+            <tbody data-tbody>
+              <!-- JS render -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pager" aria-label="페이지네이션">
+          <button class="btn btn--ghost" type="button" data-prev>이전</button>
+          <p class="pager-text text-sm text-muted">
+            <span data-page>1</span> / <span data-pages>1</span>
+          </p>
+          <button class="btn btn--ghost" type="button" data-next>다음</button>
+        </div>
+      </section>
+    </div>
+
+    <section class="card notes" aria-label="검증 체크">
+      <h2 class="h3">검증 체크(필수)</h2>
+      <ul class="bullets">
+        <li>테이블은 <strong>overflow-x: auto</strong>로 가로 스크롤이 자연스러운지</li>
+        <li>320/375에서 컬럼 토글로 폭 문제를 완화할 수 있는지</li>
+        <li>Tab 이동이 논리적으로 되는지(필터 → 테이블 헤더 → 행)</li>
+        <li>긴 이메일/URL이 레이아웃을 밀지 않는지</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-text">© Admin UI</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      // ---- Sample data (실무: 서버에서 페이지 단위 조회) ----
+      const DATA = Array.from({ length: 57 }).map((_, i) => {
+        const id = 1000 + i;
+        const names = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Omega'];
+        const roles = ['User', 'Admin', 'Manager'];
+        const statuses = ['active', 'paused', 'blocked'];
+
+        const name = names[i % names.length] + ' ' + (i + 1);
+        const email = `user${id}@example.com`;
+        const role = roles[i % roles.length];
+        const status = statuses[i % statuses.length];
+
+        const created = new Date(2025, (i % 12), (i % 28) + 1);
+        const lastLogin = new Date(2025, ((i + 3) % 12), ((i + 10) % 28) + 1);
+
+        return { id, name, email, role, status, created, lastLogin };
+      });
+
+      // ---- DOM ----
+      const form = document.querySelector('[data-filter-form]');
+      const tbody = document.querySelector('[data-tbody]');
+      const countEl = document.querySelector('[data-count]');
+
+      const pageEl = document.querySelector('[data-page]');
+      const pagesEl = document.querySelector('[data-pages]');
+      const btnPrev = document.querySelector('[data-prev]');
+      const btnNext = document.querySelector('[data-next]');
+
+      const selectAll = document.querySelector('[data-select-all]');
+      const bulkBtn = document.querySelector('[data-bulk]');
+
+      // Column toggles
+      const colEmail = form.elements['col_email'];
+      const colRole = form.elements['col_role'];
+      const colLast = form.elements['col_last'];
+
+      // ---- State ----
+      let page = 1;
+      const pageSize = 10;
+      let current = []; // filtered+sorted
+      let selectedIds = new Set();
+
+      const fmtDate = (d) => {
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${y}-${m}-${day}`;
+      };
+
+      const statusLabel = (s) => (s === 'active' ? 'Active' : s === 'paused' ? 'Paused' : 'Blocked');
+
+      const applyColumnVisibility = () => {
+        const setCol = (key, show) => {
+          document.querySelectorAll(`[data-col="${key}"]`).forEach(el => {
+            el.style.display = show ? '' : 'none';
+          });
+          document.querySelectorAll(`[data-td="${key}"]`).forEach(el => {
+            el.style.display = show ? '' : 'none';
+          });
+        };
+
+        setCol('email', !!colEmail.checked);
+        setCol('role', !!colRole.checked);
+        setCol('last', !!colLast.checked);
+      };
+
+      const filterAndSort = () => {
+        const q = (form.elements.q.value || '').trim().toLowerCase();
+        const status = form.elements.status.value;
+        const from = form.elements.from.value ? new Date(form.elements.from.value) : null;
+        const to = form.elements.to.value ? new Date(form.elements.to.value) : null;
+        const sort = form.elements.sort.value;
+
+        let out = DATA.slice();
+
+        if (q) {
+          out = out.filter(x =>
+            String(x.id).includes(q) ||
+            x.name.toLowerCase().includes(q) ||
+            x.email.toLowerCase().includes(q)
+          );
+        }
+
+        if (status !== 'all') out = out.filter(x => x.status === status);
+
+        if (from) out = out.filter(x => x.created >= from);
+        if (to) {
+          // 종료일은 해당 날짜 포함
+          const end = new Date(to);
+          end.setHours(23, 59, 59, 999);
+          out = out.filter(x => x.created <= end);
+        }
+
+        out.sort((a, b) => {
+          if (sort === 'created_desc') return b.created - a.created;
+          if (sort === 'created_asc') return a.created - b.created;
+          if (sort === 'name_asc') return a.name.localeCompare(b.name, 'ko');
+          if (sort === 'name_desc') return b.name.localeCompare(a.name, 'ko');
+          return 0;
+        });
+
+        return out;
+      };
+
+      const render = () => {
+        current = filterAndSort();
+        countEl.textContent = String(current.length);
+
+        const totalPages = Math.max(1, Math.ceil(current.length / pageSize));
+        if (page > totalPages) page = totalPages;
+
+        pageEl.textContent = String(page);
+        pagesEl.textContent = String(totalPages);
+
+        btnPrev.disabled = page <= 1;
+        btnNext.disabled = page >= totalPages;
+
+        const start = (page - 1) * pageSize;
+        const rows = current.slice(start, start + pageSize);
+
+        tbody.innerHTML = rows.map(row => {
+          const checked = selectedIds.has(row.id) ? 'checked' : '';
+          return `
+            <tr>
+              <td class="col-select">
+                <input type="checkbox" data-row-select value="${row.id}" aria-label="ID ${row.id} 선택" ${checked} />
+              </td>
+              <th scope="row">${row.id}</th>
+              <td class="cell-anywhere">${row.name}</td>
+              <td data-td="email" class="cell-anywhere">${row.email}</td>
+              <td data-td="role">${row.role}</td>
+              <td><span class="status status--${row.status}">${statusLabel(row.status)}</span></td>
+              <td data-td="last">${fmtDate(row.lastLogin)}</td>
+              <td>${fmtDate(row.created)}</td>
+              <td class="col-actions">
+                <button class="link-btn" type="button" data-action="view" data-id="${row.id}">보기</button>
+                <button class="link-btn" type="button" data-action="edit" data-id="${row.id}">수정</button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        // header select-all sync (현재 페이지 기준)
+        const pageIds = new Set(rows.map(r => r.id));
+        const selectedOnPage = Array.from(pageIds).filter(id => selectedIds.has(id)).length;
+
+        selectAll.indeterminate = selectedOnPage > 0 && selectedOnPage < pageIds.size;
+        selectAll.checked = pageIds.size > 0 && selectedOnPage === pageIds.size;
+
+        bulkBtn.disabled = selectedIds.size === 0;
+
+        applyColumnVisibility();
+      };
+
+      // ---- Events ----
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        page = 1;
+        render();
+        document.getElementById('table').scrollIntoView({ behavior: 'smooth' });
+      });
+
+      form.querySelector('[data-reset]').addEventListener('click', () => {
+        form.reset();
+        // reset() 후 checkbox 기본값(checked) 유지 위해 명시
+        colEmail.checked = true;
+        colRole.checked = true;
+        colLast.checked = true;
+
+        selectedIds.clear();
+        page = 1;
+        render();
+      });
+
+      // live update for column toggles
+      [colEmail, colRole, colLast].forEach(el => el.addEventListener('change', () => {
+        applyColumnVisibility();
+      }));
+
+      btnPrev.addEventListener('click', () => { page -= 1; render(); });
+      btnNext.addEventListener('click', () => { page += 1; render(); });
+
+      selectAll.addEventListener('change', () => {
+        const start = (page - 1) * pageSize;
+        const rows = current.slice(start, start + pageSize);
+        rows.forEach(r => {
+          if (selectAll.checked) selectedIds.add(r.id);
+          else selectedIds.delete(r.id);
+        });
+        render();
+      });
+
+      tbody.addEventListener('change', (e) => {
+        const cb = e.target.closest('[data-row-select]');
+        if (!cb) return;
+        const id = Number(cb.value);
+        if (cb.checked) selectedIds.add(id);
+        else selectedIds.delete(id);
+        render();
+      });
+
+      tbody.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-action]');
+        if (!btn) return;
+        const id = btn.dataset.id;
+        const action = btn.dataset.action;
+        alert(`${action.toUpperCase()} (샘플): ID ${id}`);
+      });
+
+      bulkBtn.addEventListener('click', () => {
+        alert(`선택 일괄 처리(샘플): ${Array.from(selectedIds).join(', ')}`);
+      });
+
+      document.querySelector('[data-add]').addEventListener('click', () => {
+        alert('추가(샘플): 실제로는 생성 폼/모달로 이동');
+      });
+
+      // Init
+      render();
+    })();
+  </script>
+</body>
+</html>
