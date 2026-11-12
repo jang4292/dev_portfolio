@@ -171,7 +171,7 @@
             e.clientX >= rect.left && e.clientX <= rect.right &&
             e.clientY >= rect.top && e.clientY <= rect.bottom;
 
-          if (!inPanel) dlg.close('backdrop');
+          if (e.target === dlg && !inPanel) dlg.close('backdrop');
         });
 
         dlg.addEventListener('close', () => {
