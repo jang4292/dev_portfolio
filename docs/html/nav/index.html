@@ -190,12 +190,13 @@
       setActive(sections[0]?.id || 'intro');
 
       // 헤더 높이 변경(리사이즈) 시 rootMargin 갱신 필요 → 간단히 재생성
+      let currentObserver = io;
       let resizeTimer = null;
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-          io.disconnect();
-          const io2 = new IntersectionObserver((entries) => {
+          currentObserver.disconnect();
+          currentObserver = new IntersectionObserver((entries) => {
             const visible = entries
               .filter(e => e.isIntersecting)
               .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
@@ -204,7 +205,7 @@
             threshold: [0.25, 0.4, 0.6],
             rootMargin: `-${headerH()}px 0px -55% 0px`
           });
-          sections.forEach(sec => io2.observe(sec));
+          sections.forEach(sec => currentObserver.observe(sec));
         }, 150);
       });
     })();
