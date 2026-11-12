@@ -36,7 +36,6 @@ export default [
       "react-native/no-color-literals": "off",
       "react-native/no-raw-text": "off", // <Text> 내부에서 허용
       "react/prop-types": "off", // TS 쓸 거면 끄는 게 일반적
-      "prettier/prettier": "warn",
     },
     settings: {
       react: {
