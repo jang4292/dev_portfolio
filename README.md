@@ -2,6 +2,14 @@
 
 다양한 포트폴리오 및 개인 학습 내용 저장소
 
+## 프로젝트 문서
+
+- [전체 작업 문서 · 독립형 HTML 사이트](./docs/html/index.html)
+- [예제·정적 데모](./docs/html/examples.html) · [전체 커밋 이력](./docs/html/history.html) · [정리 보고서·후속 계획](./docs/html/worklog.html)
+- [docs 자료 안내](./docs/README.md) · [html 폴더 단독 배포 방법](./docs/html/README.md)
+
+외부 웹서버에는 `docs/html` 폴더 전체만 복사하면 됩니다. 기존 배포 경로와 앱 소스는 유지합니다.
+
 ---
 
 ## 📂 디렉토리 구조 및 역할
@@ -68,7 +76,7 @@
 ### dotnet-server
 
 - **기술 스택**: .NET 8 Minimal API · Swagger/OpenAPI
-- **포트**: `5000` (HTTP), `7000` (HTTPS)
+- **포트**: launchSettings 기준 `5048` (HTTP), `7296` (HTTPS)
 - **엔드포인트**:
 
   | 메서드 | 경로 | 설명 |
