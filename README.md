@@ -17,18 +17,27 @@
 
 ---
 
-## 🌿 브랜치 목록 및 설명
+## 🌿 브랜치 구조 및 설명
+
+일반적인 통합 방향은 `작업 브랜치 → feature/integration → develop → main`입니다.
+브랜치를 정리하기 전에는 원본 커밋과 로컬 작업을 보존하고, 기능 및 배포 영향을 확인합니다.
 
 | 브랜치 | 설명 |
 |---|---|
-| `main` | 기본 통합 브랜치 (protected) |
+| `main` | 기본 통합 브랜치 (보호됨) |
 | `develop` | 개발 통합 브랜치 |
-| `feature/android_kotlin` | Android Kotlin 기능 개발 |
-| `feature/rn_handsbook` | React Native 핸즈북 실습 |
-| `ci/docs-web-frontend-vite` | Vite 프론트엔드 빌드 → docs 배포 CI |
-| `github-pages` | GitHub Pages 정적 배포 브랜치 |
-| `copilot/update-readme-and-report` | README 업데이트 및 보고서 작성 (현재 브랜치) |
-| `copilot/review-webview-bug-fixes` | WebView 버그 수정 리뷰 |
+| `feature/integration` | 기존 작업을 모아 `develop`으로 제안하는 통합 Feature 브랜치 |
+| `android_kotlin_fourtune3` | Android Kotlin 작업 및 원본 이력 |
+| `feature/android_kotlin` | Android Kotlin 기능 개발 및 원본 이력 |
+| `feature/rn_handsbook` | React Native 핸즈북 실습 및 원본 이력 |
+| `copilot/review-webview-bug-fixes` | WebView 개선 작업 이력 (#40) |
+| `copilot/organize-remote-branches` | 기존 브랜치 통합 작업 이력 (#46) |
+| `ci/docs-web-frontend-vite` | `main` 대상 Vite 빌드 PR에 사용되는 자동화 브랜치 |
+| `github-pages` | 현재 GitHub Pages `/docs` 배포 소스 브랜치 |
+
+`ci/docs-web-frontend-vite`와 `github-pages`는 위 일반 통합 흐름의 운영 예외입니다.
+배포 구조를 별도로 검증하기 전에는 `github-pages`를 유지합니다.
+`copilot/update-readme-and-report`는 README 작업을 완료한 과거 브랜치입니다 (#45).
 
 ---
 
