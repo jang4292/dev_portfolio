@@ -15,9 +15,11 @@ export default [
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
+      parserOptions: { ecmaFeatures: { jsx: true } },
       globals: {
         __DEV__: "readonly",
         JSX: "readonly",
+        console: "readonly",
       },
     },
     plugins: {
@@ -27,6 +29,7 @@ export default [
     },
     rules: {
       ...react.configs.recommended.rules,
+      ...react.configs["jsx-runtime"].rules,
       ...reactHooks.configs.recommended.rules,
       "react-native/no-unused-styles": "warn",
       "react-native/no-inline-styles": "off", // RN에서는 inline style 자주 씀
