@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Strategy Studio — 콘텐츠 관리</title>
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./vendor/xlsx.full.min.js"></script>
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <header class="topbar"><div class="brand"><span class="brand-mark">✳</span><div><strong>Strategy Studio</strong><small>CONTENT WORKSPACE</small></div></div><div class="top-right"><span class="privacy"><span class="status-dot"></span> 파일은 이 브라우저에서 처리됩니다</span><span class="workspace">내 작업 공간</span></div></header>
+  <main class="shell">
+    <div class="page-heading"><div><div class="eyebrow">CONTENT MANAGEMENT <span>/</span> EDITOR</div><h1>콘텐츠 관리 <span class="heading-star">✳</span></h1><p>전략과 오퍼 문구를 검토하고, 서비스에 적용할 JSON을 만들어보세요.</p></div><div class="heading-note"><span>WORKSPACE GUIDE</span><strong>가져오기 <i>→</i> 검토 및 편집 <i>→</i> 내보내기</strong></div></div>
+    <div class="workspace-grid">
+      <aside class="sidebar">
+        <div class="section-label">01 <span>새 작업 시작</span></div>
+        <div class="starter"><label>시작 방식<select id="starter"><option value="">선택하세요</option><option value="empty-strategy">빈 전략 구조</option><option value="empty-offers">빈 오퍼 구조</option><option value="example-strategy">전략 예시 불러오기</option><option value="example-offers">오퍼 예시 불러오기</option></select></label><div id="starter-meta" class="hidden"><label>Ruleset ID<input id="starter-ruleset" placeholder="예: BJ_6D_S17_DAS_NS"></label><label>버전<input id="starter-version" placeholder="YYYY-MM-DD"></label></div><button id="create" class="button button-dark">새 작업 시작 <span>→</span></button></div>
+        <div class="side-divider"></div><div class="section-label">02 <span>파일 가져오기</span></div>
+        <label class="upload" for="file"><span class="upload-icon">↥</span><strong>파일 선택하기</strong><small>Excel 또는 JSON 파일</small><input id="file" type="file" accept=".xlsx,.xls,.json,application/json"></label>
+        <div id="file-name" class="file-hint">선택된 파일이 없습니다.</div>
+        <div id="import-options" class="options hidden">
+          <label>데이터 유형<select id="type"><option value="strategy">Basic strategy</option><option value="offers">Offers</option></select></label>
+          <label id="sheet-label">시트 선택<select id="sheet"></select></label>
+          <div id="rules-label"><label>기본 Ruleset ID<input id="ruleset" placeholder="예: BJ_6D_S17_DAS_NS"></label></div>
+          <label id="version-label">버전<input id="version" placeholder="YYYY-MM-DD"></label>
+          <details id="advanced"><summary>변환 세부 설정</summary><label>첫 행 오프셋<input id="range" type="number" min="0" step="1" value="0"></label><div id="offer-options"><label>Offers 형식<select id="format"><option value="auto">자동 감지</option><option value="table">표 형식</option><option value="row">행 형식</option></select></label><label>기본 딜러 카드<input id="upcard" value="A"></label><label>중복 처리<select id="duplicates"><option value="variants">모든 variant 유지</option><option value="priority">우선순위 사용</option><option value="false">중복 오류</option></select></label></div></details>
+          <button id="import" class="button button-dark">데이터 불러오기 <span>→</span></button>
+        </div>
+        <div class="side-divider"></div><div class="section-label">03 <span>비교 및 내보내기</span></div>
+        <p class="side-copy">기존 JSON과 항목 차이를 비교하고 작업한 결과를 저장하세요.</p>
+        <label class="compare-button" for="reference">＋ 기준 JSON 선택<input id="reference" type="file" accept=".json,application/json"></label><div id="reference-name" class="file-hint">비교할 기준 파일 없음</div>
+        <div id="comparison" class="comparison hidden"></div>
+        <button id="export" class="button button-outline" disabled>서비스 JSON 내보내기 <span>↓</span></button>
+        <div class="review-tools"><strong>검토 상태 파일</strong><p>서비스 JSON과 별도로 저장합니다.</p><label class="compare-button" for="review-file">＋ 검토 파일 불러오기<input id="review-file" type="file" accept=".json,application/json"></label><button id="review-export" class="button button-outline" disabled>검토 파일 내보내기 <span>↓</span></button><div id="review-save-status" class="file-hint">검토 데이터 없음</div></div>
+        <div class="sidebar-foot"><span class="shield">◈</span><p><strong>안전한 로컬 작업</strong><br>파일을 서버로 전송하지 않습니다. 브라우저를 닫기 전 결과를 내려받으세요.</p></div>
+      </aside>
+      <section class="content">
+        <div class="content-head"><div><div class="section-label">EDITOR <span class="slash">/</span> <span id="current-type">WORKSPACE</span></div><h2>문구 에디터</h2><p id="dataset-detail">파일을 불러와 콘텐츠 검토를 시작하세요.</p></div><div id="change-badge" class="change-badge">변경사항 없음</div></div>
+        <div class="metrics"><div><span>전체 키</span><strong id="keys-count">—</strong><small>KEYS</small></div><div><span>전체 문구</span><strong id="variants-count">—</strong><small>VARIANTS</small></div><div><span>수정된 문구</span><strong id="changed-count">—</strong><small>EDITED</small></div><div class="metric-accent"><span>작업 상태</span><strong id="work-status">대기 중</strong><small>STATUS</small></div></div>
+        <div id="notice" class="notice hidden" role="status"></div>
+        <div class="list-header"><div><h3>콘텐츠 목록 <span id="result-count"></span></h3><p>항목을 선택해 상세 문구를 확인하고 수정하세요.</p></div><div class="filters"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="키, 문구 검색" aria-label="키, 문구 검색"></label><select id="filter" aria-label="유형 필터"><option value="all">전체 유형</option></select><select id="status-filter" aria-label="변경 상태 필터"><option value="all">전체 변경 상태</option><option value="unchanged">변경 없음</option><option value="added">추가됨</option><option value="modified">수정됨</option><option value="deleted">삭제 예정</option></select><select id="review-filter" aria-label="검토 상태 필터"><option value="all">전체 검토 상태</option><option value="before">검토 전</option><option value="in_progress">검토 중</option><option value="complete">검토 완료</option></select></div></div>
+        <div class="list-actions"><button id="add-entry" class="button-small primary" disabled>＋ 항목 추가</button><label><input id="select-visible" type="checkbox" disabled> 표시 항목 선택</label><button id="delete-selected" class="button-small danger" disabled>선택 삭제</button><span id="selected-count"></span></div>
+        <div class="editor-grid"><div class="list-panel"><div class="list-columns"><span>CONTENT / CONDITION</span><span>STATUS</span></div><div id="list" class="list"><div class="empty"><span>▤</span><strong>아직 불러온 콘텐츠가 없습니다</strong><p>왼쪽에서 Excel 또는 JSON 파일을 선택해 주세요.</p></div></div></div>
+          <div id="editor" class="editor"><div class="editor-empty"><span>↖</span><strong>항목을 선택해 주세요</strong><p>선택한 항목의 문구를<br>이곳에서 수정할 수 있습니다.</p></div></div>
+        </div>
+        <div class="content-footer"><span>● &nbsp; LOCAL WORKSPACE</span><span>변경 사항은 내보내기 전까지 브라우저에서만 유지됩니다.</span></div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
