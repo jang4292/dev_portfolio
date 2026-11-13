@@ -20,7 +20,7 @@ const args = parseArgs(process.argv);
 const inputPath = args._[0];
 
 
-const wb = xlsx.readFile(inputPath);
+const wb = xlsx.read(fs.readFileSync(inputPath), { type: "buffer" });
 
 // console.log(wb)
 // console.log(wb.SheetNames[1])

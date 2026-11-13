@@ -1,0 +1,40 @@
+{
+    "version": "2026-02-15",
+    "rulesetId": "BJ_6D_S17_DAS_NS",
+    "sheet": "offers",
+    "count": 2,
+    "items": {
+        "BJ_6D_S17_DAS_NS::OFFER:INSURANCE::D:A": {
+            "variants": [
+                {
+                    "offerType": "INSURANCE",
+                    "dealerUpcard": "A",
+                    "choice": "N",
+                    "answer": "“Do you want Insurance?”\nAlways choose NO.",
+                    "reason": "Insurance is a side bet, not protection.\n\n- Insurance pays 2:1 if the dealer has blackjack.\n- You are betting that the dealer’s hole card is a 10-value card.\n- In a normal deck: Only 4 out of 13 cards are 10-value (10, J, Q, K). That’s less than 31%\n- But insurance needs 33% or more to break even.\n- This means: Insurance is mathematically a losing bet.\n\nEven if you lose your main hand less often, you lose money faster by taking insurance repeatedly.\nUnless you are counting cards (and know the deck is extremely rich in 10s), insurance is always a bad deal.\n\n* Meowbot’s Simple Rule *\n“Insurance? Just say No.”",
+                    "when": {
+                        "decisionWindow": "initial",
+                        "playerState": "ANY"
+                    },
+                    "priority": 0
+                }
+            ]
+        },
+        "BJ_6D_S17_DAS_NS::OFFER:EVEN_MONEY::D:A": {
+            "variants": [
+                {
+                    "offerType": "EVEN_MONEY",
+                    "dealerUpcard": "A",
+                    "choice": "N",
+                    "answer": "“Even Money?”\nAlways choose NO.",
+                    "reason": "Even Money is just Insurance in disguise.\n\nSaying Yes:\n- You get 1:1 payout immediately\n- You give up the 3:2 blackjack payout\n\nThis is mathematically identical to:\n- Taking insurance\n- Then cashing out early\n\n- Over time: You lose value compared to letting the hand play out.\n- Yes, Even Money feels “safe” because you lock in a win.\n- But safety does not always mean correctness.\n- The extra 0.5 payout (3:2) is where blackjack players make money.\n- Giving that up repeatedly means you slowly bleed value.\n\n* Meowbot’s Simple Rule *\n“Even Money? It sounds safe — but it’s a trap.”",
+                    "when": {
+                        "decisionWindow": "initial",
+                        "playerState": "BLACKJACK"
+                    },
+                    "priority": 0
+                }
+            ]
+        }
+    }
+}
