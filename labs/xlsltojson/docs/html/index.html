@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="xlsltojson 프로젝트 독립 학습 가이드"><title>시작하기 · Strategy Studio Guide</title><link rel="stylesheet" href="guide.css"></head><body>
+<a class="skip" href="#content">본문으로 건너뛰기</a><header class="topbar"><div class="top-inner"><a class="brand" href="index.html"><span class="brand-icon">✳</span><span>Strategy Studio<small>LEARNING GUIDE</small></span></a><span class="top-label">XLSX / JSON CONTENT WORKFLOW</span></div></header><div class="hero"><div class="hero-inner"><div><div class="eyebrow">A PRACTICAL PROJECT GUIDE</div><h1>데이터를 이해하고,<br>안심하고 편집하기.</h1><p>프로젝트 구조부터 변환, 검증, 운영까지 차근차근 살펴보세요.</p></div><span class="hero-mark">독립 실행 · 오프라인 지원</span></div></div><div class="layout"><aside class="sidebar"><div class="nav-label">LEARNING PATH</div><nav aria-label="가이드 목차"><a href="index.html" aria-current="page">01 &nbsp; 시작하기</a>
+<a href="architecture.html">02 &nbsp; 구조와 데이터 흐름</a>
+<a href="formats.html">03 &nbsp; 입력과 JSON 구조</a>
+<a href="workflow.html">04 &nbsp; 편집 실습</a>
+<a href="operations.html">05 &nbsp; 실행과 운영</a>
+<a href="audit.html">06 &nbsp; 테스트와 감사</a></nav><div class="side-note"><strong>가이드는 독립적으로 동작합니다</strong>앱 서버 없이 폴더를 열어 읽을 수 있습니다.</div></aside><main id="content" class="article"><div class="chapter-label">CHAPTER 01 / 06</div><div class="content"><h1>Strategy Studio 학습 가이드</h1>
+<p>엑셀과 JSON을 읽어 블랙잭 전략 문구를 관리하는 xlsltojson 프로젝트를 이해하고 직접 실행하는 안내서입니다. 이 가이드는 앱과 분리되어 있어 <code>docs/html</code> 폴더만 복사해도 사용할 수 있습니다.</p>
+<h2>먼저 알아보기</h2>
+<ul>
+<li><a href="architecture.html">구조와 데이터 흐름</a>: 브라우저, 공통 변환 로직, CLI와 정적 빌드의 관계</li>
+<li><a href="formats.html">입력과 JSON 구조</a>: 시트 열, 키, variants와 오류 검사</li>
+<li><a href="workflow.html">편집 실습</a>: 파일 없이 시작하고 문구를 편집해 내보내기</li>
+<li><a href="operations.html">실행과 운영</a>: 로컬 실행, 배포와 문제 해결</li>
+<li><a href="audit.html">테스트와 감사</a>: 확인한 문제, 조치, 남은 제한과 검증 방법</li>
+</ul>
+<h2>한눈에 보는 흐름</h2>
+<ol>
+<li>엑셀의 시트 또는 기존 JSON을 선택합니다.</li>
+<li>변환 결과의 키와 조건을 검토하고 문구를 수정합니다.</li>
+<li>검증을 통과한 서비스 JSON과 별도의 검토 파일을 내려받습니다.</li>
+<li>업무 서버 반영은 기존 배포 절차에서 수행합니다.</li>
+</ol>
+<p>브라우저에서 파일을 읽으므로 앱 자체는 파일을 서버에 전송하지 않습니다. 업무 서버의 접근 제어와 배포는 별도로 구성해야 합니다.</p>
+<h2>빠른 시작</h2>
+<p>프로젝트 폴더에서 <code>npm ci</code>와 <code>npm run start</code>를 실행한 뒤 <code>http://127.0.0.1:4173</code>을 엽니다. 가이드만 읽는 경우에는 이 명령이 필요하지 않습니다.</p></div><nav class="page-nav" aria-label="이전과 다음 문서"><span></span><a href="architecture.html">구조와 데이터 흐름 →</a></nav><div class="footer">STRATEGY STUDIO · PROJECT LEARNING GUIDE</div></main></div></body></html>
